@@ -14,6 +14,7 @@
 
 using namespace std;
 
+//Lists of classes
 class owner {
 
     private:
@@ -60,9 +61,9 @@ class owner {
 class item {
     
     private:
-    int itemId, noUnits, totalSalesUnits;
+    int itemId, noUnits;
     string itemName, itemCompany, itemType;
-    double price, totalSalesAmount;
+    double price;
 
     public:
     
@@ -75,17 +76,34 @@ class item {
 class magazine {
     
     private:
-    int year, month;
+    int year, month, totalSalesUnits;
+    double totalSalesAmount;
 
     public:
+    void displaySales() {
+        
+        cout << "=====Magazine Sales Report=====" << endl;
+        cout << "Total Sales Amount : " << totalSalesAmount << endl;
+        cout << "Total Sales Units  : " <<totalSalesUnits << endl;
+
+    }
 };
 
 class book {
 
     private:
     string authorName;
+    int totalSalesUnits;
+    double totalSalesAmount;
 
     public:
+    void displaySales() {
+
+        cout << "=====Book Sales Report=====" << endl;
+        cout << "Total Sales Amount : " << totalSalesAmount << endl;
+        cout << "Total Sales Units  : " <<totalSalesUnits << endl;
+
+    }
 
 };
 
@@ -93,14 +111,24 @@ class movie {
 
     private:
     string mainActorName;
+    int totalSalesUnits;
+    double totalSalesAmount;
 
     public:
+    void displaySales() {
+
+        cout << "=====Movie Sales Report=====" << endl;
+        cout << "Total Sales Amount : " << totalSalesAmount << endl;
+        cout << "Total Sales Units  : " <<totalSalesUnits << endl;
+
+    }
 
 };
 
 //functions prototypes
 void choice();
 
+//main function
 int main() {
 
     owner o;
@@ -112,7 +140,6 @@ int main() {
 }
 
 //functions
-
 void choice() {
 
     int choice;
