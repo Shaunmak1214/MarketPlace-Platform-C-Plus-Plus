@@ -84,7 +84,7 @@ class magazine {
         
         cout << "=====Magazine Sales Report=====" << endl;
         cout << "Total Sales Amount : " << totalSalesAmount << endl;
-        cout << "Total Sales Units  : " <<totalSalesUnits << endl;
+        cout << "Total Sales Units  : " << totalSalesUnits << endl;
 
     }
 };
@@ -101,7 +101,7 @@ class book {
 
         cout << "=====Book Sales Report=====" << endl;
         cout << "Total Sales Amount : " << totalSalesAmount << endl;
-        cout << "Total Sales Units  : " <<totalSalesUnits << endl;
+        cout << "Total Sales Units  : " << totalSalesUnits << endl;
 
     }
 
@@ -119,7 +119,7 @@ class movie {
 
         cout << "=====Movie Sales Report=====" << endl;
         cout << "Total Sales Amount : " << totalSalesAmount << endl;
-        cout << "Total Sales Units  : " <<totalSalesUnits << endl;
+        cout << "Total Sales Units  : " << totalSalesUnits << endl;
 
     }
 
