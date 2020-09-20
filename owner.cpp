@@ -11,6 +11,8 @@
 #include<iostream>
 #include<iomanip>
 #include<string>
+#include<cstring>
+#include<fstream>
 
 using namespace std;
 
@@ -35,25 +37,40 @@ class owner {
 
     void registration() {
 
-        cout << "\n\n======Owner Register=======" << endl;
+        ofstream myfile;
+
+        myfile.open("ownerAccount.txt");
+
+        cout << "\n\n========Owner Register=========" << endl;
         
         cout << "Please enter your new user ID: " << endl;
         cin >> ownerId;
+
+        myfile << "\n";
+        myfile << ownerId;
         
+
         cout << "Please enter your new password: " << endl;
-        cin >> ownerPassword;
+        cin.ignore();
+        getline(cin, ownerPassword);
+
+        myfile << "\n";
+        myfile << ownerPassword;
+
+        myfile.close();
 
     }
 
     void login() {
 
-        cout << "\n\n=========Owner Login=========" << endl;
+        cout << "\n\n===========Owner Login===========" << endl;
 
         cout << "Please enter your user ID: " << endl;
         cin >> ownerId;
         
         cout << "Please enter your password: " << endl;
-        cin >> ownerPassword;
+        getline(cin, ownerPassword);
+
     }
 
 };
