@@ -44,8 +44,13 @@ class owner {
 
         cout << "\n\n========Owner Register=========" << endl;
         
-        cout << "Please enter your new user ID: " << endl;
-        cin >> ownerId;
+        //Id will be auto generated, so no need owner to enter by himself.
+        //They just need to enter new password.
+        //(Refer to guideline)
+        //By Sin Yin ^.^
+
+        /*cout << "Please enter your new user ID: " << endl;
+        cin >> ownerId;*/
 
         myfile << "\n";
         myfile << ownerId;
@@ -108,7 +113,7 @@ class magazine : public item {
     public:
     void addMagazine() {
 
-        cout << "========Add Magazine=======" << endl;
+        cout << "========Add Magazine Form=======" << endl;
         cout << "Magazine Name       :";
         getline(cin, itemName);
 
@@ -149,7 +154,7 @@ class book : public item {
 
     void addBook() {
 
-        cout << "========Add Book=======" << endl;
+        cout << "========Add Book Form=======" << endl;
         cout << "Book Name           :";
         getline(cin, itemName);
 
@@ -188,7 +193,7 @@ class movie : public item {
 
     void addMovie() {
 
-        cout << "========Add Movie=======" << endl;
+        cout << "========Add Movie Form=======" << endl;
         cout << "Movie Name           :";
         getline(cin, itemName);
 
@@ -222,11 +227,11 @@ void header();
 //main function
 int main() {
 
-    owner o;
+    owner O;
 
     //o.navigation();
 
-    //header();
+    header();
 
     return 0;
 
@@ -237,9 +242,9 @@ void header() {
 
     int choice;
     
-    owner O;
+    owner o;
 
-    O.menu();
+    o.menu();
     
     cout << "Enter Your Choice :";
     cin >> choice;
@@ -257,11 +262,11 @@ void header() {
 
             if(choice == 1) {
 
-                O.registration();
+                o.registration();
 
             }else if(choice == 2) {
 
-                O.login();
+                o.login();
 
             }else if(choice == 3) {
 
