@@ -1,4 +1,4 @@
-// Program: TC02.1181203334.Mak.Yen.Wei.cpp
+// Program: owner.cpp
 // Course: Object Oriented Programming
 // Year: 2020/2021 Trimester 1
 // Name: Mak Yen Wei
@@ -21,6 +21,7 @@ class owner {
 
     private:
     string ownerId, ownerPassword, ownerName, ownerCompany;
+    int navchoice;
 
     public:
     void menu() {
@@ -73,30 +74,61 @@ class owner {
 
     }
 
+    void navigation() {
+
+        cout << "============Navigation Bar============" << endl;
+        cout << "View All Items                       1" << endl;
+        cout << "Insert New Items                     2" << endl;
+        cout << "Update Items                         3" << endl;
+        cout << "Delete Items                         4" << endl;
+
+        cout << "Select Your Choice: ";
+        cin >> navchoice;
+
+    }
+
+
 };
 
 class item {
     
-    private:
+    protected:
     int itemId, noUnits;
     string itemName, itemCompany, itemType;
     double price;
 
-    public:
-    
-    friend class magazine;
-    friend class book;
-    friend class movie;
-
 };
 
-class magazine {
+class magazine : public item {
     
     private:
     int year, month, totalSalesUnits;
     double totalSalesAmount;
 
     public:
+    void addMagazine() {
+
+        cout << "========Add Magazine=======" << endl;
+        cout << "Magazine Name       :";
+        getline(cin, itemName);
+
+        cout << "Magazine Price      :";
+        cin >> price;
+
+        cout << "Number of units     :";
+        cin >> noUnits;
+
+        cout << "Name of the company :";
+        getline(cin, itemCompany);
+
+        cout << "Year                :";
+        cin >> year;
+
+        cout << "Month               :";
+        cin >> month;
+
+    }
+
     void displaySales() {
         
         cout << "=====Magazine Sales Report=====" << endl;
@@ -106,7 +138,7 @@ class magazine {
     }
 };
 
-class book {
+class book : public item {
 
     private:
     string authorName;
@@ -114,6 +146,27 @@ class book {
     double totalSalesAmount;
 
     public:
+
+    void addBook() {
+
+        cout << "========Add Book=======" << endl;
+        cout << "Book Name           :";
+        getline(cin, itemName);
+
+        cout << "Book Price          :";
+        cin >> price;
+
+        cout << "Number of units     :";
+        cin >> noUnits;
+
+        cout << "Name of the company :";
+        getline(cin, itemCompany);
+
+        cout << "Author Name         :";
+        cin >> authorName;
+
+    }
+
     void displaySales() {
 
         cout << "=====Book Sales Report=====" << endl;
@@ -124,7 +177,7 @@ class book {
 
 };
 
-class movie {
+class movie : public item {
 
     private:
     string mainActorName;
@@ -132,6 +185,27 @@ class movie {
     double totalSalesAmount;
 
     public:
+
+    void addMovie() {
+
+        cout << "========Add Movie=======" << endl;
+        cout << "Movie Name           :";
+        getline(cin, itemName);
+
+        cout << "Movie Price          :";
+        cin >> price;
+
+        cout << "Number of units      :";
+        cin >> noUnits;
+
+        cout << "Name of the company  :";
+        getline(cin, itemCompany);
+
+        cout << "Main Actor Name      :";
+        cin >> mainActorName;
+
+    }
+        
     void displaySales() {
 
         cout << "=====Movie Sales Report=====" << endl;
@@ -143,21 +217,23 @@ class movie {
 };
 
 //functions prototypes
-void choice();
+void header();
 
 //main function
 int main() {
 
     owner o;
 
-    choice();
+    //o.navigation();
+
+    //header();
 
     return 0;
 
 }
 
 //functions
-void choice() {
+void header() {
 
     int choice;
     
