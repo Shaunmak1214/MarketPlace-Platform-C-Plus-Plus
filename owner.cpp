@@ -99,7 +99,7 @@ class item {
     
     protected:
     int itemId, noUnits;
-    string itemName, itemCompany, itemType;
+    string itemName, itemCompany, itemType, dltItem;
     double price;
 
 };
@@ -157,6 +157,13 @@ class magazine : public item {
 
     }
 
+    void deleteMagazine() {
+
+        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is]";
+        getline(cin, dltItem);
+
+    }
+
     void displaySales() {
         
         cout << "=====Magazine Sales Report=====" << endl;
@@ -191,7 +198,7 @@ class book : public item {
         getline(cin, itemCompany);
 
         cout << "Author Name         :";
-        cin >> authorName;
+        getline(cin, authorName);
 
     }
 
@@ -211,7 +218,14 @@ class book : public item {
         getline(cin, itemCompany);
 
         cout << "Author Name         :";
-        cin >> authorName;
+        getline(cin, authorName);
+
+    }
+
+    void deleteBook() {
+
+        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is]";
+        getline(cin, dltItem);
 
     }
 
@@ -250,7 +264,7 @@ class movie : public item {
         getline(cin, itemCompany);
 
         cout << "Main Actor Name      :";
-        cin >> mainActorName;
+        getline(cin, mainActorName);
 
     }
 
@@ -270,7 +284,14 @@ class movie : public item {
         getline(cin, itemCompany);
 
         cout << "Main Actor Name      :";
-        cin >> mainActorName;
+        getline(cin, mainActorName);
+
+    }
+
+    void deleteMovie() {
+
+        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is]";
+        getline(cin, dltItem);
 
     }
         
