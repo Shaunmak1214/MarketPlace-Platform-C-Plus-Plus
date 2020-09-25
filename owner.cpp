@@ -134,6 +134,29 @@ class magazine : public item {
 
     }
 
+        void updateMagazine() {
+
+        cout << "========Update Magazine Form=======" << endl;
+        cout << "Magazine Name       :";
+        getline(cin, itemName);
+
+        cout << "Magazine Price      :";
+        cin >> price;
+
+        cout << "Number of units     :";
+        cin >> noUnits;
+
+        cout << "Name of the company :";
+        getline(cin, itemCompany);
+
+        cout << "Year                :";
+        cin >> year;
+
+        cout << "Month               :";
+        cin >> month;
+
+    }
+
     void displaySales() {
         
         cout << "=====Magazine Sales Report=====" << endl;
@@ -155,6 +178,26 @@ class book : public item {
     void addBook() {
 
         cout << "========Add Book Form=======" << endl;
+        cout << "Book Name           :";
+        getline(cin, itemName);
+
+        cout << "Book Price          :";
+        cin >> price;
+
+        cout << "Number of units     :";
+        cin >> noUnits;
+
+        cout << "Name of the company :";
+        getline(cin, itemCompany);
+
+        cout << "Author Name         :";
+        cin >> authorName;
+
+    }
+
+    void updateBook() {
+
+        cout << "========Update Book Form=======" << endl;
         cout << "Book Name           :";
         getline(cin, itemName);
 
@@ -194,6 +237,26 @@ class movie : public item {
     void addMovie() {
 
         cout << "========Add Movie Form=======" << endl;
+        cout << "Movie Name           :";
+        getline(cin, itemName);
+
+        cout << "Movie Price          :";
+        cin >> price;
+
+        cout << "Number of units      :";
+        cin >> noUnits;
+
+        cout << "Name of the company  :";
+        getline(cin, itemCompany);
+
+        cout << "Main Actor Name      :";
+        cin >> mainActorName;
+
+    }
+
+    void updateMovie() {
+
+        cout << "========Update Movie Form=======" << endl;
         cout << "Movie Name           :";
         getline(cin, itemName);
 
@@ -256,7 +319,7 @@ void header() {
             cout << "###############################################" << endl;
 
             cout << "\nEnter Your Choice: ";
-            cin >> choice;
+            cin >> choice; 
 
         }
 
