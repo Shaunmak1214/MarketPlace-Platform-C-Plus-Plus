@@ -38,43 +38,41 @@ class owner {
 
     void registration() {
 
-        ofstream myfile;
-
-        myfile.open("ownerAccount.txt");
+        ofstream regfile;
+        regfile.open("ownerAccount.txt", ios::app);
 
         cout << "\n\n========Owner Register=========" << endl;
-        
+
         //Id will be auto generated, so no need owner to enter by himself.
         //They just need to enter new password.
         //(Refer to guideline)
         //By Sin Yin ^.^
 
-        /*cout << "Please enter your new user ID: " << endl;
-        cin >> ownerId;*/
-
-        myfile << "\n";
-        myfile << ownerId;
-        
+        cout << "Please enter your new user ID: " << endl;
+        cin.ignore();
+        getline(cin, ownerId);
 
         cout << "Please enter your new password: " << endl;
-        cin.ignore();
         getline(cin, ownerPassword);
 
-        myfile << "\n";
-        myfile << ownerPassword;
+        regfile << ownerId << " " << ownerPassword << "\n";
 
-        myfile.close();
+        regfile.close();
 
     }
 
     void login() {
 
+        ofstream logfile;
+        logfile.open("ownerAccount.txt", ios::app);
+
         cout << "\n\n===========Owner Login===========" << endl;
 
         cout << "Please enter your user ID: " << endl;
         cin >> ownerId;
-        
+
         cout << "Please enter your password: " << endl;
+        cin.ignore();
         getline(cin, ownerPassword);
 
     }
@@ -92,20 +90,21 @@ class owner {
 
     }
 
-
 };
 
 class item {
-    
+
     protected:
     int itemId, noUnits;
     string itemName, itemCompany, itemType, dltItem;
     double price;
 
+    public:
+
 };
 
 class magazine : public item {
-    
+
     private:
     int year, month, totalSalesUnits;
     double totalSalesAmount;
@@ -115,6 +114,7 @@ class magazine : public item {
 
         cout << "========Add Magazine Form=======" << endl;
         cout << "Magazine Name       :";
+        cin.ignore();
         getline(cin, itemName);
 
         cout << "Magazine Price      :";
@@ -124,6 +124,7 @@ class magazine : public item {
         cin >> noUnits;
 
         cout << "Name of the company :";
+        cin.ignore();
         getline(cin, itemCompany);
 
         cout << "Year                :";
@@ -134,10 +135,11 @@ class magazine : public item {
 
     }
 
-        void updateMagazine() {
+    void updateMagazine() {
 
         cout << "========Update Magazine Form=======" << endl;
         cout << "Magazine Name       :";
+        cin.ignore();
         getline(cin, itemName);
 
         cout << "Magazine Price      :";
@@ -147,6 +149,7 @@ class magazine : public item {
         cin >> noUnits;
 
         cout << "Name of the company :";
+        cin.ignore();
         getline(cin, itemCompany);
 
         cout << "Year                :";
@@ -160,6 +163,7 @@ class magazine : public item {
     void deleteMagazine() {
 
         cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is]";
+        cin.ignore();
         getline(cin, dltItem);
 
     }
@@ -181,11 +185,11 @@ class book : public item {
     double totalSalesAmount;
 
     public:
-
     void addBook() {
 
         cout << "========Add Book Form=======" << endl;
         cout << "Book Name           :";
+        cin.ignore();
         getline(cin, itemName);
 
         cout << "Book Price          :";
@@ -195,9 +199,11 @@ class book : public item {
         cin >> noUnits;
 
         cout << "Name of the company :";
+        cin.ignore();
         getline(cin, itemCompany);
 
         cout << "Author Name         :";
+        cin.ignore();
         getline(cin, authorName);
 
     }
@@ -247,7 +253,6 @@ class movie : public item {
     double totalSalesAmount;
 
     public:
-
     void addMovie() {
 
         cout << "========Add Movie Form=======" << endl;
@@ -333,6 +338,8 @@ void header() {
     cout << "Enter Your Choice :";
     cin >> choice;
 
+    //Validation of choice making, to ensure user submit the correct choice to move on
+
         while(!(choice <= 3 && choice >= 1)) {
 
             cout << "\n\n###################ALERT#######################" << endl;
@@ -340,7 +347,7 @@ void header() {
             cout << "###############################################" << endl;
 
             cout << "\nEnter Your Choice: ";
-            cin >> choice; 
+            cin >> choice;
 
         }
 
@@ -355,7 +362,7 @@ void header() {
             }else if(choice == 3) {
 
                 exit(0);
-        
+
             }
 
 }
