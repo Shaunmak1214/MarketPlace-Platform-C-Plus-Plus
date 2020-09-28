@@ -26,29 +26,6 @@ void header();
 
 //Lists of classes
 
-struct id_generator {
-
-    id_generator() : _id (0) {
-
-        std::ifstream ifs("previous_id.txt");
-        ifs >> _id;
-
-    }
-
-    ~id_generator() {
-
-        std::ofstream ofs("previous_id.txt", std::ios_base::out | std::ios_base::trunc);
-        ofs << _id;
-
-    }
-
-    int operator()() { 
-        return _id++; 
-    }
-
-    int _id;
-};
-
 class owner {
 
     private:
@@ -70,26 +47,51 @@ class owner {
 
     void registration() {
 
+        struct id_generator {
+
+            id_generator() : _id (0) {
+
+                std::ifstream ifs("ownerAccount.txt");
+                ifs >> _id;
+                //cout << _id;
+
+            }
+
+            ~id_generator() {
+
+                std::ofstream ofs("previous_id.txt", std::ios_base::out | std::ios_base::trunc);
+                ofs << _id;
+
+            }
+
+            int operator()() { 
+                return _id++; 
+            }
+
+            int _id;
+        };
+
         system ("CLS");
 
         ofstream regfile;
         regfile.open("ownerAccount.txt", ios::app);
 
-        cout << "\n\n========Owner Register=========" << endl;
+        cout << "\n\n===================Owner Register====================" << endl;
 
         //Id will be auto generated, so no need owner to enter by himself.
         //They just need to enter new password.
         //(Refer to guideline)
         //By Sin Yin ^.^
 
-        cout << "Please enter your new user ID: " << endl;
+        cout << "Please enter your new user ID [max words of 10] : " << endl;
         cin.ignore();
         getline(cin, ownerId);
 
-        cout << "Please enter your new password: " << endl;
+        cout << "Please enter your new password [max words of 15] : " << endl;
         getline(cin, ownerPassword);
 
-        regfile << ownerId << " " << ownerPassword << "\n";
+        regfile << "| " << setw(8) << ownerId << " |";
+        regfile << setw(15) << ownerPassword << " |" << "\n";
 
         regfile.close();
 
@@ -97,22 +99,19 @@ class owner {
 
     void login() {
 
-        string idCheck, passCheck;
+        string line;
 
-        cout << "\n\n===========Owner Login===========" << endl;
+        cout << "\n\n===============Owner Login===============" << endl;
 
-        cout << "Please enter your user ID: " << endl;
+        cout << "Please enter your user ID [max words of 10] : " << endl;
         cin >> ownerId;
 
-        cout << "Please enter your password: " << endl;
+        cout << "Please enter your password [max words of 15] : " << endl;
         cin.ignore();
         getline(cin, ownerPassword);
 
         ifstream logfile;
         logfile.open("ownerAccount.txt", ios::in);
-
-        logfile.seekg(0);
-        logfile.getline(idCheck, 5);
 
         logfile.close();
 
