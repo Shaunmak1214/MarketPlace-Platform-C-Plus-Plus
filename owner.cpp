@@ -14,10 +14,40 @@
 #include<cstring>
 #include<fstream>
 
+#include <conio.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+
 using namespace std;
+
+//functions prototypes
+void header();
 
 //Lists of classes
 
+struct id_generator {
+
+    id_generator() : _id (0) {
+
+        std::ifstream ifs("previous_id.txt");
+        ifs >> _id;
+
+    }
+
+    ~id_generator() {
+
+        std::ofstream ofs("previous_id.txt", std::ios_base::out | std::ios_base::trunc);
+        ofs << _id;
+
+    }
+
+    int operator()() { 
+        return _id++; 
+    }
+
+    int _id;
+};
 
 class owner {
 
@@ -39,6 +69,8 @@ class owner {
     }
 
     void registration() {
+
+        system ("CLS");
 
         ofstream regfile;
         regfile.open("ownerAccount.txt", ios::app);
@@ -65,8 +97,7 @@ class owner {
 
     void login() {
 
-        ofstream logfile;
-        logfile.open("ownerAccount.txt", ios::app);
+        string idCheck, passCheck;
 
         cout << "\n\n===========Owner Login===========" << endl;
 
@@ -76,6 +107,14 @@ class owner {
         cout << "Please enter your password: " << endl;
         cin.ignore();
         getline(cin, ownerPassword);
+
+        ifstream logfile;
+        logfile.open("ownerAccount.txt", ios::in);
+
+        logfile.seekg(0);
+        logfile.getline(idCheck, 5);
+
+        logfile.close();
 
     }
 
@@ -311,9 +350,6 @@ class movie : public item {
     }
 
 };
-
-//functions prototypes
-void header();
 
 //main function
 int main() {
