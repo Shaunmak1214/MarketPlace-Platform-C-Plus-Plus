@@ -116,6 +116,7 @@ class owner {
     void login() {
 
         string line, IdPassCheck;
+        char cont;
 
         cout << "\n\n===============Owner Login===============" << endl;
 
@@ -185,18 +186,26 @@ class owner {
                         if(word.compare(IdPassCheck) == 0){
 
                             cout << "You are Logged In!!!" << endl;
+                            logfile.close();
                             exit(0);
 
                         }
 
                     }
 
-
                 }
 
-                cout << "Incorrect Username and Password...Try Again!" << endl;
-
                 logfile.close();
+
+                cout << "Incorrect Username and Password...Try Again!" << endl;
+                cout << "Try Again?? [y/n] :" ;
+                cin >> cont; 
+
+                if(cont == 'y') {
+
+                    login();
+
+                }
 
             }
 
