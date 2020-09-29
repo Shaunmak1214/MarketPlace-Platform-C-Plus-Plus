@@ -6,6 +6,8 @@
         "xstring": "cpp",
         "iosfwd": "cpp",
         "iomanip": "cpp",
-        "xmemory": "cpp"
+        "xmemory": "cpp",
+        "xiosbase": "cpp",
+        "regex": "cpp"
     }
 }

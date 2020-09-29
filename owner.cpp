@@ -28,7 +28,7 @@ void header();
 
 //Lists of classes
 
-class owner {
+class owner : public magazine {
 
     private:
     string ownerId, ownerPassword, ownerName, ownerCompany;
@@ -49,30 +49,43 @@ class owner {
 
     void registration() {
 
-            struct id_generator {
+            struct idGenerator {
 
-                int _id;
+                int id;
+                string line;
 
-                id_generator() : _id (0) {
+                idGenerator() : id (0) {
+
+                    ifstream idfile;
 
                     ifstream ifs("ownerAccount.txt");
-                    ifs >> _id;
-                    //cout << _id;
 
+                    if(idfile.fail()) {
+
+                        cout << "Failed to open file...program ends" << endl;
+                        exit(1);
+
+                    }else{
+
+                        ifs >> id;
+                        
+                    }
                 }
+            
 
-                ~id_generator() {
+                ~idGenerator() {
 
-                    ofstream ofs(".txt", std::ios_base::out | std::ios_base::trunc);
-                    ofs << _id;
+                    ofstream ofs("ownerAccount.txt", std::ios_base::out | std::ios_base::trunc);
+                    ofs << id;
 
                 }
 
                 int operator()() { 
-                    return _id++; 
-                }
 
-            };
+                    return id++; 
+
+                }
+    };
 
         //Clear terminal text
         system ("CLS");
@@ -88,7 +101,6 @@ class owner {
         getline(cin, ownerId);
 
         cout << "Please enter your new username[max words of 10] : " << endl;
-        cin.ignore();
         getline(cin, ownerName);
 
         cout << "Please enter your new password [max words of 15] : " << endl;
@@ -107,10 +119,9 @@ class owner {
 
             }else{
 
-                regfile << "|" << setw(8) << ownerId;
+                regfile << "\n" << "|" << setw(8) << ownerId;
                 regfile << "|" << setw(13) << ownerName;
-                regfile << "|" << setw(16) << ownerPassword << "|" << "\n";
-
+                regfile << "|" << setw(16) << ownerPassword << "|";
                 regfile.close();
 
                 cout << "Account Registered !!!" << endl;
@@ -122,7 +133,7 @@ class owner {
     void login() {
 
         string line, IdPassCheck;
-        char cont, contproccessed;
+        char cont;
 
         cout << "\n\n===============Owner Login===============" << endl;
 
@@ -235,6 +246,24 @@ class owner {
         cout << "Select Your Choice: ";
         cin >> navchoice;
 
+            if(navchoice == 1) {
+
+                addMagazine();
+
+            }else if(navchoice == 2) {
+
+
+
+            }else if(navchoice == 3) {
+
+
+
+            }else if(navchoice == 4) {
+
+                
+
+            }
+
     }
 
 };
@@ -245,8 +274,6 @@ class item {
     int itemId, noUnits;
     string itemName, itemCompany, itemType, dltItem;
     double price;
-
-    public:
 
 };
 
@@ -279,6 +306,26 @@ class magazine : public item {
 
         cout << "Month               :";
         cin >> month;
+
+        ofstream addmag;
+        addmag.open("magazine.txt", ios::app);
+
+            if(addmag.fail()) {
+
+                cout << "File cannot be open.." << endl;
+
+            }else{
+
+                addmag << "\n" << "|" << setw(13) << itemName;
+                addmag << "|" << setw(14) << price;
+                addmag << "|" << setw(11) << noUnits;
+                addmag << "|" << setw(12) << itemCompany;
+                addmag << "|" << setw(4) << year;
+                addmag << "|" << setw(5) << month << "|";
+
+                addmag.close(); 
+
+            }
 
     }
 
