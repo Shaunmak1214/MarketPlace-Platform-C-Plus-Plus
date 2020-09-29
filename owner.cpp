@@ -137,65 +137,68 @@ class owner {
         ifstream logfile;
         logfile.open("ownerAccount.txt", ios::in);
 
-        if(logfile.fail()) {
+            if(logfile.fail()) {
 
-            cout << "Failed to open file...program ends" << endl;
-            exit(1);
+                cout << "Failed to open file...program ends" << endl;
+                exit(1);
 
-        }else{
+            }else{
 
-            int counter=0;
+                int counter=0;
 
-            //ignoring the first 3 lines of txt files using the ignore functio
-            logfile.ignore(3, '\n');
+                //logfile.ignore(3, '\n');
+                //logfile.seekg(0, ios::beg);
 
-            logfile.seekg(0, ios::beg);
+                //To read every line of the txt file
+                while(getline(logfile, line)){
 
-            while(getline(logfile, line)){
+                    //ignoring the first 3 lines of txt files
+                    if(counter++ > 2) {
 
-                if(counter++ > 2) {
+                        //starting of the delimiter
+                        //Delimiter is to delete the "|" in the line and achieve a clean line of text without the "|"
+                        string delimiter = "|";
+                        size_t pos = 0;
+                        string token;
+                        string word;
 
-                    string delimiter = "|";
-                    size_t pos = 0;
-                    string token;
-                    string word;
+                            while ((pos = line.find(delimiter)) != string::npos) {
 
-                        while ((pos = line.find(delimiter)) != string::npos) {
+                                token = line.substr(0, pos);
 
-                            token = line.substr(0, pos);
+                                //regex_replace function
+                                //to remove any whitespace by replacing it with a ("") null value
+                                token = regex_replace(token,regex("\\s"),"");
 
-                            //regex_replace to remove any whitespace by replacing whitespace with ("") null value
-                            token = regex_replace(token,regex("\\s"),"");
+                                //cout << token << " ";
 
-                            //cout << token << " ";
+                                //combining username and password into 1 string object for easier validation purposes
+                                word = token + token;
 
-                            word = token + token;
+                                line.erase(0, pos + delimiter.length());
 
-                            line.erase(0, pos + delimiter.length());
+                                //cout << word;
 
-                            //cout << word;
+                            }
+                        //end of delimiter
+
+                        if(word.compare(IdPassCheck) == 0){
+
+                            cout << "You are Logged In!!!" << endl;
+                            exit(0);
 
                         }
 
-                    //cout << word << endl;
-
-                    if(word.compare(IdPassCheck) == 0){
-
-                        cout << "You are Logged In!!!" << endl;
-                        exit(0);
-
                     }
+
 
                 }
 
+                cout << "Incorrect Username and Password...Try Again!" << endl;
+
+                logfile.close();
 
             }
-
-            cout << "Login Failed" << endl;
-
-            logfile.close();
-
-        }
 
     }
 
