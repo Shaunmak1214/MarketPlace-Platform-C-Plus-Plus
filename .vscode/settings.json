@@ -5,6 +5,7 @@
         "string": "cpp",
         "xstring": "cpp",
         "iosfwd": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "xmemory": "cpp"
     }
 }

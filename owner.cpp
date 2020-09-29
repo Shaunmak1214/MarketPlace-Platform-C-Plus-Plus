@@ -14,6 +14,8 @@
 #include<cstring>
 #include<fstream>
 
+#include <regex>
+
 #include <conio.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -73,9 +75,6 @@ class owner {
 
         system ("CLS");
 
-        ofstream regfile;
-        regfile.open("ownerAccount.txt", ios::app);
-
         cout << "\n\n===================Owner Register====================" << endl;
 
         //Id will be auto generated, so no need owner to enter by himself.
@@ -90,30 +89,113 @@ class owner {
         cout << "Please enter your new password [max words of 15] : " << endl;
         getline(cin, ownerPassword);
 
-        regfile << "| " << setw(8) << ownerId << " |";
-        regfile << setw(15) << ownerPassword << " |" << "\n";
+        //TODO LIST
+        //make check for max words to avoid crashing the program
 
-        regfile.close();
+        ofstream regfile;
+        regfile.open("ownerAccount.txt", ios::app);
+
+            if(regfile.fail()) {
+
+                cout << "Error writing to the file, program ends...try again!" << endl;
+                exit(1);
+
+            }else{
+
+                regfile << "| " << setw(9) << ownerId << " |";
+                regfile << setw(15) << ownerPassword << " |" << "\n";
+
+                regfile.close();
+
+                cout << "Account Registered !!!" << endl;
+                    
+            }
 
     }
 
     void login() {
 
-        string line;
+        string line, IdPassCheck;
 
         cout << "\n\n===============Owner Login===============" << endl;
 
         cout << "Please enter your user ID [max words of 10] : " << endl;
-        cin >> ownerId;
+        cin >> ownerId; 
 
         cout << "Please enter your password [max words of 15] : " << endl;
         cin.ignore();
         getline(cin, ownerPassword);
 
+        IdPassCheck = ownerId + ownerPassword;
+
+        //cout << "Check :" << IdPassCheck;
+
+        //system("pause");
+
+        system("CLS");
+
         ifstream logfile;
         logfile.open("ownerAccount.txt", ios::in);
 
-        logfile.close();
+        if(logfile.fail()) {
+
+            cout << "Failed to open file...program ends" << endl;
+            exit(1);
+
+        }else{
+
+            int counter=0;
+
+            //ignoring the first 3 lines of txt files using the ignore functio
+            logfile.ignore(3, '\n');
+
+            logfile.seekg(0, ios::beg);
+
+            while(getline(logfile, line)){
+
+                if(counter++ > 2) {
+
+                    string delimiter = "|";
+                    size_t pos = 0;
+                    string token;
+                    string word;
+
+                        while ((pos = line.find(delimiter)) != string::npos) {
+
+                            token = line.substr(0, pos);
+
+                            //regex_replace to remove any whitespace by replacing whitespace with ("") null value
+                            token = regex_replace(token,regex("\\s"),"");
+
+                            //cout << token << " ";
+
+                            word = token + token;
+
+                            line.erase(0, pos + delimiter.length());
+
+                            //cout << word;
+
+                        }
+
+                    //cout << word << endl;
+
+                    if(word.compare(IdPassCheck) == 0){
+
+                        cout << "You are Logged In!!!" << endl;
+                        exit(0);
+
+                    }
+
+                }
+
+
+            }
+
+            cout << "Login Failed" << endl;
+
+            logfile.close();
+
+        }
 
     }
 
