@@ -49,30 +49,32 @@ class owner {
 
     void registration() {
 
-        struct id_generator {
+            struct id_generator {
 
-            id_generator() : _id (0) {
+                int _id;
 
-                std::ifstream ifs("ownerAccount.txt");
-                ifs >> _id;
-                //cout << _id;
+                id_generator() : _id (0) {
 
-            }
+                    ifstream ifs("ownerAccount.txt");
+                    ifs >> _id;
+                    //cout << _id;
 
-            ~id_generator() {
+                }
 
-                std::ofstream ofs("previous_id.txt", std::ios_base::out | std::ios_base::trunc);
-                ofs << _id;
+                ~id_generator() {
 
-            }
+                    ofstream ofs(".txt", std::ios_base::out | std::ios_base::trunc);
+                    ofs << _id;
 
-            int operator()() { 
-                return _id++; 
-            }
+                }
 
-            int _id;
-        };
+                int operator()() { 
+                    return _id++; 
+                }
 
+            };
+
+        //Clear system
         system ("CLS");
 
         cout << "\n\n===================Owner Register====================" << endl;
@@ -81,10 +83,13 @@ class owner {
         //They just need to enter new password.
         //(Refer to guideline)
         //By Sin Yin ^.^
-
-        cout << "Please enter your new user ID [max words of 10] : " << endl;
+        cout << "ID:" << endl;
         cin.ignore();
         getline(cin, ownerId);
+
+        cout << "Please enter your new username[max words of 10] : " << endl;
+        cin.ignore();
+        getline(cin, ownerName);
 
         cout << "Please enter your new password [max words of 15] : " << endl;
         getline(cin, ownerPassword);
@@ -102,8 +107,9 @@ class owner {
 
             }else{
 
-                regfile << "| " << setw(9) << ownerId << " |";
-                regfile << setw(15) << ownerPassword << " |" << "\n";
+                regfile << "|" << setw(8) << ownerId;
+                regfile << "|" << setw(13) << ownerName;
+                regfile << "|" << setw(16) << ownerPassword << "|" << "\n";
 
                 regfile.close();
 
@@ -120,14 +126,14 @@ class owner {
 
         cout << "\n\n===============Owner Login===============" << endl;
 
-        cout << "Please enter your user ID [max words of 10] : " << endl;
-        cin >> ownerId; 
+        cout << "Please enter your username [max words of 10] : " << endl;
+        cin.ignore();
+        getline(cin, ownerName);
 
         cout << "Please enter your password [max words of 15] : " << endl;
-        cin.ignore();
         getline(cin, ownerPassword);
 
-        IdPassCheck = ownerId + ownerPassword;
+        IdPassCheck = ownerName + ownerPassword;
 
         //cout << "Check :" << IdPassCheck;
 
@@ -147,7 +153,6 @@ class owner {
 
                 int counter=0;
 
-                //logfile.ignore(3, '\n');
                 //logfile.seekg(0, ios::beg);
 
                 //To read every line of the txt file
@@ -156,12 +161,13 @@ class owner {
                     //ignoring the first 3 lines of txt files
                     if(counter++ > 2) {
 
+                        logfile.ignore(10, '\n');
+
                         //starting of the delimiter
                         //Delimiter is to delete the "|" in the line and achieve a clean line of text without the "|"
                         string delimiter = "|";
                         size_t pos = 0;
-                        string token;
-                        string word;
+                        string token, word;
 
                             while ((pos = line.find(delimiter)) != string::npos) {
 
@@ -171,17 +177,16 @@ class owner {
                                 //to remove any whitespace by replacing it with a ("") null value
                                 token = regex_replace(token,regex("\\s"),"");
 
-                                //cout << token << " ";
-
-                                //combining username and password into 1 string object for easier validation purposes
-                                word = token + token;
+                                word = word + token;
 
                                 line.erase(0, pos + delimiter.length());
 
-                                //cout << word;
-
                             }
                         //end of delimiter
+                        
+                        cout << word << endl;
+
+                        //system("pause");
 
                         if(word.compare(IdPassCheck) == 0){
 
