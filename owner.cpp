@@ -74,7 +74,7 @@ class owner {
 
             };
 
-        //Clear system
+        //Clear terminal text
         system ("CLS");
 
         cout << "\n\n===================Owner Register====================" << endl;
@@ -122,7 +122,7 @@ class owner {
     void login() {
 
         string line, IdPassCheck;
-        char cont;
+        char cont, contproccessed;
 
         cout << "\n\n===============Owner Login===============" << endl;
 
@@ -144,6 +144,7 @@ class owner {
         ifstream logfile;
         logfile.open("ownerAccount.txt", ios::in);
 
+
             if(logfile.fail()) {
 
                 cout << "Failed to open file...program ends" << endl;
@@ -154,16 +155,22 @@ class owner {
                 int counter=0;
 
                 //logfile.seekg(0, ios::beg);
+                // for(int i=0; i<10; i++){
+                //     logfile >> x;
+                //     cout << x << endl;
+                // }
+
+                //system("pause");
 
                 //To read every line of the txt file
                 while(getline(logfile, line)){
 
                     //ignoring the first 3 lines of txt files
-                    if(counter++ > 2) {
+                    if(counter++ > 3) {
 
                         logfile.ignore(10, '\n');
 
-                        //starting of the delimiter
+                        //STARTING OF DELIMITER
                         //Delimiter is to delete the "|" in the line and achieve a clean line of text without the "|"
                         string delimiter = "|";
                         size_t pos = 0;
@@ -182,9 +189,9 @@ class owner {
                                 line.erase(0, pos + delimiter.length());
 
                             }
-                        //end of delimiter
+                        //END OF DELIMITER
                         
-                        cout << word << endl;
+                        //cout << word << endl;
 
                         //system("pause");
 
@@ -192,7 +199,7 @@ class owner {
 
                             cout << "You are Logged In!!!" << endl;
                             logfile.close();
-                            exit(0);
+                            navigation();
 
                         }
 
@@ -204,9 +211,10 @@ class owner {
 
                 cout << "Incorrect Username and Password...Try Again!" << endl;
                 cout << "Try Again?? [y/n] :" ;
+                
                 cin >> cont; 
 
-                if(cont == 'y') {
+                if(tolower(cont) == 'y') {
 
                     login();
 
