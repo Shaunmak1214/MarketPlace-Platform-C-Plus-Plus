@@ -11,14 +11,14 @@
 #include<iostream>
 #include<iomanip>
 #include<string>
-#include<cstring>
+//#include<cstring>
 #include<fstream>
 
 #include <regex>
 
-#include <conio.h>
-#include <stdio.h>
-#include <stdlib.h>
+//#include <conio.h>
+//#include <stdio.h>
+//#include <stdlib.h>
 
 
 using namespace std;
@@ -28,7 +28,7 @@ void header();
 
 //Lists of classes
 
-class owner : public magazine {
+class owner {
 
     private:
     string ownerId, ownerPassword, ownerName, ownerCompany;
@@ -49,58 +49,47 @@ class owner : public magazine {
 
     void registration() {
 
-            struct idGenerator {
-
-                int id;
-                string line;
-
-                idGenerator() : id (0) {
-
-                    ifstream idfile;
-
-                    ifstream ifs("ownerAccount.txt");
-
-                    if(idfile.fail()) {
-
-                        cout << "Failed to open file...program ends" << endl;
-                        exit(1);
-
-                    }else{
-
-                        ifs >> id;
-                        
-                    }
-                }
-            
-
-                ~idGenerator() {
-
-                    ofstream ofs("ownerAccount.txt", std::ios_base::out | std::ios_base::trunc);
-                    ofs << id;
-
-                }
-
-                int operator()() { 
-
-                    return id++; 
-
-                }
-    };
+        int id=0;
 
         //Clear terminal text
         system ("CLS");
 
+        //Start of Id Auto Generator
+        ifstream checkId;
+        checkId.open("ownerId.txt", ios::in);
+
+            if(checkId.fail()) {
+
+                cout << "Auto Generate Id Function Failed..." << endl;
+
+            }else{
+
+                checkId >> id;
+                checkId.close();
+
+            }
+
+        id++;
+
+        ofstream addId;
+        addId.open("ownerId.txt");
+
+            if(addId.fail()) {
+
+                cout << "Auto Generate Id Function Failed..." << endl;
+
+            }else{
+
+                addId << id;
+                addId.close();
+
+            }
+        //End of Id Auto Generator
+
         cout << "\n\n===================Owner Register====================" << endl;
 
-        //Id will be auto generated, so no need owner to enter by himself.
-        //They just need to enter new password.
-        //(Refer to guideline)
-        //By Sin Yin ^.^
-        cout << "ID:" << endl;
-        cin.ignore();
-        getline(cin, ownerId);
-
         cout << "Please enter your new username[max words of 10] : " << endl;
+        cin.ignore();
         getline(cin, ownerName);
 
         cout << "Please enter your new password [max words of 15] : " << endl;
@@ -119,7 +108,7 @@ class owner : public magazine {
 
             }else{
 
-                regfile << "\n" << "|" << setw(8) << ownerId;
+                regfile << "\n" << "|" << setw(8) << id;
                 regfile << "|" << setw(13) << ownerName;
                 regfile << "|" << setw(16) << ownerPassword << "|";
                 regfile.close();
@@ -210,7 +199,7 @@ class owner : public magazine {
 
                             cout << "You are Logged In!!!" << endl;
                             logfile.close();
-                            navigation();
+                            //navigation();
 
                         }
 
@@ -248,7 +237,7 @@ class owner : public magazine {
 
             if(navchoice == 1) {
 
-                addMagazine();
+                //addMagazine();
 
             }else if(navchoice == 2) {
 
