@@ -29,7 +29,353 @@ int navigation();
 
 //Lists of classes
 
-class owner {
+class item {
+
+    protected:
+    int itemId, noUnits, navchoice, id;
+    string itemName, itemCompany, itemType, dltItem;
+    double price;
+
+};
+
+class magazine : public item {
+
+    private:
+    int year, month, totalSalesUnits;
+    double totalSalesAmount;
+
+    public:
+    void choiceMag(){
+
+        navchoice = navigation();
+
+        if(navchoice == 1) {
+
+            addMagazine();
+
+        }else if(navchoice == 2) {
+
+            updateMagazine();
+
+        }else if(navchoice == 3) {
+
+            deleteMagazine();
+
+        }else if(navchoice == 4) {
+
+            displaySales();
+
+        }
+
+    }
+
+    void addMagazine() {
+
+        //Start of Id Auto Generator
+        ifstream checkId;
+        checkId.open("shopItemId.txt", ios::in);
+
+            if(checkId.fail()) {
+
+                cout << "Auto Generate Id Function Failed..." << endl;
+
+            }else{
+
+                checkId >> id;
+                checkId.close();
+
+            }
+
+        //id increment
+        id++;
+
+        ofstream addId;
+        addId.open("shopItemId.txt");
+
+            if(addId.fail()) {
+
+                cout << "Auto Generate Id Function Failed..." << endl;
+
+            }else{
+
+                addId << id;
+                addId.close();
+
+            }
+        //End of Id Auto Generator
+
+        cout << "\n\n========Add Magazine Form=======" << endl;
+        cout << "Magazine Name       :";
+        cin.ignore();
+        getline(cin, itemName);
+
+        cout << "Magazine Price      :";
+        cin >> price;
+
+        cout << "Number of units     :";
+        cin >> noUnits;
+
+        cout << "Name of the company :";
+        cin.ignore();
+        getline(cin, itemCompany);
+
+        cout << "Year                :";
+        cin >> year;
+
+        cout << "Month               :";
+        cin >> month;
+
+        ofstream addmag;
+        addmag.open("magazine.txt", ios::app);
+
+        if(addmag.fail()) {
+
+            cout << "Error writing to the file, program ends...try again!" << endl;
+            exit(1);
+
+        }else{
+
+            addmag << "\n" << "|" << setw(11) << id;
+            addmag << "|" << setw(13) << itemName;
+            addmag << "|" << setw(14) << price;
+            addmag << "|" << setw(11) << noUnits;
+            addmag << "|" << setw(12) << itemCompany;
+            addmag << "|" << setw(4) << year;
+            addmag << "|" << setw(5) << month << "|";
+            addmag.close();
+
+            cout << "Item added successfully!" << endl;
+
+            choiceMag();
+
+        }
+
+    }
+
+    void updateMagazine() {
+
+        cout << "========Update Magazine Form=======" << endl;
+        cout << "Magazine Name       :";
+        cin.ignore();
+        getline(cin, itemName);
+
+        cout << "Magazine Price      :";
+        cin >> price;
+
+        cout << "Number of units     :";
+        cin >> noUnits;
+
+        cout << "Name of the company :";
+        cin.ignore();
+        getline(cin, itemCompany);
+
+        cout << "Year                :";
+        cin >> year;
+
+        cout << "Month               :";
+        cin >> month;
+
+    }
+
+    void deleteMagazine() {
+
+        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is]";
+        cin.ignore();
+        getline(cin, dltItem);
+
+    }
+
+    void displaySales() {
+        
+        cout << "=====Magazine Sales Report=====" << endl;
+        cout << "Total Sales Amount : " << totalSalesAmount << endl;
+        cout << "Total Sales Units  : " << totalSalesUnits << endl;
+
+    }
+};
+
+class book : public item {
+
+    private:
+    string authorName;
+    int totalSalesUnits;
+    double totalSalesAmount;
+
+    public:
+        void choiceBook(){
+
+        navchoice = navigation();
+
+        if(navchoice == 1) {
+
+            addBook();
+
+        }else if(navchoice == 2) {
+
+            updateBook();
+
+        }else if(navchoice == 3) {
+
+            deleteBook();
+
+        }else if(navchoice == 4) {
+
+            displaySales();
+
+        }
+
+    }
+
+    void addBook() {
+
+        cout << "========Add Book Form=======" << endl;
+        cout << "Book Name           :";
+        cin.ignore();
+        getline(cin, itemName);
+
+        cout << "Book Price          :";
+        cin >> price;
+
+        cout << "Number of units     :";
+        cin >> noUnits;
+
+        cout << "Name of the company :";
+        cin.ignore();
+        getline(cin, itemCompany);
+
+        cout << "Author Name         :";
+        cin.ignore();
+        getline(cin, authorName);
+
+    }
+
+    void updateBook() {
+
+        cout << "========Update Book Form=======" << endl;
+        cout << "Book Name           :";
+        getline(cin, itemName);
+
+        cout << "Book Price          :";
+        cin >> price;
+
+        cout << "Number of units     :";
+        cin >> noUnits;
+
+        cout << "Name of the company :";
+        getline(cin, itemCompany);
+
+        cout << "Author Name         :";
+        getline(cin, authorName);
+
+    }
+
+    void deleteBook() {
+
+        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is]";
+        getline(cin, dltItem);
+
+    }
+
+    void displaySales() {
+
+        cout << "=====Book Sales Report=====" << endl;
+        cout << "Total Sales Amount : " << totalSalesAmount << endl;
+        cout << "Total Sales Units  : " << totalSalesUnits << endl;
+
+    }
+
+};
+
+class movie : public item {
+
+    private:
+    string mainActorName;
+    int totalSalesUnits;
+    double totalSalesAmount;
+
+    public:
+    void choiceMovie(){
+
+        navchoice = navigation();
+
+        if(navchoice == 1) {
+
+            addMovie();
+
+        }else if(navchoice == 2) {
+
+            updateMovie();
+
+        }else if(navchoice == 3) {
+
+            deleteMovie();
+
+        }else if(navchoice == 4) {
+
+            displaySales();
+
+        }
+
+    }
+
+    void addMovie() {
+
+        cout << "========Add Movie Form=======" << endl;
+        cout << "Movie Name           :";
+        getline(cin, itemName);
+
+        cout << "Movie Price          :";
+        cin >> price;
+
+        cout << "Number of units      :";
+        cin >> noUnits;
+
+        cout << "Name of the company  :";
+        getline(cin, itemCompany);
+
+        cout << "Main Actor Name      :";
+        getline(cin, mainActorName);
+
+    }
+
+    void updateMovie() {
+
+        cout << "========Update Movie Form=======" << endl;
+        cout << "Movie Name           :";
+        getline(cin, itemName);
+
+        cout << "Movie Price          :";
+        cin >> price;
+
+        cout << "Number of units      :";
+        cin >> noUnits;
+
+        cout << "Name of the company  :";
+        getline(cin, itemCompany);
+
+        cout << "Main Actor Name      :";
+        getline(cin, mainActorName);
+
+    }
+
+    void deleteMovie() {
+
+        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is]";
+        getline(cin, dltItem);
+
+    }
+        
+    void displaySales() {
+
+        cout << "=====Movie Sales Report=====" << endl;
+        cout << "Total Sales Amount : " << totalSalesAmount << endl;
+        cout << "Total Sales Units  : " << totalSalesUnits << endl;
+
+    }
+
+};
+
+class owner : public magazine, public book, public movie{
 
     private:
     string ownerId, ownerPassword, ownerName, ownerCompany;
@@ -52,16 +398,6 @@ class owner {
 
         int id=0;
         string idtry;
-
-        //Clear terminal text
-        //system ("CLS");
-        ifstream tried;
-        tried.open("ownerAccount.txt");
-
-        tried >> idtry;
-
-        cout << idtry << endl;
-
 
         //Start of Id Auto Generator
         ifstream checkId;
@@ -131,7 +467,7 @@ class owner {
     void login() {
 
         string line, IdPassCheck;
-        int loggedin;
+        int loggedin = 0;
         char cont;
 
         cout << "\n\n===============Owner Login===============" << endl;
@@ -144,8 +480,6 @@ class owner {
         getline(cin, ownerPassword);
 
         IdPassCheck = ownerName + ownerPassword;
-
-        //cout << "Check :" << IdPassCheck;
 
         //system("pause");
 
@@ -163,12 +497,6 @@ class owner {
             }else{
 
                 int counter=0;
-
-                //logfile.seekg(0, ios::beg);
-                // for(int i=0; i<10; i++){
-                //     logfile >> x;
-                //     cout << x << endl;
-                // }
 
                 //system("pause");
 
@@ -209,7 +537,7 @@ class owner {
 
                             cout << "You are Logged In!!!" << endl;
                             logfile.close();
-                            itemChoose();
+                            loggedin = 1;
 
                         }
 
@@ -217,16 +545,22 @@ class owner {
 
                 }
 
-                logfile.close();
+                if(loggedin == 1) {
 
-                cout << "Incorrect Username and Password...Try Again!" << endl;
-                cout << "Try Again?? [y/n] :" ;
-                
-                cin >> cont; 
+                    itemChoose();
 
-                if(tolower(cont) == 'y') {
+                }else{
 
-                    login();
+                    cout << "Incorrect Username and Password...Try Again!" << endl;
+                    cout << "Try Again?? [y/n] :" ;
+                    
+                    cin >> cont; 
+
+                        if(tolower(cont) == 'y') {
+
+                            login();
+
+                        }
 
                 }
 
@@ -247,17 +581,17 @@ class owner {
         if(itemchoice == 1) {
 
             cout << "Redirecting to Magazine..." << endl;
-            navigation();
+            choiceMag();
 
         }else if(itemchoice == 2) {
 
             cout << "Redirecting to Book..." << endl;
-            navigation();
+            choiceBook();
 
         }else if(itemchoice == 3) {
 
             cout << "Redirecting to Movie..." << endl;
-            navigation();
+            choiceMovie();
 
         }else{
 
@@ -270,301 +604,6 @@ class owner {
 
 };
 
-class item {
-
-    protected:
-    int itemId, noUnits, navchoice, id;
-    string itemName, itemCompany, itemType, dltItem;
-    double price;
-
-};
-
-class magazine : public item {
-
-    private:
-    int year, month, totalSalesUnits;
-    double totalSalesAmount;
-
-    public:
-    void choice(){
-
-        navchoice = navigation();
-
-        if(navchoice == 1) {
-
-            addMagazine();
-
-        }else if(navchoice == 2) {
-
-            updateMagazine();
-
-        }else if(navchoice == 3) {
-
-            deleteMagazine();
-
-        }else if(navchoice == 4) {
-
-            displaySales();
-
-        }
-
-    }
-
-    void addMagazine() {
-
-        //Start of Id Auto Generator
-        ifstream checkId;
-        checkId.open("shopItemId.txt", ios::in);
-
-            if(checkId.fail()) {
-
-                cout << "Auto Generate Id Function Failed..." << endl;
-
-            }else{
-
-                checkId >> id;
-                checkId.close();
-
-            }
-
-        //id increment
-        id++;
-
-        ofstream addId;
-        addId.open("shopItemId.txt");
-
-            if(addId.fail()) {
-
-                cout << "Auto Generate Id Function Failed..." << endl;
-
-            }else{
-
-                addId << id;
-                addId.close();
-
-            }
-        //End of Id Auto Generator
-
-        cout << "========Add Magazine Form=======" << endl;
-        cout << "Magazine Name       :";
-        cin.ignore();
-        getline(cin, itemName);
-
-        cout << "Magazine Price      :";
-        cin >> price;
-
-        cout << "Number of units     :";
-        cin >> noUnits;
-
-        cout << "Name of the company :";
-        cin.ignore();
-        getline(cin, itemCompany);
-
-        cout << "Year                :";
-        cin >> year;
-
-        cout << "Month               :";
-        cin >> month;
-
-        ofstream addmag;
-        addmag.open("magazine.txt", ios::app);
-
-            if(addmag.fail()) {
-
-                cout << "File cannot be open.." << endl;
-
-            }else{
-
-                addmag << "\n" << "|" << setw(11) << id;
-                addmag << "|" << setw(13) << itemName;
-                addmag << "|" << setw(14) << price;
-                addmag << "|" << setw(11) << noUnits;
-                addmag << "|" << setw(12) << itemCompany;
-                addmag << "|" << setw(4) << year;
-                addmag << "|" << setw(5) << month << "|";
-
-                addmag.close(); 
-
-                cout << "Item added successfully!" << endl;
-
-            }
-
-    }
-
-    void updateMagazine() {
-
-        cout << "========Update Magazine Form=======" << endl;
-        cout << "Magazine Name       :";
-        cin.ignore();
-        getline(cin, itemName);
-
-        cout << "Magazine Price      :";
-        cin >> price;
-
-        cout << "Number of units     :";
-        cin >> noUnits;
-
-        cout << "Name of the company :";
-        cin.ignore();
-        getline(cin, itemCompany);
-
-        cout << "Year                :";
-        cin >> year;
-
-        cout << "Month               :";
-        cin >> month;
-
-    }
-
-    void deleteMagazine() {
-
-        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is]";
-        cin.ignore();
-        getline(cin, dltItem);
-
-    }
-
-    void displaySales() {
-        
-        cout << "=====Magazine Sales Report=====" << endl;
-        cout << "Total Sales Amount : " << totalSalesAmount << endl;
-        cout << "Total Sales Units  : " << totalSalesUnits << endl;
-
-    }
-};
-
-class book : public item {
-
-    private:
-    string authorName;
-    int totalSalesUnits;
-    double totalSalesAmount;
-
-    public:
-    void addBook() {
-
-        cout << "========Add Book Form=======" << endl;
-        cout << "Book Name           :";
-        cin.ignore();
-        getline(cin, itemName);
-
-        cout << "Book Price          :";
-        cin >> price;
-
-        cout << "Number of units     :";
-        cin >> noUnits;
-
-        cout << "Name of the company :";
-        cin.ignore();
-        getline(cin, itemCompany);
-
-        cout << "Author Name         :";
-        cin.ignore();
-        getline(cin, authorName);
-
-    }
-
-    void updateBook() {
-
-        cout << "========Update Book Form=======" << endl;
-        cout << "Book Name           :";
-        getline(cin, itemName);
-
-        cout << "Book Price          :";
-        cin >> price;
-
-        cout << "Number of units     :";
-        cin >> noUnits;
-
-        cout << "Name of the company :";
-        getline(cin, itemCompany);
-
-        cout << "Author Name         :";
-        getline(cin, authorName);
-
-    }
-
-    void deleteBook() {
-
-        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is]";
-        getline(cin, dltItem);
-
-    }
-
-    void displaySales() {
-
-        cout << "=====Book Sales Report=====" << endl;
-        cout << "Total Sales Amount : " << totalSalesAmount << endl;
-        cout << "Total Sales Units  : " << totalSalesUnits << endl;
-
-    }
-
-};
-
-class movie : public item {
-
-    private:
-    string mainActorName;
-    int totalSalesUnits;
-    double totalSalesAmount;
-
-    public:
-    void addMovie() {
-
-        cout << "========Add Movie Form=======" << endl;
-        cout << "Movie Name           :";
-        getline(cin, itemName);
-
-        cout << "Movie Price          :";
-        cin >> price;
-
-        cout << "Number of units      :";
-        cin >> noUnits;
-
-        cout << "Name of the company  :";
-        getline(cin, itemCompany);
-
-        cout << "Main Actor Name      :";
-        getline(cin, mainActorName);
-
-    }
-
-    void updateMovie() {
-
-        cout << "========Update Movie Form=======" << endl;
-        cout << "Movie Name           :";
-        getline(cin, itemName);
-
-        cout << "Movie Price          :";
-        cin >> price;
-
-        cout << "Number of units      :";
-        cin >> noUnits;
-
-        cout << "Name of the company  :";
-        getline(cin, itemCompany);
-
-        cout << "Main Actor Name      :";
-        getline(cin, mainActorName);
-
-    }
-
-    void deleteMovie() {
-
-        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is]";
-        getline(cin, dltItem);
-
-    }
-        
-    void displaySales() {
-
-        cout << "=====Movie Sales Report=====" << endl;
-        cout << "Total Sales Amount : " << totalSalesAmount << endl;
-        cout << "Total Sales Units  : " << totalSalesUnits << endl;
-
-    }
-
-};
 
 //main function
 int main() {
@@ -620,21 +659,22 @@ int navigation() {
 
     int navchoice;
 
-    cout << "============Navigation Bar============" << endl;
-    cout << "View All Items                       1" << endl;
-    cout << "Insert New Items                     2" << endl;
-    cout << "Update Items                         3" << endl;
-    cout << "Delete Items                         4" << endl;
-
+    cout << "\n\n============Navigation Bar============" << endl;
+    cout << "Insert Items                         1" << endl;
+    cout << "Update Items                         2" << endl;
+    cout << "Delete Items                         3" << endl;
+    cout << "Display Sales                        4" << endl;
+  
     cout << "Select Your Choice: ";
     cin >> navchoice;
 
-    if(!(navchoice>=1 && navchoice<=4)) {
+        if(!(navchoice>=1 && navchoice<=4)) {
 
-        cout << "You entered an invalid choice...Try Again!!!" << endl;
-        navigation();
+            cout << "You entered an invalid choice...Try Again!!!" << endl;
+            navigation();
 
-    }
+        }
 
     return navchoice;
+
 }
