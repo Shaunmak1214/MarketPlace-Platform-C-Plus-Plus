@@ -25,6 +25,7 @@ using namespace std;
 
 //functions prototypes
 void header();
+int navigation();
 
 //Lists of classes
 
@@ -32,7 +33,7 @@ class owner {
 
     private:
     string ownerId, ownerPassword, ownerName, ownerCompany;
-    int navchoice;
+    int navchoice, itemchoice;
 
     public:
     void menu() {
@@ -50,9 +51,17 @@ class owner {
     void registration() {
 
         int id=0;
+        string idtry;
 
         //Clear terminal text
-        system ("CLS");
+        //system ("CLS");
+        ifstream tried;
+        tried.open("ownerAccount.txt");
+
+        tried >> idtry;
+
+        cout << idtry << endl;
+
 
         //Start of Id Auto Generator
         ifstream checkId;
@@ -122,6 +131,7 @@ class owner {
     void login() {
 
         string line, IdPassCheck;
+        int loggedin;
         char cont;
 
         cout << "\n\n===============Owner Login===============" << endl;
@@ -199,7 +209,7 @@ class owner {
 
                             cout << "You are Logged In!!!" << endl;
                             logfile.close();
-                            //navigation();
+                            itemChoose();
 
                         }
 
@@ -224,34 +234,37 @@ class owner {
 
     }
 
-    void navigation() {
+    void itemChoose() {
 
-        cout << "============Navigation Bar============" << endl;
-        cout << "View All Items                       1" << endl;
-        cout << "Insert New Items                     2" << endl;
-        cout << "Update Items                         3" << endl;
-        cout << "Delete Items                         4" << endl;
+        cout << "============Item Choosing=============" << endl;
+        cout << "Magazine                             1" << endl;
+        cout << "Book                                 2" << endl;
+        cout << "Movie                                3" << endl;
 
-        cout << "Select Your Choice: ";
-        cin >> navchoice;
+        cout << "Select your choice: ";
+        cin >> itemchoice;
 
-            if(navchoice == 1) {
+        if(itemchoice == 1) {
 
-                //addMagazine();
+            cout << "Redirecting to Magazine..." << endl;
+            navigation();
 
-            }else if(navchoice == 2) {
+        }else if(itemchoice == 2) {
 
+            cout << "Redirecting to Book..." << endl;
+            navigation();
 
+        }else if(itemchoice == 3) {
 
-            }else if(navchoice == 3) {
+            cout << "Redirecting to Movie..." << endl;
+            navigation();
 
+        }else{
 
+            cout << "You entered an invalid choice, try again mate!" << endl;
+            itemChoose();
 
-            }else if(navchoice == 4) {
-
-                
-
-            }
+        }
 
     }
 
@@ -260,7 +273,7 @@ class owner {
 class item {
 
     protected:
-    int itemId, noUnits;
+    int itemId, noUnits, navchoice, id;
     string itemName, itemCompany, itemType, dltItem;
     double price;
 
@@ -273,7 +286,64 @@ class magazine : public item {
     double totalSalesAmount;
 
     public:
+    void choice(){
+
+        navchoice = navigation();
+
+        if(navchoice == 1) {
+
+            addMagazine();
+
+        }else if(navchoice == 2) {
+
+            updateMagazine();
+
+        }else if(navchoice == 3) {
+
+            deleteMagazine();
+
+        }else if(navchoice == 4) {
+
+            displaySales();
+
+        }
+
+    }
+
     void addMagazine() {
+
+        //Start of Id Auto Generator
+        ifstream checkId;
+        checkId.open("shopItemId.txt", ios::in);
+
+            if(checkId.fail()) {
+
+                cout << "Auto Generate Id Function Failed..." << endl;
+
+            }else{
+
+                checkId >> id;
+                checkId.close();
+
+            }
+
+        //id increment
+        id++;
+
+        ofstream addId;
+        addId.open("shopItemId.txt");
+
+            if(addId.fail()) {
+
+                cout << "Auto Generate Id Function Failed..." << endl;
+
+            }else{
+
+                addId << id;
+                addId.close();
+
+            }
+        //End of Id Auto Generator
 
         cout << "========Add Magazine Form=======" << endl;
         cout << "Magazine Name       :";
@@ -305,7 +375,8 @@ class magazine : public item {
 
             }else{
 
-                addmag << "\n" << "|" << setw(13) << itemName;
+                addmag << "\n" << "|" << setw(11) << id;
+                addmag << "|" << setw(13) << itemName;
                 addmag << "|" << setw(14) << price;
                 addmag << "|" << setw(11) << noUnits;
                 addmag << "|" << setw(12) << itemCompany;
@@ -313,6 +384,8 @@ class magazine : public item {
                 addmag << "|" << setw(5) << month << "|";
 
                 addmag.close(); 
+
+                cout << "Item added successfully!" << endl;
 
             }
 
@@ -496,10 +569,6 @@ class movie : public item {
 //main function
 int main() {
 
-    owner O;
-
-    //o.navigation();
-
     header();
 
     return 0;
@@ -545,4 +614,27 @@ void header() {
 
             }
 
+}
+
+int navigation() {
+
+    int navchoice;
+
+    cout << "============Navigation Bar============" << endl;
+    cout << "View All Items                       1" << endl;
+    cout << "Insert New Items                     2" << endl;
+    cout << "Update Items                         3" << endl;
+    cout << "Delete Items                         4" << endl;
+
+    cout << "Select Your Choice: ";
+    cin >> navchoice;
+
+    if(!(navchoice>=1 && navchoice<=4)) {
+
+        cout << "You entered an invalid choice...Try Again!!!" << endl;
+        navigation();
+
+    }
+
+    return navchoice;
 }
