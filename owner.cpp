@@ -136,10 +136,10 @@ class magazine : public item {
         }else{
 
             addmag << "\n" << "|" << setw(11) << id;
-            addmag << "|" << setw(13) << itemName;
+            addmag << "|" << setw(30) << itemName;
             addmag << "|" << setw(14) << price;
             addmag << "|" << setw(11) << noUnits;
-            addmag << "|" << setw(12) << itemCompany;
+            addmag << "|" << setw(30) << itemCompany;
             addmag << "|" << setw(4) << year;
             addmag << "|" << setw(5) << month << "|";
             addmag.close();
@@ -454,8 +454,8 @@ class owner : public magazine, public book, public movie{
             }else{
 
                 regfile << "\n" << "|" << setw(8) << id;
-                regfile << "|" << setw(13) << ownerName;
-                regfile << "|" << setw(16) << ownerPassword << "|";
+                regfile << "|" << setw(20) << ownerName;
+                regfile << "|" << setw(20) << ownerPassword << "|";
                 regfile.close();
 
                 cout << "Account Registered !!!" << endl;
@@ -528,10 +528,6 @@ class owner : public magazine, public book, public movie{
 
                             }
                         //END OF DELIMITER
-                        
-                        //cout << word << endl;
-
-                        //system("pause");
 
                         if(word.compare(IdPassCheck) == 0){
 
