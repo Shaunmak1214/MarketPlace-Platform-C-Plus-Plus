@@ -26,8 +26,8 @@ using namespace std;
 //functions prototypes
 void header();
 int navigation();
-int idGenerator();
 void commonAdd();
+int idGenerator(string txtfile);
 
 //Lists of classes
 
@@ -36,6 +36,7 @@ class item {
     protected:
     int itemId, noUnits, navchoice;
     string itemName, itemCompany, itemType, dltItem;
+    string filename = "shopItemId.txt";
     double price;
 
 };
@@ -76,7 +77,7 @@ class magazine : public item {
         int id;
 
         //id generator function
-        id = idGenerator();
+        id = idGenerator(filename);
 
         cout << "\n\n========Add Magazine Form=======" << endl;
         cout << "Magazine Name       :";
@@ -205,7 +206,7 @@ class book : public item {
         int id;
 
         //id generator function
-        id = idGenerator();
+        id = idGenerator(filename);
 
         cout << "========Add Book Form=======" << endl;
         cout << "Book Name           :";
@@ -219,6 +220,7 @@ class book : public item {
         cin >> noUnits;
 
         cout << "Name of the company :";
+        cin.ignore();
         getline(cin, itemCompany);
 
         cout << "Author Name         :";
@@ -324,7 +326,7 @@ class movie : public item {
         int id;
 
         //id generator function
-        id = idGenerator();
+        id = idGenerator(filename);
 
         cout << "========Add Movie Form=======" << endl;
         cout << "Movie Name           :";
@@ -429,38 +431,10 @@ class owner : public magazine, public book, public movie{
     void registration() {
 
         int id=0;
-        string idtry;
+        string filename = "ownerId.txt";
 
         //Start of Id Auto Generator
-        ifstream checkId;
-        checkId.open("ownerId.txt", ios::in);
-
-            if(checkId.fail()) {
-
-                cout << "Auto Generate Id Function Failed..." << endl;
-
-            }else{
-
-                checkId >> id;
-                checkId.close();
-
-            }
-
-        id++;
-
-        ofstream addId;
-        addId.open("ownerId.txt");
-
-            if(addId.fail()) {
-
-                cout << "Auto Generate Id Function Failed..." << endl;
-
-            }else{
-
-                addId << id;
-                addId.close();
-
-            }
+        id = idGenerator(filename);
         //End of Id Auto Generator
 
         cout << "\n\n===================Owner Register====================" << endl;
@@ -707,13 +681,13 @@ int navigation() {
 
 }
 
-int idGenerator() {
+int idGenerator(string txtfile) {
 
     int id;
 
         //Start of Id Auto Generator
         ifstream checkId;
-        checkId.open("shopItemId.txt", ios::in);
+        checkId.open(txtfile, ios::in);
 
             if(checkId.fail()) {
 
@@ -730,7 +704,7 @@ int idGenerator() {
         id++;
 
         ofstream addId;
-        addId.open("shopItemId.txt");
+        addId.open(txtfile);
 
             if(addId.fail()) {
 
