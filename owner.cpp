@@ -26,13 +26,14 @@ using namespace std;
 //functions prototypes
 void header();
 int navigation();
+int idGenerator();
 
 //Lists of classes
 
 class item {
 
     protected:
-    int itemId, noUnits, navchoice, id;
+    int itemId, noUnits, navchoice;
     string itemName, itemCompany, itemType, dltItem;
     double price;
 
@@ -71,37 +72,10 @@ class magazine : public item {
 
     void addMagazine() {
 
+        int id;
+
         //Start of Id Auto Generator
-        ifstream checkId;
-        checkId.open("shopItemId.txt", ios::in);
-
-            if(checkId.fail()) {
-
-                cout << "Auto Generate Id Function Failed..." << endl;
-
-            }else{
-
-                checkId >> id;
-                checkId.close();
-
-            }
-
-        //id increment
-        id++;
-
-        ofstream addId;
-        addId.open("shopItemId.txt");
-
-            if(addId.fail()) {
-
-                cout << "Auto Generate Id Function Failed..." << endl;
-
-            }else{
-
-                addId << id;
-                addId.close();
-
-            }
+        id = idGenerator();
         //End of Id Auto Generator
 
         cout << "\n\n========Add Magazine Form=======" << endl;
@@ -672,5 +646,46 @@ int navigation() {
         }
 
     return navchoice;
+
+}
+
+int idGenerator() {
+
+    int id;
+
+        //Start of Id Auto Generator
+        ifstream checkId;
+        checkId.open("shopItemId.txt", ios::in);
+
+            if(checkId.fail()) {
+
+                cout << "Auto Generate Id Function Failed..." << endl;
+
+            }else{
+
+                checkId >> id;
+                checkId.close();
+
+            }
+
+        //id increment
+        id++;
+
+        ofstream addId;
+        addId.open("shopItemId.txt");
+
+            if(addId.fail()) {
+
+                cout << "Auto Generate Id Function Failed..." << endl;
+
+            }else{
+
+                addId << id;
+                addId.close();
+
+            }
+        //End of Id Auto Generator
+
+        return id;
 
 }
