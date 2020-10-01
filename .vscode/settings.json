@@ -8,6 +8,7 @@
         "iomanip": "cpp",
         "xmemory": "cpp",
         "xiosbase": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "fstream": "cpp"
     }
 }

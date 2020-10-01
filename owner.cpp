@@ -27,6 +27,7 @@ using namespace std;
 void header();
 int navigation();
 int idGenerator();
+void commonAdd();
 
 //Lists of classes
 
@@ -74,9 +75,8 @@ class magazine : public item {
 
         int id;
 
-        //Start of Id Auto Generator
+        //id generator function
         id = idGenerator();
-        //End of Id Auto Generator
 
         cout << "\n\n========Add Magazine Form=======" << endl;
         cout << "Magazine Name       :";
@@ -118,7 +118,7 @@ class magazine : public item {
             addmag << "|" << setw(5) << month << "|";
             addmag.close();
 
-            cout << "Item added successfully!" << endl;
+            cout << "Magazine item added successfully!" << endl;
 
             choiceMag();
 
@@ -202,6 +202,11 @@ class book : public item {
 
     void addBook() {
 
+        int id;
+
+        //id generator function
+        id = idGenerator();
+
         cout << "========Add Book Form=======" << endl;
         cout << "Book Name           :";
         cin.ignore();
@@ -214,12 +219,34 @@ class book : public item {
         cin >> noUnits;
 
         cout << "Name of the company :";
-        cin.ignore();
         getline(cin, itemCompany);
 
         cout << "Author Name         :";
-        cin.ignore();
         getline(cin, authorName);
+
+        ofstream addBook;
+        addBook.open("book.txt", ios::app);
+
+        if(addBook.fail()) {
+
+            cout << "Error writing to the file, program ends...try again!" << endl;
+            exit(1);
+
+        }else{
+
+            addBook << "\n" << "|" << setw(7) << id;
+            addBook << "|" << setw(30) << itemName;
+            addBook << "|" << setw(10) << price;
+            addBook << "|" << setw(11) << noUnits;
+            addBook << "|" << setw(30) << itemCompany;
+            addBook << "|" << setw(11) << authorName << "|";
+            addBook.close();
+
+            cout << "Book item added successfully!" << endl;
+
+            choiceBook();
+
+        }
 
     }
 
@@ -294,8 +321,14 @@ class movie : public item {
 
     void addMovie() {
 
+        int id;
+
+        //id generator function
+        id = idGenerator();
+
         cout << "========Add Movie Form=======" << endl;
         cout << "Movie Name           :";
+        cin.ignore();
         getline(cin, itemName);
 
         cout << "Movie Price          :";
@@ -305,10 +338,35 @@ class movie : public item {
         cin >> noUnits;
 
         cout << "Name of the company  :";
+        cin.ignore();
         getline(cin, itemCompany);
 
         cout << "Main Actor Name      :";
         getline(cin, mainActorName);
+
+        ofstream addMovie;
+        addMovie.open("movie.txt", ios::app);
+
+        if(addMovie.fail()) {
+
+            cout << "Error writing to the file, program ends...try again!" << endl;
+            exit(1);
+
+        }else{
+
+            addMovie << "\n" << "|" << setw(8) << id;
+            addMovie << "|" << setw(30) << itemName;
+            addMovie << "|" << setw(11) << price;
+            addMovie << "|" << setw(11) << noUnits;
+            addMovie << "|" << setw(30) << itemCompany;
+            addMovie << "|" << setw(30) << mainActorName << "|";
+            addMovie.close();
+
+            cout << "Movie item added successfully!" << endl;
+
+            choiceMovie();
+
+        }
 
     }
 
