@@ -1,6 +1,6 @@
 													Book
 |-------+------------------------------+----------+-----------+------------------------------+-----------|
-|Book Id|                     Book Name|Book Price|No of units|                  Company Name|Author Name|
+|Item Id|                     Book Name|Book Price|No of units|                  Company Name|Author Name|
 |-------+------------------------------+----------+-----------+------------------------------+-----------|
 |      8|               best porn actor|       900|       1000|                   shaunmak.co|    haunmak|
 |     13|                           qwe|       123|        123|                           ewq|        qwe|

@@ -11,15 +11,12 @@
 #include<iostream>
 #include<iomanip>
 #include<string>
-//#include<cstring>
 #include<fstream>
-
-#include <regex>
-
-//#include <conio.h>
-//#include <stdio.h>
-//#include <stdlib.h>
-
+//#include<cstring>
+//#include<conio.h>
+#include<stdio.h> //for remove( ) and rename( )
+#include<stdlib.h>
+#include<regex>
 
 using namespace std;
 
@@ -30,12 +27,11 @@ void commonAdd();
 int idGenerator(string txtfile);
 
 //Lists of classes
-
 class item {
 
     protected:
-    int itemId, noUnits, navchoice;
-    string itemName, itemCompany, itemType, dltItem;
+    int itemId, noUnits, navchoice, counter;
+    string itemName, itemCompany, itemType, dltItem, line, savedLine;
     string filename = "shopItemId.txt";
     double price;
 
@@ -48,7 +44,7 @@ class magazine : public item {
     double totalSalesAmount;
 
     public:
-    void choiceMag(){
+    void choiceMag() {
 
         navchoice = navigation();
 
@@ -106,6 +102,7 @@ class magazine : public item {
         if(addmag.fail()) {
 
             cout << "Error writing to the file, program ends...try again!" << endl;
+            addmag.close();
             exit(1);
 
         }else{
@@ -154,9 +151,82 @@ class magazine : public item {
 
     void deleteMagazine() {
 
-        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is]";
+        size_t pos;
+
+        ifstream dltMag;
+        dltMag.open("magazine.txt", ios::in);
+
+        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is] :";
         cin.ignore();
         getline(cin, dltItem);
+
+            while(getline(dltMag, line)) {
+
+                pos = line.find(dltItem);
+
+                if(pos != string::npos) {
+
+                    savedLine = line;
+
+                }
+                
+            }
+
+        dltMag.close();
+
+        if(savedLine == "") {
+
+            cout << "Item Not Found" << endl;
+            deleteMagazine();
+
+        }else{
+
+            line = "";
+
+            ifstream inputFile;
+            inputFile.open("magazine.txt", ios::in);
+
+            ofstream temp;
+            temp.open("temp.txt");
+
+                while(getline(inputFile, line)) {
+
+                    if(line.compare(savedLine) != 0) {
+
+                        temp << line << "\n";
+
+                    }
+                
+                }
+
+            inputFile.close();
+            temp.close();
+
+            if(remove("magazine.txt") == 0) {
+
+                cout << "removed magazine.txt";
+
+                if(rename("temp.txt", "magazine.txt") == 0) {
+
+                    cout << "Renamed file" << endl;
+                    cout << "Item Updated !!" << endl;
+                    exit(0);
+
+                }else{
+
+                    cout << "Renamed Failed";
+                    exit(0);
+
+                }
+
+            }else{
+
+                cout << "Removed Failed";
+                exit(0);
+
+            }
+
+        }
 
     }
 
@@ -256,6 +326,7 @@ class book : public item {
 
         cout << "========Update Book Form=======" << endl;
         cout << "Book Name           :";
+        cin.ignore();
         getline(cin, itemName);
 
         cout << "Book Price          :";
@@ -265,6 +336,7 @@ class book : public item {
         cin >> noUnits;
 
         cout << "Name of the company :";
+        cin.ignore();
         getline(cin, itemCompany);
 
         cout << "Author Name         :";
@@ -275,6 +347,7 @@ class book : public item {
     void deleteBook() {
 
         cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is]";
+        cin.ignore();
         getline(cin, dltItem);
 
     }
