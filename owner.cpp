@@ -23,8 +23,10 @@ using namespace std;
 //functions prototypes
 void header();
 int navigation();
-void commonAdd();
 int idGenerator(string txtfile);
+
+void commonUpdate();
+char commonDelete(string fileName);
 
 //Lists of classes
 class item {
@@ -44,6 +46,7 @@ class magazine : public item {
     private:
     int year, month, totalSalesUnits;
     double totalSalesAmount;
+    string magFilename = "magazine.txt";
 
     public:
     void choiceMag() {
@@ -199,7 +202,6 @@ class magazine : public item {
             cin >> noUnits;
 
             cout << "Name of the company :";
-            cin.ignore();
             getline(cin, itemCompany);
 
             cout << "Year                :";
@@ -249,89 +251,15 @@ class magazine : public item {
 
     void deleteMagazine() {
 
-        ifstream dltMag;
-        dltMag.open("magazine.txt", ios::in);
+        char returnValue = commonDelete(magFilename);
 
-        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is] :";
-        cin.ignore();
-        getline(cin, dltItem);
+        if(returnValue == 's') {
 
-            while(getline(dltMag, line)) {
-
-                pos = line.find(dltItem);
-
-                    if(pos != string::npos) {
-
-                        savedLine = line;
-
-                    }
-                
-            }
-
-        dltMag.close();
-
-        if(savedLine == "") {
-
-            cout << "Item Not Found" << endl;
-            cout << "Do you wish to continue deleting? [y/n] :" << endl;
-            cin >> cont;
-
-                if(cont == 'y') {
-
-                    deleteMagazine();
-
-                }else{
-
-                    choiceMag();
-
-                }
+            cout << "Item Updated" << endl;
 
         }else{
 
-            line = "";
-
-            ifstream inputFile;
-            inputFile.open("magazine.txt", ios::in);
-
-            ofstream temp;
-            temp.open("temp.txt");
-
-                while(getline(inputFile, line)) {
-
-                    if(line.compare(savedLine) != 0) {
-
-                        temp << line << "\n";
-
-                    }
-                
-                }
-
-            inputFile.close();
-            temp.close();
-
-            if(remove("magazine.txt") == 0) {
-
-                cout << "removed magazine.txt";
-
-                if(rename("temp.txt", "magazine.txt") == 0) {
-
-                    cout << "Renamed file" << endl;
-                    cout << "Item Updated !!" << endl;
-                    choiceMag();
-
-                }else{
-
-                    cout << "Renamed Failed";
-                    exit(0);
-
-                }
-
-            }else{
-
-                cout << "Removed Failed";
-                exit(0);
-
-            }
+            cout << "Failed" << endl;
 
         }
 
@@ -899,5 +827,95 @@ int idGenerator(string txtfile) {
         //End of Id Auto Generator
 
         return id;
+
+}
+
+char commonDelete(string fileName) {
+
+    string line, dltItem, savedLine;
+    char value;
+    size_t pos;
+
+    const char * cnvrFileName = fileName.c_str();
+
+        ifstream dltMag;
+        dltMag.open(fileName, ios::in);
+
+        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is] :";
+        cin.ignore();
+        getline(cin, dltItem);
+
+            while(getline(dltMag, line)) {
+
+                pos = line.find(dltItem);
+
+                    if(pos != string::npos) {
+
+                        savedLine = line;
+
+                    }
+                
+            }
+
+        dltMag.close();
+
+        if(savedLine == "") {
+
+            cout << "Item Not Found" << endl;
+            cout << "Do you wish to continue deleting? [y/n] :" << endl;
+            cin >> value;
+
+            return value;
+
+        }else{
+
+            line = "";
+
+            ifstream inputFile;
+            inputFile.open(fileName, ios::in);
+
+            ofstream temp;
+            temp.open("temp.txt");
+
+                while(getline(inputFile, line)) {
+
+                    if(line.compare(savedLine) != 0) {
+
+                        temp << line << "\n";
+
+                    }
+                
+                }
+
+            inputFile.close();
+            temp.close();
+
+            if(remove(cnvrFileName) == 0) {
+
+                cout << "Removed original file" << endl;
+
+                if(rename("temp.txt", cnvrFileName) == 0) {
+
+                    cout << "Renamed Temp file to Ori file" << endl;
+                    //cout << "Item Updated !!" << endl;
+                    value = 's';
+                    return value;
+                    exit(0);
+
+                }else{
+
+                    cout << "Renamed Failed";
+                    exit(0);
+
+                }
+
+            }else{
+
+                cout << "Removed Failed";
+                exit(0);
+
+            }
+
+        }
 
 }

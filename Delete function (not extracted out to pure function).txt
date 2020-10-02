@@ -1,0 +1,101 @@
+    void deleteMagazine() {
+
+        char returnValue = commonDelete(magFilename);
+
+        if(returnValue == 's') {
+
+            cout << "Item Updated" << endl;
+
+        }else{
+
+            cout << "Failed" << endl;
+
+        }
+
+        ifstream dltMag;
+        dltMag.open("magazine.txt", ios::in);
+
+        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is] :";
+        cin.ignore();
+        getline(cin, dltItem);
+
+            while(getline(dltMag, line)) {
+
+                pos = line.find(dltItem);
+
+                    if(pos != string::npos) {
+
+                        savedLine = line;
+
+                    }
+                
+            }
+
+        dltMag.close();
+
+        if(savedLine == "") {
+
+            cout << "Item Not Found" << endl;
+            cout << "Do you wish to continue deleting? [y/n] :" << endl;
+            cin >> cont;
+
+                if(cont == 'y') {
+
+                    deleteMagazine();
+
+                }else{
+
+                    choiceMag();
+
+                }
+
+        }else{
+
+            line = "";
+
+            ifstream inputFile;
+            inputFile.open("magazine.txt", ios::in);
+
+            ofstream temp;
+            temp.open("temp.txt");
+
+                while(getline(inputFile, line)) {
+
+                    if(line.compare(savedLine) != 0) {
+
+                        temp << line << "\n";
+
+                    }
+                
+                }
+
+            inputFile.close();
+            temp.close();
+
+            if(remove("magazine.txt") == 0) {
+
+                cout << "removed magazine.txt";
+
+                if(rename("temp.txt", "magazine.txt") == 0) {
+
+                    cout << "Renamed file" << endl;
+                    cout << "Item Updated !!" << endl;
+                    choiceMag();
+
+                }else{
+
+                    cout << "Renamed Failed";
+                    exit(0);
+
+                }
+
+            }else{
+
+                cout << "Removed Failed";
+                exit(0);
+
+            }
+
+        }
+
+    }
