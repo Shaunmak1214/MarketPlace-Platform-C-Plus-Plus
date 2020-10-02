@@ -12,20 +12,21 @@
 #include<iomanip>
 #include<string>
 #include<fstream>
-//#include<cstring>
-//#include<conio.h>
-#include<stdio.h> //for remove( ) and rename( )
+#include<cstring> //for string::functions
+#include<conio.h> //for getch funnction
+#include<stdio.h> //for remove() and rename()
 #include<stdlib.h>
-#include<regex>
+#include<regex> //for regex.replace function
 
 using namespace std;
 
 //functions prototypes
 void header();
+
 int navigation();
 int idGenerator(string txtfile);
 
-char commonUpdate(string fileName);
+char commonUpdate(string fileName, int itemType);
 char commonDelete(string fileName);
 
 //Lists of classes
@@ -131,119 +132,15 @@ class magazine : public item {
 
     void updateMagazine() {
 
-        string id;
-        ifstream updMag;
-        updMag.open("magazine.txt", ios::in);
+        char returnValue = commonUpdate(magFilename, 1);
 
-        cout << "========Update Magazine Form=======" << endl;
+        if(returnValue == 's') {
 
-        cout << "Item Id             :";
-        cin.ignore();
-        getline(cin, id);
-
-            while(getline(updMag, line)) {
-
-                pos = line.find(id);
-
-                    if(pos != string::npos) {
-
-                        savedLine = line;
-
-                    }
-
-            }
-
-        updMag.close();
-
-        if(savedLine == "") {
-
-            cout << "Item Not Found" << endl;
-            cout << "Do you with to continue updating? [y/n] :" << endl;
-            cin >> cont;
-
-                if(cont == 'y') {
-
-                    updateMagazine();
-
-                }else{
-
-                    choiceMag();
-
-                }
+            cout << "Item Updated" << endl;
 
         }else{
 
-            line = "";
-
-            ifstream inputFile;
-            inputFile.open("magazine.txt", ios::in);
-
-            ofstream temp;
-            temp.open("temp.txt");
-
-                while(getline(inputFile, line)) {
-
-                    if(line.compare(savedLine) != 0) {
-
-                        temp << line << "\n";
-
-                    }
-
-                }
-
-            cout << "Magazine Name       :";
-            cin.ignore();
-            getline(cin, itemName);
-
-            cout << "Magazine Price      :";
-            cin >> price;
-
-            cout << "Number of units     :";
-            cin >> noUnits;
-
-            cout << "Name of the company :";
-            getline(cin, itemCompany);
-
-            cout << "Year                :";
-            cin >> year;
-
-            cout << "Month               :";
-            cin >> month;
-
-            temp << "|" << setw(11) << id;
-            temp << "|" << setw(30) << itemName;
-            temp << "|" << setw(14) << price;
-            temp << "|" << setw(11) << noUnits;
-            temp << "|" << setw(30) << itemCompany;
-            temp << "|" << setw(4) << year;
-            temp << "|" << setw(5) << month << "|";
-
-            temp.close();
-            inputFile.close();
-
-                if(remove("magazine.txt") == 0) {
-
-                    cout << "removed magazine.txt";
-
-                    if(rename("temp.txt", "magazine.txt") == 0) {
-
-                        cout << "Renamed file" << endl;
-                        cout << "Item Updated !!" << endl;
-                        choiceMag();
-
-                    }else{
-
-                        cout << "Renamed Failed";
-                        exit(0);
-
-                    }
-
-                }else{
-
-                    cout << "Removed Failed";
-                    exit(0);
-
-                }
+            choiceMag();
 
         }
 
@@ -255,11 +152,11 @@ class magazine : public item {
 
         if(returnValue == 's') {
 
-            cout << "Item Updated" << endl;
+            cout << "Item Deleted" << endl;
 
         }else{
 
-            cout << "Failed" << endl;
+            choiceMag();
 
         }
 
@@ -360,23 +257,17 @@ class book : public item {
 
     void updateBook() {
 
-        cout << "========Update Book Form=======" << endl;
-        cout << "Book Name           :";
-        cin.ignore();
-        getline(cin, itemName);
+        char returnValue = commonUpdate(bookFilename, 2);
 
-        cout << "Book Price          :";
-        cin >> price;
+        if(returnValue == 's') {
 
-        cout << "Number of units     :";
-        cin >> noUnits;
+            cout << "Item Updated!!" << endl;
 
-        cout << "Name of the company :";
-        cin.ignore();
-        getline(cin, itemCompany);
+        }else {
 
-        cout << "Author Name         :";
-        getline(cin, authorName);
+            cout << "Failed" << endl;
+
+        }
 
     }
 
@@ -492,21 +383,17 @@ class movie : public item {
 
     void updateMovie() {
 
-        cout << "========Update Movie Form=======" << endl;
-        cout << "Movie Name           :";
-        getline(cin, itemName);
+        char returnValue = commonUpdate(movieFileName, 3);
 
-        cout << "Movie Price          :";
-        cin >> price;
+        if(returnValue == 's') {
 
-        cout << "Number of units      :";
-        cin >> noUnits;
+            cout << "Item Updated" << endl;
 
-        cout << "Name of the company  :";
-        getline(cin, itemCompany);
+        }else {
 
-        cout << "Main Actor Name      :";
-        getline(cin, mainActorName);
+            cout << "Failed" << endl;
+
+        }
 
     }
 
@@ -702,22 +589,22 @@ class owner : public magazine, public book, public movie{
 
         if(itemchoice == 1) {
 
-            cout << "Redirecting to Magazine..." << endl;
+            cout << "\n\nRedirecting to Magazine..." << endl;
             choiceMag();
 
         }else if(itemchoice == 2) {
 
-            cout << "Redirecting to Book..." << endl;
+            cout << "\n\nRedirecting to Book..." << endl;
             choiceBook();
 
         }else if(itemchoice == 3) {
 
-            cout << "Redirecting to Movie..." << endl;
+            cout << "\n\nRedirecting to Movie..." << endl;
             choiceMovie();
 
         }else{
 
-            cout << "You entered an invalid choice, try again mate!" << endl;
+            cout << "\n\nYou entered an invalid choice, try again mate!" << endl;
             itemChoose();
 
         }
@@ -842,9 +729,218 @@ int idGenerator(string txtfile) {
 
 }
 
-char commonUpdate(string fileName) {
+char commonUpdate(string fileName, int itemType) {
 
-    string id, line, savedLine;
+    int noUnits, year, month;
+    string itemName, itemCompany, line, savedLine, id;
+    double price;
+    char cont, value;
+    size_t pos;
+
+    //converting string element to cont char * for functions (remove and rename)
+    const char * cnvrFileName = fileName.c_str();
+
+        ifstream updFile;
+        updFile.open(fileName, ios::in);
+
+        cout << "========Update Magazine Form=======" << endl;
+
+        cout << "Item Id you want to update        :";
+        cin.ignore();
+        getline(cin, id);
+
+            while(getline(updFile, line)) {
+
+                pos = line.find(id);
+
+                    if(pos != string::npos) {
+
+                        if(pos < 15) {
+
+                            savedLine = line;
+
+                        }else {
+
+                            updFile.close();
+
+                            cout << id << " has found not be an Id, please enter the correct Id" << endl;
+                            cout << "Would you like to try again? [y/n] :" << endl;
+                            cin >> value;
+
+                                if(value == 'y') {
+
+                                    commonUpdate(fileName, itemType);
+                                
+                                }else {
+
+                                    return value;
+
+                                }
+
+                        }
+
+                    }
+
+            }
+
+        updFile.close();
+        value = 0;
+
+        if(savedLine == "") {
+
+            cout << "Item Not Found" << endl;
+            cout << "Do you with to continue updating? [y/n] :" << endl;
+            cin >> cont;
+
+                if(cont == 'y') {
+
+                    commonUpdate(fileName, itemType);
+
+                }else{
+
+                    return value;
+
+                }
+
+        }else{
+
+            line = "";
+
+            ifstream inputFile;
+            inputFile.open(fileName, ios::in);
+
+            ofstream temp;
+            temp.open("temp.txt");
+
+                while(getline(inputFile, line)) {
+
+                    if(line.compare(savedLine) != 0) {
+
+                        temp << line << "\n";
+
+                    }
+
+                }
+
+            if(itemType == 1) {
+
+                cout << "Magazine Name       :";
+                cin.ignore();
+                getline(cin, itemName);
+
+                cout << "Magazine Price      :";
+                cin >> price;
+
+                cout << "Number of units     :";
+                cin >> noUnits;
+
+                cout << "Name of the company :";
+                getline(cin, itemCompany);
+
+                cout << "Year                :";
+                cin >> year;
+
+                cout << "Month               :";
+                cin >> month;
+
+                temp << "|" << setw(11) << id;
+                temp << "|" << setw(30) << itemName;
+                temp << "|" << setw(14) << price;
+                temp << "|" << setw(11) << noUnits;
+                temp << "|" << setw(30) << itemCompany;
+                temp << "|" << setw(4) << year;
+                temp << "|" << setw(5) << month << "|";
+
+            }else if(itemType == 2) {
+
+                cout << "Magazine Name       :";
+                cin.ignore();
+                getline(cin, itemName);
+
+                cout << "Magazine Price      :";
+                cin >> price;
+
+                cout << "Number of units     :";
+                cin >> noUnits;
+
+                cout << "Name of the company :";
+                getline(cin, itemCompany);
+
+                cout << "Year                :";
+                cin >> year;
+
+                cout << "Month               :";
+                cin >> month;
+
+                temp << "|" << setw(11) << id;
+                temp << "|" << setw(30) << itemName;
+                temp << "|" << setw(14) << price;
+                temp << "|" << setw(11) << noUnits;
+                temp << "|" << setw(30) << itemCompany;
+                temp << "|" << setw(4) << year;
+                temp << "|" << setw(5) << month << "|";
+
+            }else{
+
+                cout << "Magazine Name       :";
+                cin.ignore();
+                getline(cin, itemName);
+
+                cout << "Magazine Price      :";
+                cin >> price;
+
+                cout << "Number of units     :";
+                cin >> noUnits;
+
+                cout << "Name of the company :";
+                getline(cin, itemCompany);
+
+                cout << "Year                :";
+                cin >> year;
+
+                cout << "Month               :";
+                cin >> month;
+
+                temp << "|" << setw(11) << id;
+                temp << "|" << setw(30) << itemName;
+                temp << "|" << setw(14) << price;
+                temp << "|" << setw(11) << noUnits;
+                temp << "|" << setw(30) << itemCompany;
+                temp << "|" << setw(4) << year;
+                temp << "|" << setw(5) << month << "|";
+
+            }
+
+            temp.close();
+            inputFile.close();
+
+                if(remove(cnvrFileName) == 0) {
+
+                    cout << "removed magazine.txt";
+
+                    if(rename("temp.txt", cnvrFileName) == 0) {
+
+                        cout << "Renamed file" << endl;
+                        cout << "Item Updated !!" << endl;
+                        value = 's';
+                        return value;
+                        exit(0);
+
+                    }else{
+
+                        cout << "Renamed Failed";
+                        exit(0);
+
+                    }
+
+                }else{
+
+                    cout << "Removed Failed";
+                    exit(0);
+
+                }
+
+        }
 
 }
 
@@ -876,8 +972,21 @@ char commonDelete(string fileName) {
 
                         }else {
 
-                            cout << "id cannot be found" << endl;
-                            exit(0);
+                            dltMag.close();
+
+                            cout << dltItem << " has found not be an Id, please enter the correct Id" << endl;
+                            cout << "Would you like to try again? [y/n] :" << endl;
+                            cin >> value;
+
+                                if(value == 'y') {
+
+                                    commonDelete(fileName);
+                                
+                                }else {
+
+                                    return value;
+
+                                }
 
                         }
 
@@ -886,6 +995,7 @@ char commonDelete(string fileName) {
             }
 
         dltMag.close();
+        value = 0;
 
         if(savedLine == "") {
 
@@ -893,7 +1003,15 @@ char commonDelete(string fileName) {
             cout << "Do you wish to continue deleting? [y/n] :" << endl;
             cin >> value;
 
-            return value;
+            if(value == 'y') {
+
+                commonDelete(fileName);
+
+            }else{
+
+                return value;
+
+            }
 
         }else{
 
@@ -925,7 +1043,6 @@ char commonDelete(string fileName) {
                 if(rename("temp.txt", cnvrFileName) == 0) {
 
                     cout << "Renamed Temp file to Ori file" << endl;
-                    //cout << "Item Updated !!" << endl;
                     value = 's';
                     return value;
                     exit(0);

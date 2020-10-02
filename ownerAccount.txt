@@ -2,8 +2,6 @@
 |--------+--------------------+--------------------|
 |Owner Id|Owner       Username|Owner       Password|
 |--------|--------------------+--------------------|
-|   18908|             mak1214|            yenwei76|
-|   12345|           makyenwei|           makyenwei|
 |       2|              sinyin|              010408|
 |       3|              xavier|                myra|
 |       4|           makyenwei|                7616|
