@@ -34,6 +34,8 @@ class item {
     string itemName, itemCompany, itemType, dltItem, line, savedLine;
     string filename = "shopItemId.txt";
     double price;
+    size_t pos;
+    char cont;
 
 };
 
@@ -70,10 +72,10 @@ class magazine : public item {
 
     void addMagazine() {
 
-        int id;
+        int itemId;
 
         //id generator function
-        id = idGenerator(filename);
+        itemId = idGenerator(filename);
 
         cout << "\n\n========Add Magazine Form=======" << endl;
         cout << "Magazine Name       :";
@@ -107,7 +109,7 @@ class magazine : public item {
 
         }else{
 
-            addmag << "\n" << "|" << setw(11) << id;
+            addmag << "\n" << "|" << setw(11) << itemId;
             addmag << "|" << setw(30) << itemName;
             addmag << "|" << setw(14) << price;
             addmag << "|" << setw(11) << noUnits;
@@ -126,32 +128,126 @@ class magazine : public item {
 
     void updateMagazine() {
 
+        string id;
+        ifstream updMag;
+        updMag.open("magazine.txt", ios::in);
+
         cout << "========Update Magazine Form=======" << endl;
-        cout << "Magazine Name       :";
+
+        cout << "Item Id             :";
         cin.ignore();
-        getline(cin, itemName);
+        getline(cin, id);
 
-        cout << "Magazine Price      :";
-        cin >> price;
+            while(getline(updMag, line)) {
 
-        cout << "Number of units     :";
-        cin >> noUnits;
+                pos = line.find(id);
 
-        cout << "Name of the company :";
-        cin.ignore();
-        getline(cin, itemCompany);
+                    if(pos != string::npos) {
 
-        cout << "Year                :";
-        cin >> year;
+                        savedLine = line;
 
-        cout << "Month               :";
-        cin >> month;
+                    }
+
+            }
+
+        updMag.close();
+
+        if(savedLine == "") {
+
+            cout << "Item Not Found" << endl;
+            cout << "Do you with to continue updating? [y/n] :" << endl;
+            cin >> cont;
+
+                if(cont == 'y') {
+
+                    updateMagazine();
+
+                }else{
+
+                    choiceMag();
+
+                }
+
+        }else{
+
+            line = "";
+
+            ifstream inputFile;
+            inputFile.open("magazine.txt", ios::in);
+
+            ofstream temp;
+            temp.open("temp.txt");
+
+                while(getline(inputFile, line)) {
+
+                    if(line.compare(savedLine) != 0) {
+
+                        temp << line << "\n";
+
+                    }
+
+                }
+
+            cout << "Magazine Name       :";
+            cin.ignore();
+            getline(cin, itemName);
+
+            cout << "Magazine Price      :";
+            cin >> price;
+
+            cout << "Number of units     :";
+            cin >> noUnits;
+
+            cout << "Name of the company :";
+            cin.ignore();
+            getline(cin, itemCompany);
+
+            cout << "Year                :";
+            cin >> year;
+
+            cout << "Month               :";
+            cin >> month;
+
+            temp << "|" << setw(11) << id;
+            temp << "|" << setw(30) << itemName;
+            temp << "|" << setw(14) << price;
+            temp << "|" << setw(11) << noUnits;
+            temp << "|" << setw(30) << itemCompany;
+            temp << "|" << setw(4) << year;
+            temp << "|" << setw(5) << month << "|";
+
+            temp.close();
+            inputFile.close();
+
+                if(remove("magazine.txt") == 0) {
+
+                    cout << "removed magazine.txt";
+
+                    if(rename("temp.txt", "magazine.txt") == 0) {
+
+                        cout << "Renamed file" << endl;
+                        cout << "Item Updated !!" << endl;
+                        choiceMag();
+
+                    }else{
+
+                        cout << "Renamed Failed";
+                        exit(0);
+
+                    }
+
+                }else{
+
+                    cout << "Removed Failed";
+                    exit(0);
+
+                }
+
+        }
 
     }
 
     void deleteMagazine() {
-
-        size_t pos;
 
         ifstream dltMag;
         dltMag.open("magazine.txt", ios::in);
@@ -164,11 +260,11 @@ class magazine : public item {
 
                 pos = line.find(dltItem);
 
-                if(pos != string::npos) {
+                    if(pos != string::npos) {
 
-                    savedLine = line;
+                        savedLine = line;
 
-                }
+                    }
                 
             }
 
@@ -177,7 +273,18 @@ class magazine : public item {
         if(savedLine == "") {
 
             cout << "Item Not Found" << endl;
-            deleteMagazine();
+            cout << "Do you wish to continue deleting? [y/n] :" << endl;
+            cin >> cont;
+
+                if(cont == 'y') {
+
+                    deleteMagazine();
+
+                }else{
+
+                    choiceMag();
+
+                }
 
         }else{
 
@@ -210,7 +317,7 @@ class magazine : public item {
 
                     cout << "Renamed file" << endl;
                     cout << "Item Updated !!" << endl;
-                    exit(0);
+                    choiceMag();
 
                 }else{
 
