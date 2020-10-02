@@ -854,6 +854,7 @@ char commonDelete(string fileName) {
     char value;
     size_t pos;
 
+    //converting string element to cont char * for functions (remove and rename)
     const char * cnvrFileName = fileName.c_str();
 
         ifstream dltMag;
@@ -869,7 +870,16 @@ char commonDelete(string fileName) {
 
                     if(pos != string::npos) {
 
-                        savedLine = line;
+                        if(pos < 15) {
+
+                            savedLine = line;
+
+                        }else {
+
+                            cout << "id cannot be found" << endl;
+                            exit(0);
+
+                        }
 
                     }
                 

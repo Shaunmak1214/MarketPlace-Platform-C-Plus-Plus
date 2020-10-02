@@ -10,5 +10,3 @@
 |       9|          wangsinyin|          osy0408520|
 |      10|        Beh Chun Wei|                muak|
 |      11|                 qwe|                 qwe|
-|      12|                 ewq|                 ewq|
-|      13|                 qwe|                 ewq|
