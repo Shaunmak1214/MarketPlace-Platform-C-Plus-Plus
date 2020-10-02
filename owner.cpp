@@ -25,7 +25,7 @@ void header();
 int navigation();
 int idGenerator(string txtfile);
 
-void commonUpdate();
+char commonUpdate(string fileName);
 char commonDelete(string fileName);
 
 //Lists of classes
@@ -280,6 +280,7 @@ class book : public item {
     string authorName;
     int totalSalesUnits;
     double totalSalesAmount;
+    string bookFilename = "book.txt"; 
 
     public:
         void choiceBook(){
@@ -381,9 +382,17 @@ class book : public item {
 
     void deleteBook() {
 
-        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is]";
-        cin.ignore();
-        getline(cin, dltItem);
+        char returnValue = commonDelete(bookFilename);
+
+        if(returnValue == 's') {
+
+            cout << "Item Updated!!" << endl;
+
+        }else {
+
+            cout << "Failed" << endl;
+
+        }
 
     }
 
@@ -403,6 +412,7 @@ class movie : public item {
     string mainActorName;
     int totalSalesUnits;
     double totalSalesAmount;
+    string movieFileName = "movie.txt";
 
     public:
     void choiceMovie(){
@@ -502,8 +512,17 @@ class movie : public item {
 
     void deleteMovie() {
 
-        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is]";
-        getline(cin, dltItem);
+        char returnValue = commonDelete(movieFileName);
+
+        if(returnValue == 's') {
+
+            cout << "Item Updated" << endl;
+
+        }else {
+
+            cout << "Failed" << endl;
+
+        }
 
     }
         
@@ -554,9 +573,6 @@ class owner : public magazine, public book, public movie{
         cout << "Please enter your new password [max words of 15] : " << endl;
         getline(cin, ownerPassword);
 
-        //TODO LIST
-        //make check for max words to avoid crashing the program
-
         ofstream regfile;
         regfile.open("ownerAccount.txt", ios::app);
 
@@ -595,8 +611,6 @@ class owner : public magazine, public book, public movie{
 
         IdPassCheck = ownerName + ownerPassword;
 
-        //system("pause");
-
         system("CLS");
 
         ifstream logfile;
@@ -611,8 +625,6 @@ class owner : public magazine, public book, public movie{
             }else{
 
                 int counter=0;
-
-                //system("pause");
 
                 //To read every line of the txt file
                 while(getline(logfile, line)){
@@ -827,6 +839,12 @@ int idGenerator(string txtfile) {
         //End of Id Auto Generator
 
         return id;
+
+}
+
+char commonUpdate(string fileName) {
+
+    string id, line, savedLine;
 
 }
 
