@@ -475,13 +475,15 @@ class movie : public item {
 
         char returnValue = commonUpdate(movieFileName, 3);
 
-        if(returnValue == 's') {
+        while(returnValue != 's') {
 
-            cout << "Item Updated" << endl;
+            switch(returnValue) {
 
-        }else {
+                case 'y' : returnValue = commonUpdate(movieFileName, 3);
 
-            cout << "Failed" << endl;
+                case 'n' : choiceMovie();
+
+            }
 
         }
 
@@ -892,15 +894,7 @@ char commonUpdate(string fileName, int itemType) {
                             cout << "Would you like to try again? [y/n] :" << endl;
                             cin >> value;
 
-                                if(value == 'y') {
-
-                                    commonUpdate(fileName, itemType);
-                                
-                                }else {
-
-                                    return value;
-
-                                }
+                            return value;
 
                         }
 
@@ -916,16 +910,7 @@ char commonUpdate(string fileName, int itemType) {
             cout << "Item Not Found" << endl;
             cout << "Do you with to continue updating? [y/n] :" << endl;
             cin >> cont;
-
-                if(cont == 'y') {
-
-                    commonUpdate(fileName, itemType);
-
-                }else{
-
-                    return value;
-
-                }
+            return value;
 
         }else{
 
@@ -1205,6 +1190,7 @@ char viewItems(string fileName, int startLimit, int printCount) {
 
     //View Items
     view.open(fileName, ios::in);
+
     while(getline(view, line)) {
 
         if(counter++ >= startLimit) {
