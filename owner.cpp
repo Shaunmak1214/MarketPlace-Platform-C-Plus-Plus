@@ -150,15 +150,20 @@ class magazine : public item {
 
         char returnValue = commonDelete(magFilename);
 
-        if(returnValue == 's') {
+        while(returnValue != 's') {
 
-            cout << "Item Deleted" << endl;
+            switch(returnValue) {
 
-        }else{
+                case 'y' : returnValue = commonDelete(magFilename); break;
 
-            choiceMag();
+                case 'n' : choiceMag();
+
+            }
 
         }
+
+        cout << "Passed while loop" << endl;
+        choiceMag();
 
     }
 
@@ -275,15 +280,20 @@ class book : public item {
 
         char returnValue = commonDelete(bookFilename);
 
-        if(returnValue == 's') {
+        while(returnValue != 's') {
 
-            cout << "Item Updated!!" << endl;
+            switch(returnValue) {
 
-        }else {
+                case 'y' : returnValue = commonDelete(bookFilename); break;
 
-            cout << "Failed" << endl;
+                case 'n' : choiceBook();
+
+            }
 
         }
+
+        cout << "Passed while loop" << endl;
+        choiceBook();
 
     }
 
@@ -401,15 +411,20 @@ class movie : public item {
 
         char returnValue = commonDelete(movieFileName);
 
-        if(returnValue == 's') {
+        while(returnValue != 's') {
 
-            cout << "Item Updated" << endl;
+            switch(returnValue) {
 
-        }else {
+                case 'y' : returnValue = commonDelete(movieFileName); break;
 
-            cout << "Failed" << endl;
+                case 'n' : choiceMovie();
+
+            }
 
         }
+
+        cout << "Passed while loop" << endl;
+        choiceMovie();
 
     }
         
@@ -617,15 +632,6 @@ class owner : public magazine, public book, public movie{
 //main function
 int main() {
 
-    header();
-
-    return 0;
-
-}
-
-//functions
-void header() {
-
     int choice;
     
     owner o;
@@ -662,7 +668,11 @@ void header() {
 
             }
 
+    return 0;
+
 }
+
+//functions
 
 int navigation() {
 
@@ -732,7 +742,7 @@ int idGenerator(string txtfile) {
 char commonUpdate(string fileName, int itemType) {
 
     int noUnits, year, month;
-    string itemName, itemCompany, line, savedLine, id;
+    string itemName, itemCompany, line, savedLine, id, authorName, mainActorName;
     double price;
     char cont, value;
     size_t pos;
@@ -835,6 +845,7 @@ char commonUpdate(string fileName, int itemType) {
                 cin >> noUnits;
 
                 cout << "Name of the company :";
+                cin.ignore();
                 getline(cin, itemCompany);
 
                 cout << "Year                :";
@@ -853,32 +864,29 @@ char commonUpdate(string fileName, int itemType) {
 
             }else if(itemType == 2) {
 
-                cout << "Magazine Name       :";
+                cout << "Book Name           :";
                 cin.ignore();
                 getline(cin, itemName);
 
-                cout << "Magazine Price      :";
+                cout << "Book Price          :";
                 cin >> price;
 
                 cout << "Number of units     :";
                 cin >> noUnits;
 
                 cout << "Name of the company :";
+                cin.ignore();
                 getline(cin, itemCompany);
 
-                cout << "Year                :";
-                cin >> year;
+                cout << "Author Name         :";
+                getline(cin, authorName);
 
-                cout << "Month               :";
-                cin >> month;
-
-                temp << "|" << setw(11) << id;
+                temp << "|" << setw(7) << id;
                 temp << "|" << setw(30) << itemName;
-                temp << "|" << setw(14) << price;
+                temp << "|" << setw(11) << price;
                 temp << "|" << setw(11) << noUnits;
                 temp << "|" << setw(30) << itemCompany;
-                temp << "|" << setw(4) << year;
-                temp << "|" << setw(5) << month << "|";
+                temp << "|" << setw(11) << authorName << "|";
 
             }else{
 
@@ -893,21 +901,18 @@ char commonUpdate(string fileName, int itemType) {
                 cin >> noUnits;
 
                 cout << "Name of the company :";
+                cin.ignore();
                 getline(cin, itemCompany);
 
-                cout << "Year                :";
-                cin >> year;
+                cout << "Main Actor Name     :";
+                getline(cin, mainActorName);
 
-                cout << "Month               :";
-                cin >> month;
-
-                temp << "|" << setw(11) << id;
+                temp << "|" << setw(8) << id;
                 temp << "|" << setw(30) << itemName;
-                temp << "|" << setw(14) << price;
+                temp << "|" << setw(11) << price;
                 temp << "|" << setw(11) << noUnits;
                 temp << "|" << setw(30) << itemCompany;
-                temp << "|" << setw(4) << year;
-                temp << "|" << setw(5) << month << "|";
+                temp << "|" << setw(30) << mainActorName << "|";
 
             }
 
@@ -916,7 +921,7 @@ char commonUpdate(string fileName, int itemType) {
 
                 if(remove(cnvrFileName) == 0) {
 
-                    cout << "removed magazine.txt";
+                    cout << "removed " << fileName << endl; 
 
                     if(rename("temp.txt", cnvrFileName) == 0) {
 
@@ -977,16 +982,7 @@ char commonDelete(string fileName) {
                             cout << dltItem << " has found not be an Id, please enter the correct Id" << endl;
                             cout << "Would you like to try again? [y/n] :" << endl;
                             cin >> value;
-
-                                if(value == 'y') {
-
-                                    commonDelete(fileName);
-                                
-                                }else {
-
-                                    return value;
-
-                                }
+                            return value;
 
                         }
 
@@ -1002,16 +998,7 @@ char commonDelete(string fileName) {
             cout << "Item Not Found" << endl;
             cout << "Do you wish to continue deleting? [y/n] :" << endl;
             cin >> value;
-
-            if(value == 'y') {
-
-                commonDelete(fileName);
-
-            }else{
-
-                return value;
-
-            }
+            return value;
 
         }else{
 
