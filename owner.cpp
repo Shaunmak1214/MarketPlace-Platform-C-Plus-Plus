@@ -245,6 +245,10 @@ class book : public item {
 
         }else if(navchoice == 4) {
 
+            viewBook();
+
+        }else if(navchoice == 5) {
+
             displaySales();
 
         }
@@ -339,6 +343,36 @@ class book : public item {
 
     }
 
+    void viewBook() {
+
+        char choice;
+        int startLimit = 4;
+        int printCount = 10;
+
+        choice = viewItems(bookFilename, startLimit, printCount);
+
+        while(choice != 'e') {
+
+            if(choice == 'n') {
+
+                startLimit = startLimit+10;
+                // printCount = printCount+5;
+                choice = viewItems(bookFilename, startLimit, printCount);
+
+            }else if(choice == 'p') {
+
+                startLimit = startLimit-10;
+                //printCount = printCount-10;
+                choice = viewItems(bookFilename, startLimit, printCount);
+
+            }
+
+        }
+
+    cout << "View Finished" << endl;
+
+    }
+
     void displaySales() {
 
         cout << "=====Book Sales Report=====" << endl;
@@ -375,6 +409,10 @@ class movie : public item {
             deleteMovie();
 
         }else if(navchoice == 4) {
+
+            viewMovie();
+
+        }else if(navchoice == 5) {
 
             displaySales();
 
@@ -469,6 +507,36 @@ class movie : public item {
         choiceMovie();
 
     }
+
+    void viewMovie() {
+
+        char choice;
+        int startLimit = 4;
+        int printCount = 10;
+
+        choice = viewItems(movieFileName, startLimit, printCount);
+
+        while(choice != 'e') {
+
+            if(choice == 'n') {
+
+                startLimit = startLimit+10;
+                // printCount = printCount+5;
+                choice = viewItems(movieFileName, startLimit, printCount);
+
+            }else if(choice == 'p') {
+
+                startLimit = startLimit-10;
+                //printCount = printCount-10;
+                choice = viewItems(movieFileName, startLimit, printCount);
+
+            }
+
+        }
+
+    cout << "View Finished" << endl;
+
+    }
         
     void displaySales() {
 
@@ -546,11 +614,11 @@ class owner : public magazine, public book, public movie{
 
         cout << "\n\n===============Owner Login===============" << endl;
 
-        cout << "Please enter your username [max words of 10] : " << endl;
+        cout << "Please enter your username [max words of 10] [No Space Allowed]: " << endl;
         cin.ignore();
         getline(cin, ownerName);
 
-        cout << "Please enter your password [max words of 15] : " << endl;
+        cout << "Please enter your password [max words of 15] [No Space Allowed]: " << endl;
         getline(cin, ownerPassword);
 
         IdPassCheck = ownerName + ownerPassword;
@@ -1115,6 +1183,7 @@ char viewItems(string fileName, int startLimit, int printCount) {
     ifstream view;
     view.open(fileName, ios::in);
 
+    //This while loop is to get the file header and store each line into a string array
     while(getline(view, headerLine)) {
 
         if(counter3++ <= 3) {
@@ -1125,17 +1194,17 @@ char viewItems(string fileName, int startLimit, int printCount) {
         }
 
     }
-
     view.close();
 
+        //Output of header
         for(int z=0; z<4; z++) {
 
             cout << header[z] << endl;
 
         }
 
+    //View Items
     view.open(fileName, ios::in);
-
     while(getline(view, line)) {
 
         if(counter++ >= startLimit) {
@@ -1150,7 +1219,15 @@ char viewItems(string fileName, int startLimit, int printCount) {
 
     }
 
-        cout << "\n[ Next Page [n]/ Previous Page [p]/ Exit [e] ] " << endl;
-        cin >> choice;
-        return choice;
+    cout << "\n[ Next Page [n]/ Previous Page [p]/ Exit [e] ] " << endl;
+    cin >> choice;
+    return choice;
 }
+
+/*
+Reference
+string array : https://www.geeksforgeeks.org/array-strings-c-3-different-ways-create/
+delimiter : https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c
+update/delete : https://stackoverflow.com/questions/34507989/update-and-delete-data-from-file-in-c
+converting string to const char* : https://stackoverflow.com/questions/347949/how-to-convert-a-stdstring-to-const-char-or-char
+*/

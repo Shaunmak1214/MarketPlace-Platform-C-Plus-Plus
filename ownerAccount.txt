@@ -6,5 +6,5 @@
 |       3|              xavier|                myra|
 |       4|           makyenwei|                7616|
 |       9|          wangsinyin|          osy0408520|
-|      10|        Beh Chun Wei|                muak|
+|      10|          BehChunWei|                muak|
 |      11|                 qwe|                 qwe|
