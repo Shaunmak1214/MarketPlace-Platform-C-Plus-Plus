@@ -1,4 +1,35 @@
-													  Magazine
+		Magazine
 |-----------+------------------------------+--------------+-----------+------------------------------+----+-----|
 |   Item  Id|                 Magazine Name|Magazine Price|No of units|                  Company Name|Year|Month|
 |-----------+------------------------------+--------------+-----------+------------------------------+----+-----|
+|         30|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         31|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         32|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         33|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         34|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         35|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         36|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         37|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         38|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         39|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         40|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         41|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         42|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         43|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         44|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         45|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         46|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         47|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         48|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         49|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         50|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         51|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         52|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         53|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         54|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         55|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         56|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         57|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         58|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         59|                    HP Laptops|            23|       2000|                            HP|2001|   12|
+|         60|                    HP Laptops|            23|       2000|                            HP|2001|   12|

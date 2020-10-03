@@ -15,7 +15,7 @@
 #include<cstring> //for string::functions
 #include<conio.h> //for getch funnction
 #include<stdio.h> //for remove() and rename()
-#include<stdlib.h>
+#include<stdlib.h> //for system("cls") fucntion
 #include<regex> //for regex.replace function
 
 using namespace std;
@@ -28,6 +28,7 @@ int idGenerator(string txtfile);
 
 char commonUpdate(string fileName, int itemType);
 char commonDelete(string fileName);
+char viewItems(string fileName, int startLimit, int printCount);
 
 //Lists of classes
 class item {
@@ -40,9 +41,12 @@ class item {
     size_t pos;
     char cont;
 
+    public:
+    virtual void displaySales() = 0;
+
 };
 
-class magazine : public item {
+class magazine : public item{
 
     private:
     int year, month, totalSalesUnits;
@@ -68,7 +72,15 @@ class magazine : public item {
 
         }else if(navchoice == 4) {
 
+            viewMagazine();
+
+        }else if(navchoice == 5) {
+
             displaySales();
+
+        }else if(navchoice == 6) {
+
+            //itemChoose();
 
         }
 
@@ -164,6 +176,36 @@ class magazine : public item {
 
         cout << "Passed while loop" << endl;
         choiceMag();
+
+    }
+
+    void viewMagazine() {
+
+        char choice;
+        int startLimit = 4;
+        int printCount = 10;
+
+        choice = viewItems(magFilename, startLimit, printCount);
+
+        while(choice != 'e') {
+
+            if(choice == 'n') {
+
+                startLimit = startLimit+10;
+                // printCount = printCount+5;
+                choice = viewItems(magFilename, startLimit, printCount);
+
+            }else if(choice == 'p') {
+
+                startLimit = startLimit-10;
+                //printCount = printCount-10;
+                choice = viewItems(magFilename, startLimit, printCount);
+
+            }
+
+        }
+
+    cout << "View Finished" << endl;
 
     }
 
@@ -594,35 +636,38 @@ class owner : public magazine, public book, public movie{
 
     void itemChoose() {
 
+
+        int itemchoice = 0;
+
         cout << "============Item Choosing=============" << endl;
         cout << "Magazine                             1" << endl;
         cout << "Book                                 2" << endl;
-        cout << "Movie                                3" << endl;
-
+        cout << "Movie                                3" << endl;   
+        cout << "Back                                 4" << endl;
         cout << "Select your choice: ";
-        cin >> itemchoice;
+        cin >> itemchoice;  
 
-        if(itemchoice == 1) {
+            if(itemchoice == 1) {   
 
-            cout << "\n\nRedirecting to Magazine..." << endl;
-            choiceMag();
+                cout << "\n\nRedirecting to Magazine..." << endl;
+                choiceMag();   
 
-        }else if(itemchoice == 2) {
+            }else if(itemchoice == 2) { 
 
-            cout << "\n\nRedirecting to Book..." << endl;
-            choiceBook();
+                cout << "\n\nRedirecting to Book..." << endl;
+                choiceBook(); 
 
-        }else if(itemchoice == 3) {
+            }else if(itemchoice == 3) { 
 
-            cout << "\n\nRedirecting to Movie..." << endl;
-            choiceMovie();
+                cout << "\n\nRedirecting to Movie..." << endl;
+                choiceMovie();  
 
-        }else{
+            }else{  
 
-            cout << "\n\nYou entered an invalid choice, try again mate!" << endl;
-            itemChoose();
+                cout << "\n\nYou entered an invalid choice, try again mate!" << endl;
+                itemChoose();  
 
-        }
+            }
 
     }
 
@@ -682,7 +727,9 @@ int navigation() {
     cout << "Insert Items                         1" << endl;
     cout << "Update Items                         2" << endl;
     cout << "Delete Items                         3" << endl;
-    cout << "Display Sales                        4" << endl;
+    cout << "View Items                           4" << endl;
+    cout << "Display Sales                        5" << endl;
+    cout << "Back                                 6" << endl;
   
     cout << "Select Your Choice: ";
     cin >> navchoice;
@@ -1050,4 +1097,60 @@ char commonDelete(string fileName) {
 
         }
 
+}
+
+char viewItems(string fileName, int startLimit, int printCount) {
+
+    system("CLS"); 
+
+    string line, headerLine;
+    int counter = 0;
+    int counter1 = 0;
+    int counter3 = 0;
+    int i=0;
+    char choice;
+
+    string header[4];
+
+    ifstream view;
+    view.open(fileName, ios::in);
+
+    while(getline(view, headerLine)) {
+
+        if(counter3++ <= 3) {
+
+            header[i] = headerLine;
+            i++;
+
+        }
+
+    }
+
+    view.close();
+
+        for(int z=0; z<4; z++) {
+
+            cout << header[z] << endl;
+
+        }
+
+    view.open(fileName, ios::in);
+
+    while(getline(view, line)) {
+
+        if(counter++ >= startLimit) {
+
+            if(counter1++ <= printCount) {
+
+                cout << line << endl;
+
+            }
+
+        }
+
+    }
+
+        cout << "\n[ Next Page [n]/ Previous Page [p]/ Exit [e] ] " << endl;
+        cin >> choice;
+        return choice;
 }

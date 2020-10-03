@@ -1,0 +1,7 @@
+/* Please use "Lucida Console" as font and "Regular" as font style, size is 12 */
+Shopper Account
+|----------+--------------------+--------------------|
+|Shopper Id|    Shopper Username|    Shopper Password|
+|----------+--------------------+--------------------|
+|         1|              meimei|                lulu|
+|         2|                jiji|                qiqi|
