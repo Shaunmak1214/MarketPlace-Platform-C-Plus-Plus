@@ -1385,10 +1385,33 @@ void displaySales(string fileName) {
 
 /*
 
-Reference
-string array : https://www.geeksforgeeks.org/array-strings-c-3-different-ways-create/
-delimiter : https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c
-update/delete : https://stackoverflow.com/questions/34507989/update-and-delete-data-from-file-in-c
-converting string to const char* : https://stackoverflow.com/questions/347949/how-to-convert-a-stdstring-to-const-char-or-char
+REFERENCE
+
+string::find : 
+    http://www.cplusplus.com/reference/string/string/find/
+
+istream::ignore : 
+    http://www.cplusplus.com/reference/istream/istream/ignore/ or http://www.java2s.com/Code/Cpp/File/TheignoreFunction.htm
+
+string array : 
+    https://www.geeksforgeeks.org/array-strings-c-3-different-ways-create/
+
+delimiter : 
+    https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c
+
+update/delete : 
+    https://stackoverflow.com/questions/34507989/update-and-delete-data-from-file-in-c
+
+converting string to const char* : 
+    https://stackoverflow.com/questions/347949/how-to-convert-a-stdstring-to-const-char-or-char
+
+converting string to int (stoi()function) : 
+    https://careerkarma.com/blog/c-plus-plus-string-to-int/
+
+PVF : 
+    https://www.learncpp.com/cpp-tutorial/126-pure-virtual-functions-abstract-base-classes-and-interface-classes/
+
+Fastest way to read only last line of text file : 
+    https://stackoverflow.com/questions/11876290/c-fastest-way-to-read-only-last-line-of-text-file
 
 */
