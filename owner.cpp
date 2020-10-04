@@ -15,20 +15,22 @@
 #include<cstring> //for string::functions
 #include<conio.h> //for getch funnction
 #include<stdio.h> //for remove() and rename()
-#include<stdlib.h> //for system("cls") fucntion
+#include<stdlib.h> //for system("cls") fucntion / size_t object
 #include<regex> //for regex.replace function
 
 using namespace std;
 
 //functions prototypes
 void header();
+void homeNav();
 
-int navigation();
+int navigation(string type);
 int idGenerator(string txtfile);
 
 char commonUpdate(string fileName, int itemType);
 char commonDelete(string fileName);
 char viewItems(string fileName, int startLimit, int printCount);
+void displaySales(string fileName);
 
 //Lists of classes
 class item {
@@ -42,7 +44,7 @@ class item {
     char cont;
 
     public:
-    virtual void displaySales() = 0;
+    // virtual void displaySales() = 0;
 
 };
 
@@ -52,36 +54,33 @@ class magazine : public item{
     int year, month, totalSalesUnits;
     double totalSalesAmount;
     string magFilename = "magazine.txt";
+    string recordFilename = "magazineCart.txt";
+    string itemType = "Magazine";
 
     public:
     void choiceMag() {
 
-        navchoice = navigation();
+        navchoice = navigation(itemType);
 
-        if(navchoice == 1) {
+        while(navchoice != 0) {
 
-            addMagazine();
+            switch(navchoice) {
 
-        }else if(navchoice == 2) {
+                case 1 : addMagazine(); break;
 
-            updateMagazine();
+                case 2 : updateMagazine(); break;
 
-        }else if(navchoice == 3) {
+                case 3 : deleteMagazine(); break;
 
-            deleteMagazine();
+                case 4 : viewMagazine(); break;
 
-        }else if(navchoice == 4) {
+                case 5 : dispMagSales(); break;
 
-            viewMagazine();
+                case 6 : navchoice = navigation(itemType); break;
 
-        }else if(navchoice == 5) {
-
-            displaySales();
-
-        }else if(navchoice == 6) {
-
-            //itemChoose();
-
+                case 7 : navchoice = navigation(itemType); break;
+            }
+            
         }
 
     }
@@ -125,7 +124,7 @@ class magazine : public item{
 
         }else{
 
-            addmag << "\n" << "|" << setw(11) << itemId;
+            addmag << "\n" << "|" << setw(7) << itemId;
             addmag << "|" << setw(30) << itemName;
             addmag << "|" << setw(14) << price;
             addmag << "|" << setw(11) << noUnits;
@@ -209,11 +208,11 @@ class magazine : public item{
 
     }
 
-    void displaySales() {
+    void dispMagSales() {
+
+        recordFilename = "magazineCart.txt";
         
-        cout << "=====Magazine Sales Report=====" << endl;
-        cout << "Total Sales Amount : " << totalSalesAmount << endl;
-        cout << "Total Sales Units  : " << totalSalesUnits << endl;
+        displaySales(recordFilename);
 
     }
 };
@@ -225,33 +224,35 @@ class book : public item {
     int totalSalesUnits;
     double totalSalesAmount;
     string bookFilename = "book.txt"; 
+    string recordFilename = "bookRecord.txt";
+    string itemType = "Book";
 
     public:
         void choiceBook(){
 
-        navchoice = navigation();
+            navchoice = navigation(itemType);
 
-        if(navchoice == 1) {
+            if(navchoice == 1) {
 
-            addBook();
+                addBook();
 
-        }else if(navchoice == 2) {
+            }else if(navchoice == 2) {
 
-            updateBook();
+                updateBook();
 
-        }else if(navchoice == 3) {
+            }else if(navchoice == 3) {
 
-            deleteBook();
+                deleteBook();
 
-        }else if(navchoice == 4) {
+            }else if(navchoice == 4) {
 
-            viewBook();
+                viewBook();
 
-        }else if(navchoice == 5) {
+            }else if(navchoice == 5) {
 
-            displaySales();
+                dispBookSales();
 
-        }
+            }
 
     }
 
@@ -292,7 +293,7 @@ class book : public item {
 
             addBook << "\n" << "|" << setw(7) << id;
             addBook << "|" << setw(30) << itemName;
-            addBook << "|" << setw(10) << price;
+            addBook << "|" << setw(14) << price;
             addBook << "|" << setw(11) << noUnits;
             addBook << "|" << setw(30) << itemCompany;
             addBook << "|" << setw(11) << authorName << "|";
@@ -373,11 +374,11 @@ class book : public item {
 
     }
 
-    void displaySales() {
+    void dispBookSales() {
 
-        cout << "=====Book Sales Report=====" << endl;
-        cout << "Total Sales Amount : " << totalSalesAmount << endl;
-        cout << "Total Sales Units  : " << totalSalesUnits << endl;
+        recordFilename = "bookRecord.txt";
+        
+        displaySales(recordFilename);
 
     }
 
@@ -390,11 +391,13 @@ class movie : public item {
     int totalSalesUnits;
     double totalSalesAmount;
     string movieFileName = "movie.txt";
+    string recordFileName = "movieRecord.txt";
+    string itemType = "Movie";
 
     public:
     void choiceMovie(){
 
-        navchoice = navigation();
+        navchoice = navigation(itemType);
 
         if(navchoice == 1) {
 
@@ -414,7 +417,7 @@ class movie : public item {
 
         }else if(navchoice == 5) {
 
-            displaySales();
+            dispMovieSales();
 
         }
 
@@ -455,9 +458,9 @@ class movie : public item {
 
         }else{
 
-            addMovie << "\n" << "|" << setw(8) << id;
+            addMovie << "\n" << "|" << setw(7) << id;
             addMovie << "|" << setw(30) << itemName;
-            addMovie << "|" << setw(11) << price;
+            addMovie << "|" << setw(14) << price;
             addMovie << "|" << setw(11) << noUnits;
             addMovie << "|" << setw(30) << itemCompany;
             addMovie << "|" << setw(30) << mainActorName << "|";
@@ -540,11 +543,9 @@ class movie : public item {
 
     }
         
-    void displaySales() {
-
-        cout << "=====Movie Sales Report=====" << endl;
-        cout << "Total Sales Amount : " << totalSalesAmount << endl;
-        cout << "Total Sales Units  : " << totalSalesUnits << endl;
+    void dispMovieSales() {
+        
+        displaySales(recordFileName);
 
     }
 
@@ -557,17 +558,6 @@ class owner : public magazine, public book, public movie{
     int navchoice, itemchoice;
 
     public:
-    void menu() {
-
-        cout << "====================" << endl;
-        cout << "        Menu        " << endl;
-        cout << "====================" << endl;
-        
-        cout << "Choice #1: Register" << endl;
-        cout << "Choice #2: Login   " << endl;
-        cout << "Choice #3: Exit    " << endl;
-
-    }
 
     void registration() {
 
@@ -614,9 +604,9 @@ class owner : public magazine, public book, public movie{
         int loggedin = 0;
         char cont;
 
-        cout << "\n\n===============Owner Login===============" << endl;
+        cout << "\n\n============================Owner Login============================" << endl;
 
-        cout << "Please enter your username [max words of 10] [No Space Allowed]: " << endl;
+        cout << "Please enter your username [max words of 10] [No Space Allowed]: " <<  endl;
         cin.ignore();
         getline(cin, ownerName);
 
@@ -640,46 +630,48 @@ class owner : public magazine, public book, public movie{
 
                 int counter=0;
 
-                //To read every line of the txt file
-                while(getline(logfile, line)){
-
-                    //ignoring the first 3 lines of txt files
-                    if(counter++ > 3) {
+                    //To read every line of the txt file
+                    while(getline(logfile, line)){
 
                         logfile.ignore(10, '\n');
 
-                        //STARTING OF DELIMITER
-                        //Delimiter is to delete the "|" in the line and achieve a clean line of text without the "|"
-                        string delimiter = "|";
-                        size_t pos = 0;
-                        string token, word;
+                            //ignoring the first 3 lines of txt files
+                            if(counter++ > 3) {
 
-                            while ((pos = line.find(delimiter)) != string::npos) {
+                                //logfile.ignore(10, '\n');
 
-                                token = line.substr(0, pos);
+                                //STARTING OF DELIMITER
+                                //Delimiter is to delete the "|" in the line and achieve a clean line of text without the "|"
+                                string delimiter = "|";
+                                size_t pos = 0;
+                                string token, word;
 
-                                //regex_replace function
-                                //to remove any whitespace by replacing it with a ("") null value
-                                token = regex_replace(token,regex("\\s"),"");
+                                    while ((pos = line.find(delimiter)) != string::npos) {
 
-                                word = word + token;
+                                        token = line.substr(0, pos);
 
-                                line.erase(0, pos + delimiter.length());
+                                        //regex_replace function
+                                        //to remove any whitespace by replacing it with a ("") null value
+                                        token = regex_replace(token,regex("\\s"),"");
+
+                                        word = word + token;
+
+                                        line.erase(0, pos + delimiter.length());
+
+                                    }
+                                //END OF DELIMITER
+
+                                if(word.compare(IdPassCheck) == 0){
+
+                                    cout << "You are Logged In!!!" << endl;
+                                    logfile.close();
+                                    loggedin = 1;
+
+                                }
 
                             }
-                        //END OF DELIMITER
-
-                        if(word.compare(IdPassCheck) == 0){
-
-                            cout << "You are Logged In!!!" << endl;
-                            logfile.close();
-                            loggedin = 1;
-
-                        }
 
                     }
-
-                }
 
                 if(loggedin == 1) {
 
@@ -709,12 +701,29 @@ class owner : public magazine, public book, public movie{
 
         int itemchoice = 0;
 
-        cout << "============Item Choosing=============" << endl;
-        cout << "Magazine                             1" << endl;
-        cout << "Book                                 2" << endl;
-        cout << "Movie                                3" << endl;   
-        cout << "Back                                 4" << endl;
-        cout << "Select your choice: ";
+            for(int i=0; i<40; i++) {
+
+                cout << char(177);
+
+            }
+
+        cout << "\n" << char(178) <<  "             Item Choosing            " << char(178) << endl;
+        cout << char(178) << "======================================" << char(178) << endl;
+
+        cout << char(178) << " Magazine                          1  " << char(178) << endl;
+        cout << char(178) << " Book                              2  " << char(178) << endl;
+        cout << char(178) << " Movie                             3  " << char(178) << endl;
+        cout << char(178) << " ------------------------------------ " << char(178) << endl; 
+        cout << char(178) << " Back                              4  " << char(178) << endl;  
+        cout << char(178) << " Exit                              0  " << char(178) << endl;
+
+            for(int i=0; i<40; i++) {
+
+                cout << char(177);
+
+            }
+
+        cout << "\nSelect your choice: ";
         cin >> itemchoice;  
 
             if(itemchoice == 1) {   
@@ -732,10 +741,17 @@ class owner : public magazine, public book, public movie{
                 cout << "\n\nRedirecting to Movie..." << endl;
                 choiceMovie();  
 
-            }else{  
+            }else if(itemchoice == 4){  
 
-                cout << "\n\nYou entered an invalid choice, try again mate!" << endl;
-                itemChoose();  
+                homeNav();
+
+            }else if(itemchoice == 0){
+
+                exit(0);
+
+            }else{
+
+                //menu();
 
             }
 
@@ -747,13 +763,41 @@ class owner : public magazine, public book, public movie{
 //main function
 int main() {
 
-    int choice;
-    
+    homeNav();
+
+    return 0;
+
+}
+
+//functions
+
+void homeNav() {
+
     owner o;
 
-    o.menu();
+    int choice;
+
+        for(int i=0; i<20; i++) {
+
+            cout << char(177);
+
+        }
+
+    cout << "\n" << char(178) <<  "       Menu       " << char(178) << endl;
     
-    cout << "Enter Your Choice :";
+    cout << char(178) << "==================" << char(178) << endl;
+    cout << char(178) << " Register       1 " << char(178) << endl;
+    cout << char(178) << " Login          2 " << char(178) << endl;
+    cout << char(178) << " ---------------- " << char(178) << endl;
+    cout << char(178) << " Exit           3 " << char(178) << endl;
+
+        for(int i=0; i<20; i++) {
+
+            cout << char(177);
+
+        }
+
+    cout << "\nEnter Your Choice :";
     cin >> choice;
 
     //Validation of choice making, to ensure user submit the correct choice to move on
@@ -783,32 +827,56 @@ int main() {
 
             }
 
-    return 0;
-
 }
 
-//functions
+int navigation(string type) {
 
-int navigation() {
+    system("CLS");
 
     int navchoice;
 
-    cout << "\n\n============Navigation Bar============" << endl;
-    cout << "Insert Items                         1" << endl;
-    cout << "Update Items                         2" << endl;
-    cout << "Delete Items                         3" << endl;
-    cout << "View Items                           4" << endl;
-    cout << "Display Sales                        5" << endl;
-    cout << "Back                                 6" << endl;
+        for(int i=0; i<40; i++) {
+
+            cout << char(177);
+
+        }
+
+            if(type == "Magazine") {
+
+                cout << "\n" << char(178) << "       " << type <<  " Navigation Bar        " << char(178) << endl;
+
+            }else if(type == "Book") {
+
+                cout << "\n" << char(178) << "         " << type <<  " Navigation Bar          " << char(178) << endl;
+
+            }else{
+
+                cout << "\n" << char(178) << "         " << type <<  " Navigation Bar         " << char(178) << endl;
+
+            }
+
+    cout << char(178) << "======================================" << char(178) << endl;
+    cout << char(178) << " Insert Items                      1  " << char(178) << endl;
+    cout << char(178) << " Update Items                      2  " << char(178) << endl;
+    cout << char(178) << " Delete Items                      3  " << char(178) << endl;
+    cout << char(178) << " View Items                        4  " << char(178) << endl;
+    cout << char(178) << " Display Sales                     5  " << char(178) << endl;
+    cout << char(178) << " ------------------------------------ " << char(178) << endl;
+    cout << char(178) << " Back                              6  " << char(178) << endl;
+    
+        for(int i=0; i<40; i++) {
+
+            cout << char(177);
+
+        }
   
-    cout << "Select Your Choice: ";
+    cout << "\nSelect Your Choice: ";
     cin >> navchoice;
 
-        if(!(navchoice>=1 && navchoice<=4)) {
+        if(!(navchoice>=1 && navchoice<=6)) {
 
             cout << "You entered an invalid choice...Try Again!!!" << endl;
-            navigation();
-
+            return 7;
         }
 
     return navchoice;
@@ -819,40 +887,40 @@ int idGenerator(string txtfile) {
 
     int id;
 
-        //Start of Id Auto Generator
-        ifstream checkId;
-        checkId.open(txtfile, ios::in);
+    //Start of Id Auto Generator
+    ifstream checkId;
+    checkId.open(txtfile, ios::in);
 
-            if(checkId.fail()) {
+        if(checkId.fail()) {
 
-                cout << "Auto Generate Id Function Failed..." << endl;
+            cout << "Auto Generate Id Function Failed..." << endl;
 
-            }else{
+        }else{
 
-                checkId >> id;
-                checkId.close();
+            checkId >> id;
+            checkId.close();
 
-            }
+        }
 
-        //id increment
-        id++;
+    //id increment
+    id++;
 
-        ofstream addId;
-        addId.open(txtfile);
+    ofstream addId;
+    addId.open(txtfile);
 
-            if(addId.fail()) {
+        if(addId.fail()) {
 
-                cout << "Auto Generate Id Function Failed..." << endl;
+            cout << "Auto Generate Id Function Failed..." << endl;
 
-            }else{
+        }else{
 
-                addId << id;
-                addId.close();
+            addId << id;
+            addId.close();
 
-            }
-        //End of Id Auto Generator
+        }
+    //End of Id Auto Generator
 
-        return id;
+    return id;
 
 }
 
@@ -867,43 +935,42 @@ char commonUpdate(string fileName, int itemType) {
     //converting string element to cont char * for functions (remove and rename)
     const char * cnvrFileName = fileName.c_str();
 
-        ifstream updFile;
-        updFile.open(fileName, ios::in);
+    ifstream updFile;
+    updFile.open(fileName, ios::in);
 
-        cout << "========Update Magazine Form=======" << endl;
+    cout << "========Update Magazine Form=======" << endl;
+    cout << "Item Id you want to update        :";
+    cin.ignore();
+    getline(cin, id);
 
-        cout << "Item Id you want to update        :";
-        cin.ignore();
-        getline(cin, id);
+        while(getline(updFile, line)) {
 
-            while(getline(updFile, line)) {
+            pos = line.find(id);
 
-                pos = line.find(id);
+                if(pos != string::npos) {
 
-                    if(pos != string::npos) {
+                    if(pos < 10) {
 
-                        if(pos < 15) {
+                        savedLine = line;
 
-                            savedLine = line;
+                    }else {
 
-                        }else {
+                        updFile.close();
 
-                            updFile.close();
+                        cout << id << " has found not be an Id, please enter the correct Id" << endl;
+                        cout << "Would you like to try again? [y/n] :" << endl;
+                        cin >> value;
 
-                            cout << id << " has found not be an Id, please enter the correct Id" << endl;
-                            cout << "Would you like to try again? [y/n] :" << endl;
-                            cin >> value;
-
-                            return value;
-
-                        }
+                        return value;
 
                     }
 
-            }
+                }
 
-        updFile.close();
-        value = 0;
+        }
+
+    updFile.close();
+    value = 0;
 
         if(savedLine == "") {
 
@@ -932,89 +999,89 @@ char commonUpdate(string fileName, int itemType) {
 
                 }
 
-            if(itemType == 1) {
+                if(itemType == 1) {
 
-                cout << "Magazine Name       :";
-                cin.ignore();
-                getline(cin, itemName);
+                    cout << "Magazine Name       :";
+                    cin.ignore();
+                    getline(cin, itemName);
 
-                cout << "Magazine Price      :";
-                cin >> price;
+                    cout << "Magazine Price      :";
+                    cin >> price;
 
-                cout << "Number of units     :";
-                cin >> noUnits;
+                    cout << "Number of units     :";
+                    cin >> noUnits;
 
-                cout << "Name of the company :";
-                cin.ignore();
-                getline(cin, itemCompany);
+                    cout << "Name of the company :";
+                    cin.ignore();
+                    getline(cin, itemCompany);
 
-                cout << "Year                :";
-                cin >> year;
+                    cout << "Year                :";
+                    cin >> year;
 
-                cout << "Month               :";
-                cin >> month;
+                    cout << "Month               :";
+                    cin >> month;
 
-                temp << "|" << setw(11) << id;
-                temp << "|" << setw(30) << itemName;
-                temp << "|" << setw(14) << price;
-                temp << "|" << setw(11) << noUnits;
-                temp << "|" << setw(30) << itemCompany;
-                temp << "|" << setw(4) << year;
-                temp << "|" << setw(5) << month << "|";
+                    temp << "|" << setw(7) << id;
+                    temp << "|" << setw(30) << itemName;
+                    temp << "|" << setw(14) << price;
+                    temp << "|" << setw(11) << noUnits;
+                    temp << "|" << setw(30) << itemCompany;
+                    temp << "|" << setw(4) << year;
+                    temp << "|" << setw(5) << month << "|";
 
-            }else if(itemType == 2) {
+                }else if(itemType == 2) {
 
-                cout << "Book Name           :";
-                cin.ignore();
-                getline(cin, itemName);
+                    cout << "Book Name           :";
+                    cin.ignore();
+                    getline(cin, itemName);
 
-                cout << "Book Price          :";
-                cin >> price;
+                    cout << "Book Price          :";
+                    cin >> price;
 
-                cout << "Number of units     :";
-                cin >> noUnits;
+                    cout << "Number of units     :";
+                    cin >> noUnits;
 
-                cout << "Name of the company :";
-                cin.ignore();
-                getline(cin, itemCompany);
+                    cout << "Name of the company :";
+                    cin.ignore();
+                    getline(cin, itemCompany);
 
-                cout << "Author Name         :";
-                getline(cin, authorName);
+                    cout << "Author Name         :";
+                    getline(cin, authorName);
 
-                temp << "|" << setw(7) << id;
-                temp << "|" << setw(30) << itemName;
-                temp << "|" << setw(11) << price;
-                temp << "|" << setw(11) << noUnits;
-                temp << "|" << setw(30) << itemCompany;
-                temp << "|" << setw(11) << authorName << "|";
+                    temp << "|" << setw(7) << id;
+                    temp << "|" << setw(30) << itemName;
+                    temp << "|" << setw(14) << price;
+                    temp << "|" << setw(11) << noUnits;
+                    temp << "|" << setw(30) << itemCompany;
+                    temp << "|" << setw(11) << authorName << "|";
 
-            }else{
+                }else{
 
-                cout << "Magazine Name       :";
-                cin.ignore();
-                getline(cin, itemName);
+                    cout << "Magazine Name       :";
+                    cin.ignore();
+                    getline(cin, itemName);
 
-                cout << "Magazine Price      :";
-                cin >> price;
+                    cout << "Magazine Price      :";
+                    cin >> price;
 
-                cout << "Number of units     :";
-                cin >> noUnits;
+                    cout << "Number of units     :";
+                    cin >> noUnits;
 
-                cout << "Name of the company :";
-                cin.ignore();
-                getline(cin, itemCompany);
+                    cout << "Name of the company :";
+                    cin.ignore();
+                    getline(cin, itemCompany);
 
-                cout << "Main Actor Name     :";
-                getline(cin, mainActorName);
+                    cout << "Main Actor Name     :";
+                    getline(cin, mainActorName);
 
-                temp << "|" << setw(8) << id;
-                temp << "|" << setw(30) << itemName;
-                temp << "|" << setw(11) << price;
-                temp << "|" << setw(11) << noUnits;
-                temp << "|" << setw(30) << itemCompany;
-                temp << "|" << setw(30) << mainActorName << "|";
+                    temp << "|" << setw(7) << id;
+                    temp << "|" << setw(30) << itemName;
+                    temp << "|" << setw(14) << price;
+                    temp << "|" << setw(11) << noUnits;
+                    temp << "|" << setw(30) << itemCompany;
+                    temp << "|" << setw(30) << mainActorName << "|";
 
-            }
+                }
 
             temp.close();
             inputFile.close();
@@ -1023,20 +1090,20 @@ char commonUpdate(string fileName, int itemType) {
 
                     cout << "removed " << fileName << endl; 
 
-                    if(rename("temp.txt", cnvrFileName) == 0) {
+                        if(rename("temp.txt", cnvrFileName) == 0) {
 
-                        cout << "Renamed file" << endl;
-                        cout << "Item Updated !!" << endl;
-                        value = 's';
-                        return value;
-                        exit(0);
+                            cout << "Renamed file" << endl;
+                            cout << "Item Updated !!" << endl;
+                            value = 's';
+                            return value;
+                            exit(0);
 
-                    }else{
+                        }else{
 
-                        cout << "Renamed Failed";
-                        exit(0);
+                            cout << "Renamed Failed";
+                            exit(0);
 
-                    }
+                        }
 
                 }else{
 
@@ -1058,40 +1125,40 @@ char commonDelete(string fileName) {
     //converting string element to cont char * for functions (remove and rename)
     const char * cnvrFileName = fileName.c_str();
 
-        ifstream dltMag;
-        dltMag.open(fileName, ios::in);
+    ifstream dltMag;
+    dltMag.open(fileName, ios::in);
 
-        cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is] :";
-        cin.ignore();
-        getline(cin, dltItem);
+    cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is] :";
+    cin.ignore();
+    getline(cin, dltItem);
 
-            while(getline(dltMag, line)) {
+        while(getline(dltMag, line)) {
 
-                pos = line.find(dltItem);
+            pos = line.find(dltItem);
 
-                    if(pos != string::npos) {
+                if(pos != string::npos) {
 
-                        if(pos < 15) {
+                    if(pos < 15) {
 
-                            savedLine = line;
+                        savedLine = line;
 
-                        }else {
+                    }else {
 
-                            dltMag.close();
+                        dltMag.close();
 
-                            cout << dltItem << " has found not be an Id, please enter the correct Id" << endl;
-                            cout << "Would you like to try again? [y/n] :" << endl;
-                            cin >> value;
-                            return value;
-
-                        }
+                        cout << dltItem << " has found not be an Id, please enter the correct Id" << endl;
+                        cout << "Would you like to try again? [y/n] :" << endl;
+                        cin >> value;
+                        return value;
 
                     }
-                
-            }
 
-        dltMag.close();
-        value = 0;
+                }
+            
+        }
+
+    dltMag.close();
+    value = 0;
 
         if(savedLine == "") {
 
@@ -1160,6 +1227,7 @@ char viewItems(string fileName, int startLimit, int printCount) {
     int counter = 0;
     int counter1 = 0;
     int counter3 = 0;
+    int lineCount = 0;
     int i=0;
     char choice;
 
@@ -1171,6 +1239,8 @@ char viewItems(string fileName, int startLimit, int printCount) {
     //This while loop is to get the file header and store each line into a string array
     while(getline(view, headerLine)) {
 
+        lineCount++;
+
         if(counter3++ <= 3) {
 
             header[i] = headerLine;
@@ -1181,12 +1251,21 @@ char viewItems(string fileName, int startLimit, int printCount) {
     }
     view.close();
 
+    //cout << lineCount << endl;
+
         //Output of header
         for(int z=0; z<4; z++) {
 
             cout << header[z] << endl;
 
         }
+    
+    if(startLimit > lineCount) {
+
+        cout << "Next Page Not Available" <<endl;
+        exit(0);
+
+    }
 
     //View Items
     view.open(fileName, ios::in);
@@ -1210,10 +1289,106 @@ char viewItems(string fileName, int startLimit, int printCount) {
     return choice;
 }
 
+void displaySales(string fileName) {
+
+    string line;
+    string price, units, id, companyName, name, cnvrName, cnvrCompanyName;
+    int pos = 0;
+    #define totalColumn 15
+    int counter = 0;
+    int counter1 = 0;
+    int cnvrPrice, cnvrUnits;
+    string delimeter = "|";
+    int posArr[totalColumn];
+    int i = 0;
+
+
+    int position = 0;
+
+    ifstream positionFinder;
+    positionFinder.open(fileName, ios::in);
+
+        // char str[] ="|   1001|                         Prawn|          1000|          2|                        phphph|2001|   12|";
+        // char * pch;
+        // pch = strtok (str," |");
+
+        //     while (pch != NULL)
+        //     {
+        //         printf ("%s/",pch);
+                
+        //         pch = strtok (NULL, " |");
+        //     }
+
+    //line = "";
+
+    while(getline(positionFinder, line)) {
+
+        if(counter++ > 3) {
+
+            while((pos = line.find(delimeter, position)) != string::npos) {
+
+                position = pos+1;
+                posArr[i] = pos;
+                i++; 
+
+            } 
+
+        }
+
+    }
+    
+    positionFinder.close();
+
+    i = 0;
+    // while(i < 8) {
+
+    //     cout << "Array Checking" << posArr[i] << endl;
+    //     i++;
+
+    // }
+
+    counter = 0;
+    line = "";
+
+    ifstream disp;
+    disp.open(fileName, ios::in);
+
+    cout << "pric u Namee comNam";
+
+    while(getline(disp, line)) {
+
+        //disp.ignore(40);
+
+        if(counter++ > 3) {
+
+            name = line.substr((posArr[1])+2, ((posArr[2])-(posArr[1]))-2);
+            price = line.substr((posArr[2])+2, ((posArr[3])-(posArr[2]))-1);
+            units = line.substr((posArr[3])+2, ((posArr[4])-(posArr[3]))-1);
+            companyName = line.substr((posArr[4])+2, ((posArr[5])-(posArr[4]))-2);
+            //68 30
+
+            cnvrName = regex_replace(name,regex("\\s"),"");
+            cnvrCompanyName = regex_replace(companyName,regex("\\s"),"");
+            cnvrPrice = stoi(price);
+            cnvrUnits = stoi(units);
+
+            cout << "\n" << cnvrPrice << " ";
+            cout << cnvrUnits << " ";
+            cout << cnvrName << " ";
+            cout << cnvrCompanyName << endl;
+
+        }
+
+    }
+
+}
+
 /*
+
 Reference
 string array : https://www.geeksforgeeks.org/array-strings-c-3-different-ways-create/
 delimiter : https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c
 update/delete : https://stackoverflow.com/questions/34507989/update-and-delete-data-from-file-in-c
 converting string to const char* : https://stackoverflow.com/questions/347949/how-to-convert-a-stdstring-to-const-char-or-char
+
 */

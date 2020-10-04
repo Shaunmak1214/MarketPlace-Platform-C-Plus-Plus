@@ -250,13 +250,156 @@ class shopper
 {
     private:
         string customerType = "Normal Student";
-    public:
-        void setCustomerType(int customerId)
+    public:*/
+        void addItem()
         {
-            cin.ignore();
-        }
-        friend shopper;
-};
+        	string line, savedLine;
+			size_t pos;
+			cout << "\n=========================================" << endl;
+            cout << "               Add Magazine              " << endl;
+            cout << "=========================================" << endl;
+			cout << "Enter item id: ";
+			cin.ignore();
+			getline(cin, itemCartId);
+
+			ifstream readMoFile;
+			readMoFile.open(moFile, ios::in);
+
+			if(readMoFile)
+			{
+				while(getline(readMoFile, line))
+				{
+					pos = line.find(itemCartId);
+					if(pos != string::npos)
+					{
+						if(pos<10)
+						{
+							savedLine = line;
+						}
+						else
+						{
+							readMoFile.close();
+
+							cout << itemCartId << " does not exist. Please re-enter an valid id: ";
+							getline(cin, itemCartId);
+							addItem();
+
+						}
+					}
+				}
+			}
+			else
+			{
+				cout << "Fail to open file...";
+			}
+
+			readMoFile.close();	
+
+			ofstream addMoFile;
+			addMoFile.open(moCartFile, ios::app);
+
+			if(addMoFile.is_open())
+			{
+				addMoFile << savedLine << endl;
+			}
+			else
+			{
+				cout << "Fail to open file...";
+			}
+			addMoFile.close();
+		}
+        void deleteItem()
+        {
+        	string line, savedLine;
+			size_t pos;
+			const char * cnvrFileName = moCartFile.c_str();
+			cout << "\n=========================================" << endl;
+            cout << "                Delete Book              " << endl;
+            cout << "=========================================" << endl;
+			cout << "Enter item id: ";
+			cin.ignore();
+			getline(cin, itemCartId);
+
+			ifstream readMoCartFile;
+			readMoCartFile.open(moCartFile, ios::in);
+
+			if(readMoCartFile.is_open())
+			{
+				while(getline(readMoCartFile, line))
+				{
+					pos = line.find(itemCartId);
+					if(pos != string::npos)
+					{
+						if(pos < 10)
+						{
+							savedLine = line;
+						}
+						else
+						{
+							readMoCartFile.close();
+
+							cout << itemCartId << " does not exist. Please re-enter an valid id: ";
+							getline(cin, itemCartId);
+							addItem();
+						}
+					}
+				}
+			}
+			else
+			{
+				cout << "Fail to open file...";
+			}
+			readMoCartFile.close();
+
+			if(savedLine == "")
+			{
+				cout << "Item not found" << endl;
+			}
+			else
+			{
+				line = "";
+
+				ifstream getFile;
+				getFile.open(moCartFile, ios::in);
+
+				ofstream temporarily;
+				temporarily.open("temporarily.txt");
+
+				while(getline(getFile, line))
+				{
+					if(line.compare(savedLine) != 0)
+					{
+						temporarily << line << endl;
+					}
+				}
+				getFile.close();
+				temporarily.close();
+			}
+
+			if(remove(cnvrFileName)==0)
+			{
+				cout << "Removed selected item from shopping cart. " << endl;
+
+				if(rename("temporarily.txt", cnvrFileName)==0)
+				{
+					cout << "Renamed temporarily file to original file" << endl;
+				}
+				else
+				{
+                    cout << "Renamed Failed";
+                }
+            }
+			else
+			{
+                cout << "Removed Failed";
+			}
+		}
+        void modifyItem()
+        {
+        	cout << "1417" << endl;
+		}
+
+/*};
 
 class mmuStudent : public shopper
 {

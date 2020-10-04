@@ -9,6 +9,7 @@
         "xmemory": "cpp",
         "xiosbase": "cpp",
         "regex": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "istream": "cpp"
     }
 }

@@ -1,2 +1,1 @@
 
-    int counter = 0;
