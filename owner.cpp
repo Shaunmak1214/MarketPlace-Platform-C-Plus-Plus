@@ -23,8 +23,9 @@ using namespace std;
 //functions prototypes
 void header();
 void homeNav();
+void itemChoose();
 
-int navigation(string type);
+int navigation(int type);
 int idGenerator(string txtfile);
 
 char commonUpdate(string fileName, int itemType);
@@ -44,7 +45,11 @@ class item {
     char cont;
 
     public:
-    // virtual void displaySales() = 0;
+    virtual void addItem() {}
+    virtual void updateItem() {}
+    virtual void deleteItem() {}
+    virtual void dispItem() = 0;
+    virtual void dispSales() = 0;
 
 };
 
@@ -53,39 +58,21 @@ class magazine : public item{
     private:
     int year, month, totalSalesUnits;
     double totalSalesAmount;
-    string magFilename = "magazine.txt";
-    string recordFilename = "magazineCart.txt";
-    string itemType = "Magazine";
+    string magFilename; //= "magazine.txt";
+    string recordFilename; //= "magazineRecord.txt";
+    string itemType; //= "Magazine";
 
     public:
-    void choiceMag() {
+    //constructor
+    magazine() {
 
-        navchoice = navigation(itemType);
-
-        while(navchoice != 0) {
-
-            switch(navchoice) {
-
-                case 1 : addMagazine(); break;
-
-                case 2 : updateMagazine(); break;
-
-                case 3 : deleteMagazine(); break;
-
-                case 4 : viewMagazine(); break;
-
-                case 5 : dispMagSales(); break;
-
-                case 6 : navchoice = navigation(itemType); break;
-
-                case 7 : navchoice = navigation(itemType); break;
-            }
-            
-        }
+        magFilename = "magazine.txt";
+        recordFilename = "magazineRecord.txt";
+        itemType = "Magazine";
 
     }
 
-    void addMagazine() {
+    void addItem() {
 
         int itemId;
 
@@ -135,29 +122,30 @@ class magazine : public item{
 
             cout << "Magazine item added successfully!" << endl;
 
-            choiceMag();
+            itemChoose();
 
         }
 
     }
 
-    void updateMagazine() {
+    void updateItem() {
 
         char returnValue = commonUpdate(magFilename, 1);
 
         if(returnValue == 's') {
 
             cout << "Item Updated" << endl;
+            itemChoose();
 
         }else{
 
-            choiceMag();
+            itemChoose();
 
         }
 
     }
 
-    void deleteMagazine() {
+    void deleteItem() {
 
         char returnValue = commonDelete(magFilename);
 
@@ -167,18 +155,18 @@ class magazine : public item{
 
                 case 'y' : returnValue = commonDelete(magFilename); break;
 
-                case 'n' : choiceMag();
+                case 'n' : itemChoose();
 
             }
 
         }
 
         cout << "Passed while loop" << endl;
-        choiceMag();
+        itemChoose();
 
     }
 
-    void viewMagazine() {
+    void dispItem() {
 
         char choice;
         int startLimit = 4;
@@ -204,13 +192,13 @@ class magazine : public item{
 
         }
 
-    cout << "View Finished" << endl;
+        cout << "View Finished" << endl;
+        cout << "Redirecting you back to item choosing" << endl;
+        itemChoose();
 
     }
 
-    void dispMagSales() {
-
-        recordFilename = "magazineCart.txt";
+    void dispSales() {
         
         displaySales(recordFilename);
 
@@ -223,40 +211,20 @@ class book : public item {
     string authorName;
     int totalSalesUnits;
     double totalSalesAmount;
-    string bookFilename = "book.txt"; 
-    string recordFilename = "bookRecord.txt";
-    string itemType = "Book";
+    string bookFilename; 
+    string recordFilename;
+    string itemType;
 
     public:
-        void choiceBook(){
+    book() {
 
-            navchoice = navigation(itemType);
-
-            if(navchoice == 1) {
-
-                addBook();
-
-            }else if(navchoice == 2) {
-
-                updateBook();
-
-            }else if(navchoice == 3) {
-
-                deleteBook();
-
-            }else if(navchoice == 4) {
-
-                viewBook();
-
-            }else if(navchoice == 5) {
-
-                dispBookSales();
-
-            }
+        bookFilename = "book.txt";
+        recordFilename = "bookRecord.txt";
+        itemType = "Book";
 
     }
 
-    void addBook() {
+    void addItem() {
 
         int id;
 
@@ -287,7 +255,7 @@ class book : public item {
         if(addBook.fail()) {
 
             cout << "Error writing to the file, program ends...try again!" << endl;
-            exit(1);
+            itemChoose();
 
         }else{
 
@@ -300,30 +268,33 @@ class book : public item {
             addBook.close();
 
             cout << "Book item added successfully!" << endl;
-
-            choiceBook();
+            itemChoose();
 
         }
 
     }
 
-    void updateBook() {
+    void updateItem() {
 
         char returnValue = commonUpdate(bookFilename, 2);
 
         if(returnValue == 's') {
 
             cout << "Item Updated!!" << endl;
+            cout << "Redirecting you back to item choosing" << endl;
+            itemChoose();
 
         }else {
 
-            cout << "Failed" << endl;
+            cout << "Failed to update" << endl;
+            cout << "Redirecting you back to item choosing" << endl;
+            itemChoose();
 
         }
 
     }
 
-    void deleteBook() {
+    void deleteItem() {
 
         char returnValue = commonDelete(bookFilename);
 
@@ -333,18 +304,19 @@ class book : public item {
 
                 case 'y' : returnValue = commonDelete(bookFilename); break;
 
-                case 'n' : choiceBook();
+                case 'n' : itemChoose();
 
             }
 
         }
 
         cout << "Passed while loop" << endl;
-        choiceBook();
+        cout << "Redirecting you back to item choosing" << endl;
+        itemChoose();
 
     }
 
-    void viewBook() {
+    void dispItem() {
 
         char choice;
         int startLimit = 4;
@@ -371,12 +343,12 @@ class book : public item {
         }
 
     cout << "View Finished" << endl;
+    cout << "Redirecting you back to item choosing" << endl;
+    itemChoose();
 
     }
 
-    void dispBookSales() {
-
-        recordFilename = "bookRecord.txt";
+    void dispSales() {
         
         displaySales(recordFilename);
 
@@ -390,40 +362,20 @@ class movie : public item {
     string mainActorName;
     int totalSalesUnits;
     double totalSalesAmount;
-    string movieFileName = "movie.txt";
-    string recordFileName = "movieRecord.txt";
-    string itemType = "Movie";
+    string movieFileName;
+    string recordFileName;
+    string itemType;
 
     public:
-    void choiceMovie(){
+    movie() {
 
-        navchoice = navigation(itemType);
-
-        if(navchoice == 1) {
-
-            addMovie();
-
-        }else if(navchoice == 2) {
-
-            updateMovie();
-
-        }else if(navchoice == 3) {
-
-            deleteMovie();
-
-        }else if(navchoice == 4) {
-
-            viewMovie();
-
-        }else if(navchoice == 5) {
-
-            dispMovieSales();
-
-        }
+        movieFileName = "movie.txt";
+        recordFileName = "movieRecord.txt";
+        itemType = "Movie";
 
     }
 
-    void addMovie() {
+    void addItem() {
 
         int id;
 
@@ -468,13 +420,14 @@ class movie : public item {
 
             cout << "Movie item added successfully!" << endl;
 
-            choiceMovie();
+            cout << "Redirecting you back to item choosing" << endl;
+            itemChoose();
 
         }
 
     }
 
-    void updateMovie() {
+    void updateItem() {
 
         char returnValue = commonUpdate(movieFileName, 3);
 
@@ -484,15 +437,17 @@ class movie : public item {
 
                 case 'y' : returnValue = commonUpdate(movieFileName, 3);
 
-                case 'n' : choiceMovie();
+                case 'n' : itemChoose();
 
             }
 
         }
-
+        cout << "Update Succesfull !" << endl;
+        cout << "Redirecting you back to item choosing" << endl;
+        itemChoose();
     }
 
-    void deleteMovie() {
+    void deleteItem() {
 
         char returnValue = commonDelete(movieFileName);
 
@@ -502,18 +457,19 @@ class movie : public item {
 
                 case 'y' : returnValue = commonDelete(movieFileName); break;
 
-                case 'n' : choiceMovie();
+                case 'n' : itemChoose();
 
             }
 
         }
 
         cout << "Passed while loop" << endl;
-        choiceMovie();
+        cout << "Redirecting you back to item choosing" << endl;
+        itemChoose();
 
     }
 
-    void viewMovie() {
+    void dispItem() {
 
         char choice;
         int startLimit = 4;
@@ -540,10 +496,12 @@ class movie : public item {
         }
 
     cout << "View Finished" << endl;
+    cout << "Redirecting you back to item choosing" << endl;
+    itemChoose();
 
     }
         
-    void dispMovieSales() {
+    void dispSales() {
         
         displaySales(recordFileName);
 
@@ -583,7 +541,7 @@ class owner : public magazine, public book, public movie{
             if(regfile.fail()) {
 
                 cout << "Error writing to the file, program ends...try again!" << endl;
-                exit(1);
+                exit(0);
 
             }else{
 
@@ -593,6 +551,8 @@ class owner : public magazine, public book, public movie{
                 regfile.close();
 
                 cout << "Account Registered !!!" << endl;
+                cout << "Login is Skipped !!!" << endl;
+                itemChoose();
                     
             }
 
@@ -696,67 +656,7 @@ class owner : public magazine, public book, public movie{
 
     }
 
-    void itemChoose() {
-
-
-        int itemchoice = 0;
-
-            for(int i=0; i<40; i++) {
-
-                cout << char(177);
-
-            }
-
-        cout << "\n" << char(178) <<  "             Item Choosing            " << char(178) << endl;
-        cout << char(178) << "======================================" << char(178) << endl;
-
-        cout << char(178) << " Magazine                          1  " << char(178) << endl;
-        cout << char(178) << " Book                              2  " << char(178) << endl;
-        cout << char(178) << " Movie                             3  " << char(178) << endl;
-        cout << char(178) << " ------------------------------------ " << char(178) << endl; 
-        cout << char(178) << " Back                              4  " << char(178) << endl;  
-        cout << char(178) << " Exit                              0  " << char(178) << endl;
-
-            for(int i=0; i<40; i++) {
-
-                cout << char(177);
-
-            }
-
-        cout << "\nSelect your choice: ";
-        cin >> itemchoice;  
-
-            if(itemchoice == 1) {   
-
-                cout << "\n\nRedirecting to Magazine..." << endl;
-                choiceMag();   
-
-            }else if(itemchoice == 2) { 
-
-                cout << "\n\nRedirecting to Book..." << endl;
-                choiceBook(); 
-
-            }else if(itemchoice == 3) { 
-
-                cout << "\n\nRedirecting to Movie..." << endl;
-                choiceMovie();  
-
-            }else if(itemchoice == 4){  
-
-                homeNav();
-
-            }else if(itemchoice == 0){
-
-                exit(0);
-
-            }else{
-
-                //menu();
-
-            }
-
-    }
-
+    friend void itemChoose();
 };
 
 
@@ -770,7 +670,6 @@ int main() {
 }
 
 //functions
-
 void homeNav() {
 
     owner o;
@@ -789,7 +688,7 @@ void homeNav() {
     cout << char(178) << " Register       1 " << char(178) << endl;
     cout << char(178) << " Login          2 " << char(178) << endl;
     cout << char(178) << " ---------------- " << char(178) << endl;
-    cout << char(178) << " Exit           3 " << char(178) << endl;
+    cout << char(178) << " Logout         3 " << char(178) << endl;
 
         for(int i=0; i<20; i++) {
 
@@ -826,13 +725,88 @@ void homeNav() {
                 exit(0);
 
             }
+}
+
+void itemChoose() {
+
+    int type;
+    int itemchoice = 0;
+
+        for(int i=0; i<40; i++) {
+
+            cout << char(177);
+
+        }
+
+    cout << "\n" << char(178) <<  "             Item Choosing            " << char(178) << endl;
+    cout << char(178) << "======================================" << char(178) << endl;
+
+    cout << char(178) << " Magazine                          1  " << char(178) << endl;
+    cout << char(178) << " Book                              2  " << char(178) << endl;
+    cout << char(178) << " Movie                             3  " << char(178) << endl;
+    cout << char(178) << " ------------------------------------ " << char(178) << endl; 
+    cout << char(178) << " Back                              4  " << char(178) << endl;  
+    cout << char(178) << " Exit                              0  " << char(178) << endl;
+
+        for(int i=0; i<40; i++) {
+
+            cout << char(177);
+
+        }
+
+    cout << "\nSelect your choice: ";
+    cin >> itemchoice;  
+
+        if(itemchoice == 1) {   
+
+            cout << "\n\nRedirecting to Magazine..." << endl;
+
+            type = 1;
+
+            system("pause"); 
+
+            navigation(type);
+
+        }else if(itemchoice == 2) { 
+
+            cout << "\n\nRedirecting to Book..." << endl;
+
+            type = 2;
+
+            system("pause");
+
+            navigation(type);
+
+        }else if(itemchoice == 3) { 
+
+            cout << "\n\nRedirecting to Movie..." << endl;
+
+            type = 3;
+
+            system("pause");
+
+            navigation(type);
+
+        }else if(itemchoice == 4){  
+
+            homeNav();
+
+        }else{
+
+            exit(0);
+
+        }
+
 
 }
 
-int navigation(string type) {
+int navigation(int type) {
 
     system("CLS");
 
+    magazine m;
+    book b;
+    movie mo;
     int navchoice;
 
         for(int i=0; i<40; i++) {
@@ -841,17 +815,17 @@ int navigation(string type) {
 
         }
 
-            if(type == "Magazine") {
+            if(type == 1) {
 
-                cout << "\n" << char(178) << "       " << type <<  " Navigation Bar        " << char(178) << endl;
+                cout << "\n" << char(178) << "       " << "Magazine" <<  " Navigation Bar        " << char(178) << endl;
 
-            }else if(type == "Book") {
+            }else if(type == 2) {
 
-                cout << "\n" << char(178) << "         " << type <<  " Navigation Bar          " << char(178) << endl;
+                cout << "\n" << char(178) << "         " << "Book"<<  " Navigation Bar          " << char(178) << endl;
 
             }else{
 
-                cout << "\n" << char(178) << "         " << type <<  " Navigation Bar         " << char(178) << endl;
+                cout << "\n" << char(178) << "         " << "Movie" <<  " Navigation Bar         " << char(178) << endl;
 
             }
 
@@ -873,13 +847,118 @@ int navigation(string type) {
     cout << "\nSelect Your Choice: ";
     cin >> navchoice;
 
-        if(!(navchoice>=1 && navchoice<=6)) {
+        // if(!(navchoice>=1 && navchoice<=6)) {
 
-            cout << "You entered an invalid choice...Try Again!!!" << endl;
-            return 7;
+        //     cout << "You entered an invalid choice...Try Again!!!" << endl;
+        //     itemChoose(ownerName);
+
+        // }
+    item *item1 = new magazine;
+    item *item2 = new book;
+    item *item3 = new movie;
+
+    //cout << type << endl;
+
+        switch(navchoice) {
+
+            case 1: 
+            
+                if(type == 1) { 
+
+                    item1->addItem(); 
+
+                }else if(type == 2) { 
+
+                    item2->addItem(); 
+
+                }else if(type == 3) {
+
+                    item3->addItem(); 
+                    
+                } 
+                
+                break ;
+
+            case 2: 
+            
+                if(type == 1) { 
+
+                    item1->updateItem(); 
+
+                }else if(type == 2) { 
+
+                    item2->updateItem(); 
+
+                }else if(type == 3) {
+                    
+                    item3->updateItem(); 
+                    
+                } 
+                
+                break ;
+
+            case 3: 
+
+                if(type == 1) { 
+
+                    item1->deleteItem(); 
+
+                }else if(type == 2) { 
+
+                    item2->deleteItem(); 
+
+                }else if(type == 3) {
+                    
+                    item3->deleteItem(); 
+                    
+                } 
+                
+                break ;
+
+            case 4: 
+            
+                if(type == 1) { 
+
+                    item1->dispItem(); 
+                    
+                }else if(type == 2) { 
+
+                    item2->dispItem(); 
+
+                }else if(type == 3) { 
+                    
+                    item3->dispItem(); 
+                    
+                } 
+                
+                break ;
+
+            case 5: 
+
+                if(type == 1) { 
+
+                    item1->dispSales(); 
+                    
+                }else if(type == 2) { 
+
+                    item2->dispSales(); 
+
+                }else if(type == 3) { 
+                    
+                    item3->dispSales(); 
+                    
+                } 
+                
+                break ;
+
+            case 6: 
+            
+                itemChoose(); 
+                
+                break ;
+
+            default: exit(0);
         }
-
-    return navchoice;
 
 }
 
@@ -1002,7 +1081,7 @@ char commonUpdate(string fileName, int itemType) {
                 if(itemType == 1) {
 
                     cout << "Magazine Name       :";
-                    cin.ignore();
+                    //cin.ignore();
                     getline(cin, itemName);
 
                     cout << "Magazine Price      :";
@@ -1057,11 +1136,11 @@ char commonUpdate(string fileName, int itemType) {
 
                 }else{
 
-                    cout << "Magazine Name       :";
+                    cout << "Movie Name          :";
                     cin.ignore();
                     getline(cin, itemName);
 
-                    cout << "Magazine Price      :";
+                    cout << "Movie Price         :";
                     cin >> price;
 
                     cout << "Number of units     :";
@@ -1267,6 +1346,13 @@ char viewItems(string fileName, int startLimit, int printCount) {
 
     }
 
+    if(startLimit < 14) {
+
+        cout << "You reached the most previous page possible!" << endl;
+        startLimit + 14;
+
+    }
+
     //View Items
     view.open(fileName, ios::in);
 
@@ -1319,7 +1405,6 @@ void displaySales(string fileName) {
         //         pch = strtok (NULL, " |");
         //     }
 
-    //line = "";
 
     while(getline(positionFinder, line)) {
 
@@ -1353,11 +1438,9 @@ void displaySales(string fileName) {
     ifstream disp;
     disp.open(fileName, ios::in);
 
-    cout << "pric u Namee comNam";
+    cout << "..price...units....name...cpnam";
 
     while(getline(disp, line)) {
-
-        //disp.ignore(40);
 
         if(counter++ > 3) {
 
@@ -1365,17 +1448,16 @@ void displaySales(string fileName) {
             price = line.substr((posArr[2])+2, ((posArr[3])-(posArr[2]))-1);
             units = line.substr((posArr[3])+2, ((posArr[4])-(posArr[3]))-1);
             companyName = line.substr((posArr[4])+2, ((posArr[5])-(posArr[4]))-2);
-            //68 30
 
             cnvrName = regex_replace(name,regex("\\s"),"");
             cnvrCompanyName = regex_replace(companyName,regex("\\s"),"");
             cnvrPrice = stoi(price);
             cnvrUnits = stoi(units);
 
-            cout << "\n" << cnvrPrice << " ";
-            cout << cnvrUnits << " ";
-            cout << cnvrName << " ";
-            cout << cnvrCompanyName << endl;
+            cout << "\n" << setw(7) << cnvrPrice << " ";
+            cout << setw(7) << cnvrUnits << " ";
+            cout << setw(7) << cnvrName << " ";
+            cout << setw(7) << cnvrCompanyName << endl;
 
         }
 
@@ -1384,34 +1466,23 @@ void displaySales(string fileName) {
 }
 
 /*
-
 REFERENCE
-
 string::find : 
     http://www.cplusplus.com/reference/string/string/find/
-
 istream::ignore : 
     http://www.cplusplus.com/reference/istream/istream/ignore/ or http://www.java2s.com/Code/Cpp/File/TheignoreFunction.htm
-
 string array : 
     https://www.geeksforgeeks.org/array-strings-c-3-different-ways-create/
-
 delimiter : 
     https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c
-
 update/delete : 
     https://stackoverflow.com/questions/34507989/update-and-delete-data-from-file-in-c
-
 converting string to const char* : 
     https://stackoverflow.com/questions/347949/how-to-convert-a-stdstring-to-const-char-or-char
-
 converting string to int (stoi()function) : 
     https://careerkarma.com/blog/c-plus-plus-string-to-int/
-
 PVF : 
     https://www.learncpp.com/cpp-tutorial/126-pure-virtual-functions-abstract-base-classes-and-interface-classes/
-
 Fastest way to read only last line of text file : 
     https://stackoverflow.com/questions/11876290/c-fastest-way-to-read-only-last-line-of-text-file
-
 */
