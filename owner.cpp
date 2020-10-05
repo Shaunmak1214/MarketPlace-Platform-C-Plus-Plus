@@ -31,7 +31,7 @@ int idGenerator(string txtfile);
 char commonUpdate(string fileName, int itemType);
 char commonDelete(string fileName);
 char viewItems(string fileName, int startLimit, int printCount);
-void displaySales(string fileName);
+void displaySales(string fileName, string itemType);
 
 //Lists of classes
 class item {
@@ -200,7 +200,7 @@ class magazine : public item{
 
     void dispSales() {
         
-        displaySales(recordFilename);
+        displaySales(recordFilename, itemType);
 
     }
 };
@@ -264,7 +264,7 @@ class book : public item {
             addBook << "|" << setw(14) << price;
             addBook << "|" << setw(11) << noUnits;
             addBook << "|" << setw(30) << itemCompany;
-            addBook << "|" << setw(11) << authorName << "|";
+            addBook << "|" << setw(30) << authorName << "|";
             addBook.close();
 
             cout << "Book item added successfully!" << endl;
@@ -350,7 +350,7 @@ class book : public item {
 
     void dispSales() {
         
-        displaySales(recordFilename);
+        displaySales(recordFilename, itemType);
 
     }
 
@@ -503,7 +503,7 @@ class movie : public item {
         
     void dispSales() {
         
-        displaySales(recordFileName);
+        displaySales(recordFileName, itemType);
 
     }
 
@@ -514,6 +514,7 @@ class owner : public magazine, public book, public movie{
     private:
     string ownerId, ownerPassword, ownerName, ownerCompany;
     int navchoice, itemchoice;
+    string ownerFileName = "ownerAccount.txt";
 
     public:
 
@@ -531,12 +532,14 @@ class owner : public magazine, public book, public movie{
         cout << "Please enter your new username[max words of 10] : " << endl;
         cin.ignore();
         getline(cin, ownerName);
+        ownerName = regex_replace(ownerName,regex("\\s"),"");
 
         cout << "Please enter your new password [max words of 15] : " << endl;
         getline(cin, ownerPassword);
+        ownerPassword = regex_replace(ownerPassword,regex("\\s"),"");
 
         ofstream regfile;
-        regfile.open("ownerAccount.txt", ios::app);
+        regfile.open(ownerFileName, ios::app);
 
             if(regfile.fail()) {
 
@@ -564,6 +567,8 @@ class owner : public magazine, public book, public movie{
         int loggedin = 0;
         char cont;
 
+        system("CLS");
+
         cout << "\n\n============================Owner Login============================" << endl;
 
         cout << "Please enter your username [max words of 10] [No Space Allowed]: " <<  endl;
@@ -578,7 +583,7 @@ class owner : public magazine, public book, public movie{
         system("CLS");
 
         ifstream logfile;
-        logfile.open("ownerAccount.txt", ios::in);
+        logfile.open(ownerFileName, ios::in);
 
 
             if(logfile.fail()) {
@@ -656,6 +661,111 @@ class owner : public magazine, public book, public movie{
 
     }
 
+    void updateAccount() {
+
+        string line, savedLine;
+        size_t pos;
+        int position = 0;
+
+        const char* cnvrOFN = ownerFileName.c_str();
+
+        cout << "Please key in the ID of the owner account...: ";
+        cin.ignore();
+        getline(cin, ownerId);
+
+        ifstream upd;
+        upd.open(ownerFileName, ios::in);
+
+        while(getline(upd, line)) {
+
+            pos = line.find(ownerId);
+            //cout << pos << endl;
+
+                if(pos != string::npos) {
+
+                    if(pos < 15) {
+
+                        savedLine = line;
+
+                    }
+
+                }
+
+        }
+
+        upd.close();
+
+            if(savedLine == "") {
+
+                cout << "Id not found, u might have to register an account huh? " << endl;
+                cout << "Redirecting you to main menu..." << endl;
+                system("pause");
+                homeNav();
+
+            }else{
+
+                line = "";
+
+                cout << "Id found as : " << ownerId << endl;
+
+                ifstream updateAcc;
+                updateAcc.open(ownerFileName, ios::in);
+
+                ofstream temp;
+                temp.open("temp.txt");
+
+                    while(getline(updateAcc, line)) {
+
+                        if(line.compare(savedLine) != 0) {
+
+                            temp << line << "\n";
+
+                        }
+
+                    }
+
+                cout << "================================================================" << endl;
+                cout << "                      Update Account Form" << endl;
+                cout << "================================================================" << endl;
+
+                cout << "New Username                   :";
+                getline(cin, ownerName);
+
+                cout << "New Password                   :";
+                getline(cin, ownerPassword);
+
+                temp << "|" << setw(8) << ownerId;
+                temp << "|" << setw(20) << ownerName;
+                temp << "|" << setw(20) << ownerPassword << "|";
+
+                updateAcc.close();
+                temp.close();
+
+                if(remove(cnvrOFN) == 0) {
+
+                    cout << "Original file removed" << endl;
+
+                    if(rename("temp.txt", cnvrOFN) == 0) {
+
+                        cout << "Account Updated !!!" << endl;
+                        cout << "Redirecting you to main menu..." << endl;
+                        system("pause");
+                        homeNav();
+
+                    }
+
+                }else{
+
+                    cout << "Original file removed Failed" << endl;
+                    system("pause");
+                    homeNav();
+
+                }
+
+            }
+
+    }
+
     friend void itemChoose();
 };
 
@@ -676,21 +786,22 @@ void homeNav() {
 
     int choice;
 
-        for(int i=0; i<20; i++) {
+        for(int i=0; i<29; i++) {
 
             cout << char(177);
 
         }
 
-    cout << "\n" << char(178) <<  "       Menu       " << char(178) << endl;
+    cout << "\n" << char(178) <<  "            Menu           " << char(178) << endl;
     
-    cout << char(178) << "==================" << char(178) << endl;
-    cout << char(178) << " Register       1 " << char(178) << endl;
-    cout << char(178) << " Login          2 " << char(178) << endl;
-    cout << char(178) << " ---------------- " << char(178) << endl;
-    cout << char(178) << " Logout         3 " << char(178) << endl;
+    cout << char(178) << "===========================" << char(178) << endl;
+    cout << char(178) << " Register                1 " << char(178) << endl;
+    cout << char(178) << " Login                   2 " << char(178) << endl;
+    cout << char(178) << " Update Account          3 " << char(178) << endl;
+    cout << char(178) << " ------------------------- " << char(178) << endl;
+    cout << char(178) << " Logout                  4 " << char(178) << endl;
 
-        for(int i=0; i<20; i++) {
+        for(int i=0; i<29; i++) {
 
             cout << char(177);
 
@@ -701,7 +812,7 @@ void homeNav() {
 
     //Validation of choice making, to ensure user submit the correct choice to move on
 
-        while(!(choice <= 3 && choice >= 1)) {
+        while(!(choice <= 4 && choice >= 1)) {
 
             cout << "\n\n###################ALERT#######################" << endl;
             cout << "## Please enter a valid choice (eg: 1, 2, 3) ##" << endl;
@@ -722,6 +833,10 @@ void homeNav() {
 
             }else if(choice == 3) {
 
+                o.updateAccount();
+
+            }else if(choice == 4) {
+
                 exit(0);
 
             }
@@ -731,6 +846,10 @@ void itemChoose() {
 
     int type;
     int itemchoice = 0;
+
+    item *item1 = new magazine;
+    item *item2 = new book;
+    item *item3 = new movie;
 
         for(int i=0; i<40; i++) {
 
@@ -744,6 +863,7 @@ void itemChoose() {
     cout << char(178) << " Magazine                          1  " << char(178) << endl;
     cout << char(178) << " Book                              2  " << char(178) << endl;
     cout << char(178) << " Movie                             3  " << char(178) << endl;
+    cout << char(178) << " Display All Sales                 5  " << char(178) << endl;
     cout << char(178) << " ------------------------------------ " << char(178) << endl; 
     cout << char(178) << " Back                              4  " << char(178) << endl;  
     cout << char(178) << " Exit                              0  " << char(178) << endl;
@@ -755,7 +875,7 @@ void itemChoose() {
         }
 
     cout << "\nSelect your choice: ";
-    cin >> itemchoice;  
+    cin >> itemchoice;
 
         if(itemchoice == 1) {   
 
@@ -790,6 +910,12 @@ void itemChoose() {
         }else if(itemchoice == 4){  
 
             homeNav();
+
+        }else if(itemchoice == 5){
+
+            item1->dispSales(); 
+            item2->dispSales(); 
+            item3->dispSales(); 
 
         }else{
 
@@ -1375,7 +1501,7 @@ char viewItems(string fileName, int startLimit, int printCount) {
     return choice;
 }
 
-void displaySales(string fileName) {
+void displaySales(string fileName, string itemType) {
 
     string line;
     string price, units, id, companyName, name, cnvrName, cnvrCompanyName;
@@ -1387,23 +1513,24 @@ void displaySales(string fileName) {
     string delimeter = "|";
     int posArr[totalColumn];
     int i = 0;
-
+    int z = 0;
+    int totalUnits = 0 , totalPrice = 0;
 
     int position = 0;
 
     ifstream positionFinder;
     positionFinder.open(fileName, ios::in);
 
-        // char str[] ="|   1001|                         Prawn|          1000|          2|                        phphph|2001|   12|";
-        // char * pch;
-        // pch = strtok (str," |");
+    // char str[] ="|   1001|                         Prawn|          1000|          2|                        phphph|2001|   12|";
+    // char * pch;
+    // pch = strtok (str," |");
 
-        //     while (pch != NULL)
-        //     {
-        //         printf ("%s/",pch);
-                
-        //         pch = strtok (NULL, " |");
-        //     }
+    //     while (pch != NULL)
+    //     {
+    //         printf ("%s/",pch);
+            
+    //         pch = strtok (NULL, " |");
+    //     }
 
 
     while(getline(positionFinder, line)) {
@@ -1424,13 +1551,6 @@ void displaySales(string fileName) {
     
     positionFinder.close();
 
-    i = 0;
-    // while(i < 8) {
-
-    //     cout << "Array Checking" << posArr[i] << endl;
-    //     i++;
-
-    // }
 
     counter = 0;
     line = "";
@@ -1438,7 +1558,47 @@ void displaySales(string fileName) {
     ifstream disp;
     disp.open(fileName, ios::in);
 
-    cout << "..price...units....name...cpnam";
+    for(z = 0; z<itemType.length() +4  ; z++) {
+
+        cout << char(177);
+
+    }
+
+    cout << endl;
+
+    cout << char(177) << " " << itemType << " "  << char(177) << endl;
+
+        for(int z = 0; z < 91; z++) {
+
+            cout << char(177);
+
+        }
+
+    cout << endl;
+    cout << char(177) << " ";
+
+        for(int z = 0; z < 87; z++) {
+
+            cout << "=";
+
+        }
+
+    cout << " " << char(177) << endl;
+
+    cout << char(177) << setw(30) << "Product Name" << "|";
+    cout << setw(30) << "Company Name" << "|";
+    cout << setw(11) << "No of units" << "|";
+    cout << setw(14) << "Price" << " " << char(177);
+
+    cout << "\n" << char(177) << " ";
+
+        for(int z = 0; z < 87; z++) {
+
+            cout << "=";
+
+        }
+    
+    cout << " " << char(177) ;
 
     while(getline(disp, line)) {
 
@@ -1454,14 +1614,47 @@ void displaySales(string fileName) {
             cnvrPrice = stoi(price);
             cnvrUnits = stoi(units);
 
-            cout << "\n" << setw(7) << cnvrPrice << " ";
-            cout << setw(7) << cnvrUnits << " ";
-            cout << setw(7) << cnvrName << " ";
-            cout << setw(7) << cnvrCompanyName << endl;
+            cout << "\n" << char(177) << setw(30) << cnvrName << "|";
+            cout << setw(30) << cnvrCompanyName << "|";
+            cout << setw(11) << cnvrUnits << "|";
+            cout << setw(14) << cnvrPrice << " " << char(177) << endl;
+            cout << char(177) << " ";
 
+                for(int z = 0; z < 87; z++) {
+
+                    cout << "-";
+
+                }
+
+            cout << " " << char(177);
+
+            totalUnits = totalUnits + cnvrUnits;
+            totalPrice = totalPrice + cnvrPrice;
         }
 
     }
+
+    cout << "\n" << char(177) << "                                                               " << setw(10) << totalUnits;
+    cout << setw(15) << totalPrice << " " << char(177) << endl;
+    cout << char(177) << " ";
+
+        for(int z = 0; z < 87; z++) {
+
+            cout << "-";
+
+        }
+
+    cout << " " << char(177) << endl;
+
+    cout << char(177) << "                                       End of table                                      " << char(177) << endl;
+
+        for(int z = 0; z < 91; z++) {
+
+            cout << char(177);
+
+        }
+
+    cout << "\n\n";
 
 }
 

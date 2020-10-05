@@ -2,6 +2,7 @@
 #include<fstream>
 #include<string>
 #include<iomanip>
+#include<regex>
 using namespace std;
 
 void itemChoice();
@@ -19,7 +20,6 @@ class item
 		void setCartOption(int choice)
 		{
 			cartOption = choice;
-			
 		}
 };
 
@@ -196,9 +196,183 @@ class magazine : public item
                 cout << "Removed Failed";
 			}
 		}
-        void modifyItem()
+
+        void modifyItem() {
+			
+            string line;
+            string id;
+            string storage[10];
+            string savedLine;
+            string newUnits;
+            string itemId, name, price, compName, year, month;
+            int counter = 0;
+            int pos = 0;
+            int position = 0;
+            string delimeter = "|";
+            int posArr[13];
+            int i = 0;
+			int z = 0;
+
+            cout << "Item Id u wanna update? " << endl;
+            cin.ignore();
+            getline(cin, id);
+
+            ifstream posFinder;
+            posFinder.open("shoppingCart.txt", ios::in);
+
+            while(getline(posFinder, line)) {
+
+                if(counter++ > 3) {
+                    
+                    while((pos = line.find(delimeter, position)) != string::npos) {
+
+                        position = pos+1;
+                        posArr[i] = pos;
+                        i++; 
+
+                    } 
+
+                }
+
+            }
+
+            posFinder.close();
+
+            i = 0;
+            counter = 0;
+            line = "";
+            pos = 0;
+
+            ifstream mod;
+            mod.open("shoppingCart.txt", ios::in);
+
+            if(mod.fail()){
+
+                cout << "fail to open" << endl;
+				exit(0);
+
+            }else{
+
+				//cout << "Hi" << endl;
+
+                while(getline(mod, line)) {
+
+                        if((pos = line.find(id)) != string::npos) {
+
+                            if(pos < 10) {
+
+                                savedLine = line;
+
+                            }
+
+                        }
+
+                }
+
+                mod.close();
+
+				if(savedLine == "") {
+
+                    cout << "Item Not Found" << endl;
+                    exit(0);
+
+                }else{
+
+
+                    cout << "ITEM ID FOUND" << endl;
+
+					while(z < 109) {
+
+						cout << "=";
+
+						z++;
+
+					}
+					cout << "\n" <<savedLine << endl;
+
+					z = 0;
+
+					while(z < 109) {
+
+						cout << "=";
+
+						z++;
+
+					}
+
+                    cout << "\nnew no of units :" << endl;
+                    //cin.ignore();
+                    getline(cin, newUnits);
+
+                    ifstream mod1;
+                    mod1.open("shoppingCart.txt", ios::in);   
+
+                    ofstream temp;
+                    temp.open("temp.txt");
+
+                        while(getline(mod1, line)) {
+
+                            if(line.compare(savedLine) != 0) {
+
+                                temp << line << "\n";
+
+                            }
+
+                        }
+
+                    mod1.close();
+                    //temp.close();
+
+                    //itemId, name, price, compName, year, month;
+                    itemId = savedLine.substr((posArr[0])+1, ((posArr[1]) - (posArr[0])) -1);
+                    name = savedLine.substr((posArr[1])+2, ((posArr[2]) - (posArr[1])) -2);
+                    price = savedLine.substr((posArr[2])+2, ((posArr[3]) - (posArr[2])) -2);
+                    compName = savedLine.substr((posArr[4])+2 ,((posArr[5]) - (posArr[4])) -2);
+                    year = savedLine.substr((posArr[5])+1, ((posArr[6]) - (posArr[5])) -1);
+                    month = savedLine.substr((posArr[6])+2, ((posArr[7]) - (posArr[6])) -2);
+
+					itemId = regex_replace(itemId,regex("\\s"),"");
+					name = regex_replace(name,regex("\\s"),"");
+					price = regex_replace(price,regex("\\s"),"");
+					compName = regex_replace(compName,regex("\\s"),"");
+					year = regex_replace(year,regex("\\s"),"");
+					month = regex_replace(month,regex("\\s"),"");
+
+					//ofstream temp1;
+					//temp1.open("temp.txt");
+
+						if(temp.fail()) {
+
+							cout << "failed to open" << endl;
+							exit(0);
+
+						}else{
+
+							temp << "|" <<setw(7) << itemId;
+							temp << "|" <<setw(30) << name;
+							temp << "|" <<setw(14) << price;
+							temp << "|" <<setw(11) << newUnits;
+							temp << "|" <<setw(30) << compName;
+							temp << "|" <<setw(4) << year;
+							temp << "|" <<setw(5) << month << "|" << "\n";
+
+							temp.close();
+
+							cout << "Item inserted" << endl;
+
+							remove("shoppingCart.txt");
+							rename("temp.txt" , "shoppingCart.txt");
+
+						}
+
+                }
+
+            }
+
+		}
+		void deductItem()
 		{
-			cout << "12188" << endl;
+			cout << "1218" << endl;
 		}
 };
 
@@ -379,6 +553,10 @@ class book : public item
         {
         	cout << "1317" << endl;
 		}
+		void deductItem()
+		{
+			cout << "1318" << endl;
+		}
 
 };
 
@@ -554,16 +732,344 @@ class movie : public item {
                 cout << "Removed Failed";
 			}
 		}
+
         void modifyItem()
         {
         	cout << "1417" << endl;
 		}
+		
+		void deductItem()
+		{
 
+			string line;
+			string token = "|";
+			string saved, saved1, saved2, saved3, saved4, saved5, saved6;
+			int lineCount = 0;
+			int count = 0;
+
+			size_t pos = 0;
+			int counter = 0 ;
+			int position = 0;
+			int posArr[15];
+			int i = 0;
+
+			ifstream posFinder;	
+			posFinder.open("shoppingCart.txt", ios::in);
+
+			if(!(posFinder.fail())) {
+
+				while(getline(posFinder, line)) {
+
+					if(counter++ > 3) {
+
+						while((pos = line.find(token, position)) != string::npos) {
+
+							position = pos+1;
+							posArr[i] = pos;
+							i++;
+							
+						}
+
+					lineCount++;
+
+					}
+
+				}
+
+			}else{
+
+				cout << "Failed" << endl;
+
+			}
+
+			cout << lineCount << endl;
+
+			i=0;
+
+			posFinder.close();
+
+			line = "";
+			counter = 0;
+			i = 0;
+			string* itemArr = new string [lineCount];
+			string* prodName = new string [lineCount];
+			string* price = new string [lineCount];
+			int* unitArr = new int [lineCount];
+			string* compName = new string [lineCount];
+			string* year = new string [lineCount];
+			string* month = new string [lineCount];
+
+			string cartUnitLine;
+
+			ifstream getdata;
+			getdata.open("shoppingCart.txt");
+
+				while(getline(getdata, line)) {
+
+					if(counter++ > 3) {
+
+						//cout << i << endl;
+						 saved = line.substr((posArr[0])+1, ((posArr[1])-(posArr[0]))-1);
+						saved1 = line.substr((posArr[1])+1, ((posArr[2])-(posArr[1]))-1);
+						saved2 = line.substr((posArr[2])+1, ((posArr[3])-(posArr[2]))-1);
+						saved3 = line.substr((posArr[3])+1, ((posArr[4])-(posArr[3]))-1);
+						saved4 = line.substr((posArr[4])+1, ((posArr[5])-(posArr[4]))-1);
+						saved5 = line.substr((posArr[5])+1, ((posArr[6])-(posArr[5]))-1);
+						saved6 = line.substr((posArr[6])+1, ((posArr[7])-(posArr[6]))-1);
+
+						cartUnitLine = regex_replace(saved3,regex("\\s"),"");
+
+
+						itemArr[i] = regex_replace(saved,regex("\\s"),"");
+						prodName[i] = regex_replace(saved1,regex("\\s"),"");
+						price[i] = regex_replace(saved2,regex("\\s"),"");
+						unitArr[i] = stoi(cartUnitLine);
+						compName[i] = regex_replace(saved4,regex("\\s"),"");
+						year[i] = regex_replace(saved5,regex("\\s"),"");
+						month[i] = regex_replace(saved6,regex("\\s"),"");
+
+						saved = "";
+						saved1 = "";
+						saved2 = "";
+						saved3 = "";
+						saved4 = "";
+						saved5 = "";
+						saved6 = "";
+						cartUnitLine = "";
+
+						i++;
+
+					}
+
+				}
+
+			getdata.close();
+
+			i = 0;
+
+			while(i < lineCount) {
+
+				cout << itemArr[i] << " " << prodName[i] << " " << price[i] << " " << unitArr[i] << " " << compName[i] << " " << year[i] << " " << month[i] << endl;
+				i++;
+
+			}
+
+			system("pause");
+
+			line = "";
+			saved = "";
+			i = 0;
+			pos = 0;
+			counter = 0;
+
+			int* savedPrice = new int [lineCount];
+			string* savedMagLine = new string[lineCount];
+			string priceLine;
+			string savedLine;
+
+			ifstream upd;
+			upd.open("magazine.txt");
+
+				while(getline(upd, line)) {
+
+					//cout << "hi" << endl;
+
+					if(counter++ > 3) {
+
+						while(i < lineCount) {
+
+							//cout << i << endl;
+
+							//cout << itemArr[i] << endl;
+
+							pos = line.find(itemArr[i]);
+
+							//cout << pos << endl;
+
+							if(pos != string::npos) {
+
+								if(pos < 15) {
+
+									savedMagLine[i] = line;
+
+									priceLine = line.substr((posArr[3])+1, ((posArr[4])-(posArr[3]))-1);
+									savedLine = regex_replace(priceLine,regex("\\s"),"");
+
+									savedPrice[i] = stoi(savedLine);
+
+									line = "";
+									priceLine = "";
+									savedLine = "";
+
+								}
+
+							}
+							//pos = 0;
+							
+							i++;
+						}
+						i = 0;
+					}
+					
+				}
+
+			upd.close();
+
+			for(int z = 0; z< lineCount; z++) {
+
+				cout << savedPrice[z] << endl;
+
+			}
+
+			for(int z = 0; z< lineCount; z++) {
+
+				cout << savedMagLine[z] << endl;
+
+			}
+
+			//exit(0);
+
+			i = 0;
+			line = "";
+			int trueCounter = 0;
+
+			ifstream upd1;
+			upd1.open("magazine.txt", ios::in);
+
+			ofstream write;
+			write.open("temp.txt");
+
+				while(getline(upd1, line)) {
+
+					while(i < lineCount) {
+
+						if((line.compare(savedMagLine[i])) != 0) {
+
+							cout << savedMagLine[i] << endl;
+
+							if(trueCounter < 1) {
+
+								write << line << "\n";
+								trueCounter++;
+
+							}
+
+						}
+
+						i++;
+
+					}
+
+					trueCounter = 0;
+					i = 0;
+
+				}
+
+			upd1.close();
+			write.close();
+
+
+			delete[] itemArr;
+			delete[] prodName;
+			delete[] unitArr;
+			delete[] compName;
+			delete[] year;
+			delete[] month;
+
+			delete[] savedPrice;
+			delete[] savedMagLine;
+
+		}
+
+};
+
+class payment
+{   
+	private:
+        int cardNum;
+        
+    public:
+        void checkPayment()
+        {
+            string cardNum;
+			bool checkInt;
+			char choice;
+			
+			cout << "Proceed to payment? [Enter Y or N]: ";
+			cin >> choice;
+		    
+			if(choice=='Y')
+			{
+				cout << "\nPlease enter your payment card number (10 digit): ";
+		    	cin >> cardNum;
+		    	
+				if(cardNum.length() == 10)
+			    {
+					for(int i=0; i<cardNum.length(); i++)
+					{
+						if(isdigit(cardNum[i])==false)
+						{
+							checkInt = false;
+						}
+						else
+						{
+							checkInt = true;
+						}
+					}
+				}
+				else
+				{
+					checkInt = false;
+				}
+				
+				if(checkInt == true)
+				{
+					cout << "\nTransaction completed successfully!";
+					
+					magazine ma;
+					book bo;
+					movie mo;
+					
+					item *item1 = &ma;
+					item *item2 = &bo;
+					item *item3 = &mo;
+
+					ma.deductItem();
+					bo.deductItem(); 
+					mo.deductItem();
+
+					/*ifstream deduct1;
+					deduct1.open("magazine.txt");
+
+						if(!(deduct1.fail())){
+
+							
+
+						}else{
+
+							cout << "Failed to open Magazine.txt" << endl;
+
+						}*/
+					
+				}
+				else
+				{
+					cout << "\nInvalid payment card number.";
+				}
+		    }
+		    else
+		    {
+		        exit(1);
+		    }
+		}       
 };
 
 int main()
 {
-	itemChoice(); 
+	//itemChoice();
+
+	payment p;
+	p.checkPayment();
 	
 	return 0;
 }
