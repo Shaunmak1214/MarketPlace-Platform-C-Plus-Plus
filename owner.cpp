@@ -858,7 +858,7 @@ class owner : public magazine, public book, public movie{
 
         const char* cnvrOFN = ownerFileName.c_str();
 
-        cout << "Please key in the ID of the owner account...: ";
+        cout << "\n\nPlease key in your ID to proceed update...: ";
         cin.ignore();
         getline(cin, ownerId);
 
@@ -868,11 +868,10 @@ class owner : public magazine, public book, public movie{
         while(getline(upd, line)) {
 
             pos = line.find(ownerId);
-            //cout << pos << endl;
 
                 if(pos != string::npos) {
 
-                    if(pos < 15) {
+                    if(pos < 12) {
 
                         savedLine = line;
 
@@ -886,7 +885,7 @@ class owner : public magazine, public book, public movie{
 
             if(savedLine == "") {
 
-                cout << "Id not found, u might have to register an account huh? " << endl;
+                cout << "\nId not found, u might have to register an account huh? " << endl;
                 cout << "Redirecting you to main menu..." << endl;
                 system("pause");
                 homeNav();
@@ -895,7 +894,9 @@ class owner : public magazine, public book, public movie{
 
                 line = "";
 
+                cout << "\n################" << endl;
                 cout << "Id found as : " << ownerId << endl;
+                cout << "################" << endl;
 
                 ifstream updateAcc;
                 updateAcc.open(ownerFileName, ios::in);
@@ -913,15 +914,26 @@ class owner : public magazine, public book, public movie{
 
                     }
 
-                cout << "================================================================" << endl;
+                cout << "\n\n================================================================" << endl;
                 cout << "                      Update Account Form" << endl;
                 cout << "================================================================" << endl;
 
-                cout << "New Username                   :";
+                cout << "Please enter your new username[max words of 10] : " << endl;
+                cin.ignore();
                 getline(cin, ownerName);
 
-                cout << "New Password                   :";
+                ownerName = regex_replace(ownerName,regex("\\s"),"");
+
+                cout << "Please enter your new password [max words of 15] : " << endl;
                 getline(cin, ownerPassword);
+
+                ownerPassword = regex_replace(ownerPassword,regex("\\s"),"");
+
+                cout << "\n\nComfirmation [spaces between characters is deleted]" << endl;
+                cout << "Username :" << ownerName << endl;
+                cout << "Password :" << ownerPassword << "\n\n";
+
+                system("pause");
 
                 temp << "|" << setw(8) << ownerId;
                 temp << "|" << setw(20) << ownerName;
@@ -1721,7 +1733,7 @@ char commonDelete(string fileName) {
 
                 if(pos != string::npos) {
 
-                    if(pos < 15) {
+                    if(pos < 12) {
 
                         savedLine = line;
 
