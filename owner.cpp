@@ -538,11 +538,19 @@ class owner : public magazine, public book, public movie{
         cout << "Please enter your new username[max words of 10] : " << endl;
         cin.ignore();
         getline(cin, ownerName);
+
         ownerName = regex_replace(ownerName,regex("\\s"),"");
 
         cout << "Please enter your new password [max words of 15] : " << endl;
         getline(cin, ownerPassword);
+
         ownerPassword = regex_replace(ownerPassword,regex("\\s"),"");
+
+        cout << "\n\nComfirmation [spaces between characters is deleted]" << endl;
+        cout << "Username :" << ownerName << endl;
+        cout << "Password :" << ownerPassword << "\n\n";
+
+        system("pause");
 
         ofstream regfile;
         regfile.open(ownerFileName, ios::app);
