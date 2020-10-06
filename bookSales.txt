@@ -1,0 +1,4 @@
+                  Product Name|                  Company Name|No of units|         Price|
+                           qwe|                           ewq|        123|           123|
+                           qwe|                           ewq|        123|           123|
+                                                                      246|           246|

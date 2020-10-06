@@ -31,7 +31,7 @@ int idGenerator(string txtfile);
 char commonUpdate(string fileName, int itemType);
 char commonDelete(string fileName);
 char viewItems(string fileName, int startLimit, int printCount);
-void displaySales(string fileName, string itemType);
+void displaySales(string fileName, string itemType, string salesFilename);
 
 //Lists of classes
 class item {
@@ -61,6 +61,7 @@ class magazine : public item{
     string magFilename; //= "magazine.txt";
     string recordFilename; //= "magazineRecord.txt";
     string itemType; //= "Magazine";
+    string salesFilename;
 
     public:
     //constructor
@@ -68,6 +69,7 @@ class magazine : public item{
 
         magFilename = "magazine.txt";
         recordFilename = "magazineRecord.txt";
+        salesFilename = "magSales.txt";
         itemType = "Magazine";
 
     }
@@ -200,7 +202,7 @@ class magazine : public item{
 
     void dispSales() {
         
-        displaySales(recordFilename, itemType);
+        displaySales(recordFilename, itemType, salesFilename);
 
     }
 };
@@ -214,6 +216,7 @@ class book : public item {
     string bookFilename; 
     string recordFilename;
     string itemType;
+    string salesFilename;
 
     public:
     book() {
@@ -221,6 +224,7 @@ class book : public item {
         bookFilename = "book.txt";
         recordFilename = "bookRecord.txt";
         itemType = "Book";
+        salesFilename = "bookSales.txt";
 
     }
 
@@ -350,7 +354,7 @@ class book : public item {
 
     void dispSales() {
         
-        displaySales(recordFilename, itemType);
+        displaySales(recordFilename, itemType, salesFilename);
 
     }
 
@@ -365,12 +369,14 @@ class movie : public item {
     string movieFileName;
     string recordFileName;
     string itemType;
+    string salesFilename;
 
     public:
     movie() {
 
         movieFileName = "movie.txt";
         recordFileName = "movieRecord.txt";
+        salesFilename = "movieSales.txt";
         itemType = "Movie";
 
     }
@@ -503,7 +509,7 @@ class movie : public item {
         
     void dispSales() {
         
-        displaySales(recordFileName, itemType);
+        displaySales(recordFileName, itemType, salesFilename);
 
     }
 
@@ -745,14 +751,14 @@ class owner : public magazine, public book, public movie{
 
                     cout << "Original file removed" << endl;
 
-                    if(rename("temp.txt", cnvrOFN) == 0) {
+                        if(rename("temp.txt", cnvrOFN) == 0) {
 
-                        cout << "Account Updated !!!" << endl;
-                        cout << "Redirecting you to main menu..." << endl;
-                        system("pause");
-                        homeNav();
+                            cout << "Account Updated !!!" << endl;
+                            cout << "Redirecting you to main menu..." << endl;
+                            system("pause");
+                            homeNav();
 
-                    }
+                        }
 
                 }else{
 
@@ -1501,7 +1507,7 @@ char viewItems(string fileName, int startLimit, int printCount) {
     return choice;
 }
 
-void displaySales(string fileName, string itemType) {
+void displaySales(string fileName, string itemType, string salesFilename) {
 
     string line;
     string price, units, id, companyName, name, cnvrName, cnvrCompanyName;
@@ -1514,9 +1520,9 @@ void displaySales(string fileName, string itemType) {
     int posArr[totalColumn];
     int i = 0;
     int z = 0;
-    int totalUnits = 0 , totalPrice = 0;
+    int totalUnits = 0 , totalPrice = 0, position = 0;
 
-    int position = 0;
+
 
     ifstream positionFinder;
     positionFinder.open(fileName, ios::in);
@@ -1558,11 +1564,19 @@ void displaySales(string fileName, string itemType) {
     ifstream disp;
     disp.open(fileName, ios::in);
 
-    for(z = 0; z<itemType.length() +4  ; z++) {
+    ofstream write;
+    write.open(salesFilename);
 
-        cout << char(177);
+    write << setw(30) << "Product Name" << "|";
+    write << setw(30) << "Company Name" << "|";
+    write << setw(11) << "No of units" << "|";
+    write << setw(14) << "Price" << "|";
 
-    }
+        for(z = 0; z<itemType.length() +4  ; z++) {
+
+            cout << char(177);
+
+        }
 
     cout << endl;
 
@@ -1598,7 +1612,7 @@ void displaySales(string fileName, string itemType) {
 
         }
     
-    cout << " " << char(177) ;
+    cout << " " << char(177);
 
     while(getline(disp, line)) {
 
@@ -1613,6 +1627,11 @@ void displaySales(string fileName, string itemType) {
             cnvrCompanyName = regex_replace(companyName,regex("\\s"),"");
             cnvrPrice = stoi(price);
             cnvrUnits = stoi(units);
+
+            write << "\n" << setw(30) << cnvrName << "|";
+            write << setw(30) << cnvrCompanyName << "|";
+            write << setw(11) << cnvrUnits << "|";
+            write << setw(14) << cnvrPrice << "|";
 
             cout << "\n" << char(177) << setw(30) << cnvrName << "|";
             cout << setw(30) << cnvrCompanyName << "|";
@@ -1656,12 +1675,38 @@ void displaySales(string fileName, string itemType) {
 
     cout << "\n\n";
 
+    write << "\n" << "                                                               " << setw(10) << totalUnits << "|" << setw(14) << totalPrice << "|";
+
+        if(remove(salesFilename.c_str())) {
+
+            cout << "Original file removed" << endl;
+
+                if(rename("temp.txt", salesFilename.c_str())) {
+
+                    cout << salesFilename << " Updated" << endl;
+
+                }
+
+        }else{
+
+            cout << "File removed failed" << endl;
+
+        }
+
+    disp.close();
+    write.close();
+
+    //system("pause");
+    //itemChoose();
+
 }
 
 /*
 REFERENCE
 string::find : 
     http://www.cplusplus.com/reference/string/string/find/
+string::compare :
+    http://www.cplusplus.com/reference/string/string/compare/
 istream::ignore : 
     http://www.cplusplus.com/reference/istream/istream/ignore/ or http://www.java2s.com/Code/Cpp/File/TheignoreFunction.htm
 string array : 
@@ -1678,4 +1723,8 @@ PVF :
     https://www.learncpp.com/cpp-tutorial/126-pure-virtual-functions-abstract-base-classes-and-interface-classes/
 Fastest way to read only last line of text file : 
     https://stackoverflow.com/questions/11876290/c-fastest-way-to-read-only-last-line-of-text-file
+string.h > strtok 
+    http://www.cplusplus.com/reference/cstring/strtok/
+string.h > substr()
+    https://www.geeksforgeeks.org/substring-in-cpp/
 */

@@ -1,0 +1,6 @@
+                  Product Name|                  Company Name|No of units|         Price|
+                         Prawn|                        phphph|          2|          1001|
+                          Praw|                        hehehe|          4|          1002|
+                           Pra|                        hehehe|          4|          1003|
+                            Pr|                        hehehe|          4|          1004|
+                                                                       14|          4010|
