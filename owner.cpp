@@ -30,7 +30,7 @@ int idGenerator(string txtfile);
 
 char commonUpdate(string fileName, int itemType);
 char commonDelete(string fileName);
-char viewItems(string fileName, int startLimit, int printCount);
+char viewItems(string fileName, int startLimit);
 void displaySales(string fileName, string itemType, string salesFilename);
 
 //Lists of classes
@@ -81,6 +81,7 @@ class magazine : public item{
         itemId = idGenerator(fileName);
 
         cout << "\n\n==============Add Magazine Form=============" << endl;
+
         cout << "Magazine Name [Max characters of 30]       :";
         cin.ignore();
         getline(cin, itemName);
@@ -236,29 +237,51 @@ class magazine : public item{
 
     void dispItem() {
 
+        string line;
         char choice;
         int startLimit = 4;
-        int printCount = 10;
+        int lineCount;
 
-        choice = viewItems(magFilename, startLimit, printCount);
+        ifstream view;
+        view.open(magFilename, ios::in);
 
-        while(choice != 'e') {
+            while(getline(view, line)) {
 
-            if(choice == 'n') {
-
-                startLimit = startLimit+10;
-                // printCount = printCount+5;
-                choice = viewItems(magFilename, startLimit, printCount);
-
-            }else if(choice == 'p') {
-
-                startLimit = startLimit-10;
-                //printCount = printCount-10;
-                choice = viewItems(magFilename, startLimit, printCount);
+                lineCount++;
 
             }
 
-        }
+        view.close();
+
+        choice = viewItems(magFilename, startLimit);
+
+            while(choice != 'e') {
+
+                if(choice == 'n') {
+
+                    if(startLimit <= lineCount-10) {
+
+                        startLimit = startLimit+11;
+
+                    }
+
+                    // printCount = printCount+5;
+                    choice = viewItems(magFilename, startLimit);
+
+                }else if(choice == 'p') {
+
+                    if(startLimit >= 14) {
+
+                        startLimit = startLimit-11;
+
+                    }
+                    
+                    //printCount = printCount-10;
+                    choice = viewItems(magFilename, startLimit);
+
+                }
+
+            }
 
         cout << "View Finished" << endl;
         cout << "Redirecting you back to item choosing" << endl;
@@ -439,33 +462,55 @@ class book : public item {
 
     void dispItem() {
 
+        string line;
         char choice;
         int startLimit = 4;
-        int printCount = 10;
+        int lineCount;
 
-        choice = viewItems(bookFilename, startLimit, printCount);
+        ifstream view;
+        view.open(bookFilename, ios::in);
 
-        while(choice != 'e') {
+            while(getline(view, line)) {
 
-            if(choice == 'n') {
-
-                startLimit = startLimit+10;
-                // printCount = printCount+5;
-                choice = viewItems(bookFilename, startLimit, printCount);
-
-            }else if(choice == 'p') {
-
-                startLimit = startLimit-10;
-                //printCount = printCount-10;
-                choice = viewItems(bookFilename, startLimit, printCount);
+                lineCount++;
 
             }
 
-        }
+        view.close();
 
-    cout << "View Finished" << endl;
-    cout << "Redirecting you back to item choosing" << endl;
-    itemChoose();
+        choice = viewItems(bookFilename, startLimit);
+
+            while(choice != 'e') {
+
+                if(choice == 'n') {
+
+                    if(startLimit <= lineCount-10) {
+
+                        startLimit = startLimit+11;
+
+                    }
+
+                    // printCount = printCount+5;
+                    choice = viewItems(bookFilename, startLimit);
+
+                }else if(choice == 'p') {
+
+                    if(startLimit >= 14) {
+
+                        startLimit = startLimit-11;
+
+                    }
+                    
+                    //printCount = printCount-10;
+                    choice = viewItems(bookFilename, startLimit);
+
+                }
+
+            }
+
+        cout << "View Finished" << endl;
+        cout << "Redirecting you back to item choosing" << endl;
+        itemChoose();
 
     }
 
@@ -642,33 +687,55 @@ class movie : public item {
 
     void dispItem() {
 
+        string line;
         char choice;
         int startLimit = 4;
-        int printCount = 10;
+        int lineCount;
 
-        choice = viewItems(movieFileName, startLimit, printCount);
+        ifstream view;
+        view.open(movieFileName, ios::in);
 
-        while(choice != 'e') {
+            while(getline(view, line)) {
 
-            if(choice == 'n') {
-
-                startLimit = startLimit+10;
-                // printCount = printCount+5;
-                choice = viewItems(movieFileName, startLimit, printCount);
-
-            }else if(choice == 'p') {
-
-                startLimit = startLimit-10;
-                //printCount = printCount-10;
-                choice = viewItems(movieFileName, startLimit, printCount);
+                lineCount++;
 
             }
 
-        }
+        view.close();
 
-    cout << "View Finished" << endl;
-    cout << "Redirecting you back to item choosing" << endl;
-    itemChoose();
+        choice = viewItems(movieFileName, startLimit);
+
+            while(choice != 'e') {
+
+                if(choice == 'n') {
+
+                    if(startLimit <= lineCount-10) {
+
+                        startLimit = startLimit+11;
+
+                    }
+
+                    // printCount = printCount+5;
+                    choice = viewItems(movieFileName, startLimit);
+
+                }else if(choice == 'p') {
+
+                    if(startLimit >= 14) {
+
+                        startLimit = startLimit-11;
+
+                    }
+                    
+                    //printCount = printCount-10;
+                    choice = viewItems(movieFileName, startLimit);
+
+                }
+
+            }
+
+        cout << "View Finished" << endl;
+        cout << "Redirecting you back to item choosing" << endl;
+        itemChoose();
 
     }
         
@@ -924,7 +991,7 @@ class owner : public magazine, public book, public movie{
 
                 ownerName = regex_replace(ownerName,regex("\\s"),"");
 
-                cout << "Please enter your new password [max words of 15] : " << endl;
+                cout << "\nPlease enter your new password [max words of 15] : " << endl;
                 getline(cin, ownerPassword);
 
                 ownerPassword = regex_replace(ownerPassword,regex("\\s"),"");
@@ -944,12 +1011,12 @@ class owner : public magazine, public book, public movie{
 
                 if(remove(cnvrOFN) == 0) {
 
-                    cout << "Original file removed" << endl;
+                    //cout << "Original file removed" << endl;
 
                         if(rename("temp.txt", cnvrOFN) == 0) {
 
-                            cout << "Account Updated !!!" << endl;
-                            cout << "Redirecting you to main menu..." << endl;
+                            cout << "\n\nAccount Updated !!!" << endl;
+                            cout << "Redirecting you to main menu... \n\n" << endl;
                             system("pause");
                             homeNav();
 
@@ -957,7 +1024,7 @@ class owner : public magazine, public book, public movie{
 
                 }else{
 
-                    cout << "Original file removed Failed" << endl;
+                    cout << "\nOriginal file removed Failed" << endl;
                     system("pause");
                     homeNav();
 
@@ -1814,7 +1881,7 @@ char commonDelete(string fileName) {
 
 }
 
-char viewItems(string fileName, int startLimit, int printCount) {
+char viewItems(string fileName, int startLimit) {
 
     system("CLS"); 
 
@@ -1825,28 +1892,32 @@ char viewItems(string fileName, int startLimit, int printCount) {
     int lineCount = 0;
     int i=0;
     char choice;
+    const int printCount = 10;
 
     string header[4];
 
     ifstream view;
     view.open(fileName, ios::in);
 
-    //This while loop is to get the file header and store each line into a string array
-    while(getline(view, headerLine)) {
+        //This while loop is to get the file header and store each line into a string array
+        while(getline(view, headerLine)) {
 
-        lineCount++;
+            lineCount++;
 
-        if(counter3++ <= 3) {
+            if(counter3++ <= 3) {
 
-            header[i] = headerLine;
-            i++;
+                header[i] = headerLine;
+                i++;
+
+            }
 
         }
 
-    }
     view.close();
 
-    //cout << lineCount << endl;
+    line = "";
+
+    const int startPoint = 4;
 
         //Output of header
         for(int z=0; z<4; z++) {
@@ -1855,40 +1926,31 @@ char viewItems(string fileName, int startLimit, int printCount) {
 
         }
     
-    if(startLimit > lineCount) {
-
-        cout << "Next Page Not Available" <<endl;
-        exit(0);
-
-    }
-
-    if(startLimit < 14) {
-
-        cout << "You reached the most previous page possible!" << endl;
-        startLimit + 14;
-
-    }
 
     //View Items
-    view.open(fileName, ios::in);
+    ifstream print;
+    print.open(fileName, ios::in);
 
-    while(getline(view, line)) {
+        while(getline(print, line)) {
 
-        if(counter++ >= startLimit) {
+            if(counter++ >= startLimit) {
 
-            if(counter1++ <= printCount) {
+                if(counter1++ <= printCount) {
 
-                cout << line << endl;
+                    cout << line << endl;
+
+                }
 
             }
 
         }
 
-    }
+    print.close();
 
     cout << "\n[ Next Page [n]/ Previous Page [p]/ Exit [e] ] " << endl;
     cin >> choice;
     return choice;
+
 }
 
 void displaySales(string fileName, string itemType, string salesFilename) {
@@ -2070,7 +2132,7 @@ void displaySales(string fileName, string itemType, string salesFilename) {
 
         if(remove(salesFilename.c_str())) {
 
-            cout << "Original file removed" << endl;
+            //cout << "Original file removed" << endl;
 
                 if(rename("temp.txt", salesFilename.c_str())) {
 
@@ -2089,7 +2151,6 @@ void displaySales(string fileName, string itemType, string salesFilename) {
 
     //system("pause");
     //itemChoose();
-
 }
 
 /*
