@@ -37,9 +37,9 @@ void displaySales(string fileName, string itemType, string salesFilename);
 class item {
 
     protected:
-    int itemId, noUnits, navchoice, counter;
+    int itemId, noUnits, counter;
     string itemName, itemCompany, itemType, dltItem, line, savedLine;
-    string filename = "shopItemId.txt";
+    string fileName = "shopItemId.txt";
     double price;
     size_t pos;
     char cont;
@@ -56,14 +56,13 @@ class item {
 class magazine : public item{
 
     private:
+
     int year, month, totalSalesUnits;
     double totalSalesAmount;
-    string magFilename; //= "magazine.txt";
-    string recordFilename; //= "magazineRecord.txt";
-    string itemType; //= "Magazine";
-    string salesFilename;
+    string magFilename, recordFilename, itemType, salesFilename;
 
     public:
+
     //constructor
     magazine() {
 
@@ -79,7 +78,7 @@ class magazine : public item{
         int itemId;
 
         //id generator function
-        itemId = idGenerator(filename);
+        itemId = idGenerator(fileName);
 
         cout << "\n\n==============Add Magazine Form=============" << endl;
         cout << "Magazine Name [Max characters of 30]       :";
@@ -277,15 +276,11 @@ class magazine : public item{
 class book : public item {
 
     private:
-    string authorName;
-    int totalSalesUnits;
-    double totalSalesAmount;
-    string bookFilename; 
-    string recordFilename;
-    string itemType;
-    string salesFilename;
+
+    string authorName, bookFilename, recordFilename, itemType, salesFilename;
 
     public:
+
     book() {
 
         bookFilename = "book.txt";
@@ -300,7 +295,7 @@ class book : public item {
         int id;
 
         //id generator function
-        id = idGenerator(filename);
+        id = idGenerator(fileName);
 
         cout << "========Add Book Form=======" << endl;
         cout << "Book Name [Max characters of 30]          :";
@@ -485,13 +480,7 @@ class book : public item {
 class movie : public item {
 
     private:
-    string mainActorName;
-    int totalSalesUnits;
-    double totalSalesAmount;
-    string movieFileName;
-    string recordFileName;
-    string itemType;
-    string salesFilename;
+    string mainActorName, movieFileName, recordFileName, itemType, salesFilename;
 
     public:
     movie() {
@@ -508,7 +497,7 @@ class movie : public item {
         int id;
 
         //id generator function
-        id = idGenerator(filename);
+        id = idGenerator(fileName);
 
         cout << "========Add Movie Form=======" << endl;
         cout << "Movie Name [Max characters of 30]          :";
@@ -695,7 +684,6 @@ class owner : public magazine, public book, public movie{
 
     private:
     string ownerId, ownerPassword, ownerName, ownerCompany;
-    int navchoice, itemchoice;
     string ownerFileName = "ownerAccount.txt";
 
     public:
@@ -1049,7 +1037,7 @@ int homeNav() {
 int itemChoose() {
 
     int type;
-    int itemchoice = 0;
+    int itemChoice = 0;
 
     item *item1 = new magazine;
     item *item2 = new book;
@@ -1079,9 +1067,9 @@ int itemChoose() {
         }
 
     cout << "\nSelect your choice: ";
-    cin >> itemchoice;
+    cin >> itemChoice;
 
-        if(itemchoice == 1) {   
+        if(itemChoice == 1) {   
 
             cout << "\n\nRedirecting to Magazine..." << endl;
 
@@ -1091,7 +1079,7 @@ int itemChoose() {
 
             navigation(type);
 
-        }else if(itemchoice == 2) { 
+        }else if(itemChoice == 2) { 
 
             cout << "\n\nRedirecting to Book..." << endl;
 
@@ -1101,7 +1089,7 @@ int itemChoose() {
 
             navigation(type);
 
-        }else if(itemchoice == 3) { 
+        }else if(itemChoice == 3) { 
 
             cout << "\n\nRedirecting to Movie..." << endl;
 
@@ -1111,17 +1099,17 @@ int itemChoose() {
 
             navigation(type);
 
-        }else if(itemchoice == 4){  
+        }else if(itemChoice == 4){  
 
             item1->dispSales(); 
             item2->dispSales(); 
             item3->dispSales();
 
-        }else if(itemchoice == 5){
+        }else if(itemChoice == 5){
 
             homeNav();
 
-        }else if(itemchoice == 0){
+        }else if(itemChoice == 0){
 
             exit(0);
 
@@ -1141,7 +1129,7 @@ int navigation(int type) {
     magazine m;
     book b;
     movie mo;
-    int navchoice;
+    int navChoice;
 
     item *item1 = new magazine;
     item *item2 = new book;
@@ -1183,11 +1171,11 @@ int navigation(int type) {
         }
   
     cout << "\nSelect Your Choice: ";
-    cin >> navchoice;
+    cin >> navChoice;
 
 
 
-        if(!(navchoice>=1 && navchoice<=6)) {
+        if(!(navChoice>=1 && navChoice<=6)) {
 
             cout << "\n\nYou entered an invalid choice...Try Again!!!" << endl;
             cout << "Redirecting you back to item choosing..." << "\n\n";
@@ -1195,7 +1183,7 @@ int navigation(int type) {
 
         }else{
 
-            switch(navchoice) {
+            switch(navChoice) {
 
                 case 1: 
                 
@@ -1895,16 +1883,23 @@ void displaySales(string fileName, string itemType, string salesFilename) {
 
     string line;
     string price, units, id, companyName, name, cnvrName, cnvrCompanyName;
-    int pos = 0;
+    string detector = "|";
+
     #define totalColumn 15
+
+    int cnvrUnits;
+    double cnvrPrice;
+    double totalPrice = 0;
+
+    int posArr[totalColumn];
+
+    int pos = 0;
     int counter = 0;
     int counter1 = 0;
-    int cnvrPrice, cnvrUnits;
-    string delimeter = "|";
-    int posArr[totalColumn];
     int i = 0;
     int z = 0;
-    int totalUnits = 0 , totalPrice = 0, position = 0;
+    int totalUnits = 0;
+    int position = 0;
 
 
 
@@ -1927,7 +1922,7 @@ void displaySales(string fileName, string itemType, string salesFilename) {
 
         if(counter++ > 3) {
 
-            while((pos = line.find(delimeter, position)) != string::npos) {
+            while((pos = line.find(detector, position)) != string::npos) {
 
                 position = pos+1;
                 posArr[i] = pos;
@@ -2015,12 +2010,12 @@ void displaySales(string fileName, string itemType, string salesFilename) {
             write << "\n" << setw(30) << cnvrName << "|";
             write << setw(30) << cnvrCompanyName << "|";
             write << setw(11) << cnvrUnits << "|";
-            write << setw(14) << cnvrPrice << "|";
+            write << setw(14) << setprecision(2) << fixed << cnvrPrice << "|";
 
             cout << "\n" << char(177) << setw(30) << cnvrName << "|";
             cout << setw(30) << cnvrCompanyName << "|";
             cout << setw(11) << cnvrUnits << "|";
-            cout << setw(14) << cnvrPrice << " " << char(177) << endl;
+            cout << setw(14) << setprecision(2) << fixed << cnvrPrice << " " << char(177) << endl;
             cout << char(177) << " ";
 
                 for(int z = 0; z < 87; z++) {
@@ -2038,7 +2033,7 @@ void displaySales(string fileName, string itemType, string salesFilename) {
     }
 
     cout << "\n" << char(177) << "                                                               " << setw(10) << totalUnits;
-    cout << setw(15) << totalPrice << " " << char(177) << endl;
+    cout << setw(15) << setprecision(2) << fixed << totalPrice << " " << char(177) << endl;
     cout << char(177) << " ";
 
         for(int z = 0; z < 87; z++) {
