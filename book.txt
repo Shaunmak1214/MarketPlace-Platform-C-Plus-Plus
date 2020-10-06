@@ -3,3 +3,4 @@
 |Item Id|                     Book Name|    Book Price|No units AV|                  Company Name|                   Author Name|
 |-------+------------------------------+--------------+-----------+------------------------------+------------------------------|
 |     75|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
+|     86|                  How to Basic|           200|      20010|                   Shaunmak.co|                      ShaunMak|

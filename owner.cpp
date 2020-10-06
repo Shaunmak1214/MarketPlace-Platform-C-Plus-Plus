@@ -81,26 +81,90 @@ class magazine : public item{
         //id generator function
         itemId = idGenerator(filename);
 
-        cout << "\n\n========Add Magazine Form=======" << endl;
-        cout << "Magazine Name       :";
+        cout << "\n\n==============Add Magazine Form=============" << endl;
+        cout << "Magazine Name [Max characters of 30]       :";
         cin.ignore();
         getline(cin, itemName);
 
-        cout << "Magazine Price      :";
+            while(itemName.length() > 30 || itemName.length() <= 0) {
+
+                cout << "\n\n########################## ALERT #############################" << endl;
+                cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
+                cout << "##############################################################" << endl;
+                cout << "Magazine Name [Max characters of 30]       :";
+                getline(cin, itemName);
+                cout << endl;
+
+            }
+
+        cout << "Magazine Price                             :";
         cin >> price;
 
-        cout << "Number of units     :";
-        cin >> noUnits;
+            while(price < 0) {
 
-        cout << "Name of the company :";
+                cout << "\n\n################## ALERT #####################" << endl;
+                cout << "Price cannot be a negative number...Fix It !!!" << endl;
+                cout << "##############################################" << endl;
+                cout << "Magazine Price                             :";
+                cin >> price;
+                cout << "\n";
+
+            }
+
+        cout << "Number of units                            :";
+        cin >> noUnits; 
+
+            while(noUnits < 0) {
+
+                cout << "\n\n################## ALERT #####################" << endl;
+                cout << "Units cannot be a negative number...Fix It !!!" << endl;
+                cout << "##############################################" << endl;
+                cout << "Number of units                            :";
+                cin >> noUnits;
+                cout << "\n";
+
+            }
+
+        cout << "Name of the company [Max characters of 30] :";
         cin.ignore();
         getline(cin, itemCompany);
 
-        cout << "Year                :";
+            while(itemCompany.length() > 30 || itemCompany.length() <= 0) {
+
+                cout << "\n\n########################## ALERT ################################" << endl;
+                cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
+                cout << "#################################################################" << endl;
+                cout << "Name of the company [Max characters of 30] :";
+                getline(cin, itemCompany);
+                cout << endl;
+
+            }
+
+        cout << "Year                                       :";
         cin >> year;
 
-        cout << "Month               :";
+            while(year > 9999 || year < 0) {
+
+                cout << "\n\n############## ALERT #################" << endl;
+                cout << "Year value is invalid ...Fix It !!!" << endl;
+                cout << "#######################################" << endl;
+                cout << "Year                                       :";
+                cin >> year; 
+
+            }
+
+        cout << "Month                                      :";
         cin >> month;
+
+            while(month > 12 || month < 1) {
+
+                cout << "\n\n############## ALERT #################" << endl;
+                cout << "Month value is invalid ...Fix It !!!" << endl;
+                cout << "#######################################" << endl;
+                cout << "Month                                       :";
+                cin >> month; 
+
+            }
 
         ofstream addmag;
         addmag.open("magazine.txt", ios::app);
@@ -236,22 +300,77 @@ class book : public item {
         id = idGenerator(filename);
 
         cout << "========Add Book Form=======" << endl;
-        cout << "Book Name           :";
+        cout << "Book Name [Max characters of 30]       :";
         cin.ignore();
         getline(cin, itemName);
 
-        cout << "Book Price          :";
+            while(itemName.length() > 30 || itemName.length() <= 0) {
+   
+                cout << "\n\n########################## ALERT #############################" << endl;
+                cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
+                cout << "##############################################################" << endl;
+                cout << "Book Name [Max characters of 30]       :";
+                getline(cin, itemName);
+                cout << endl;
+
+            }
+
+        cout << "Book Price                             :";
         cin >> price;
 
-        cout << "Number of units     :";
-        cin >> noUnits;
+            while(price < 0) {
 
-        cout << "Name of the company :";
+                cout << "\n\n################## ALERT #####################" << endl;
+                cout << "Price cannot be a negative number...Fix It !!!" << endl;
+                cout << "##############################################" << endl;
+                cout << "Book Price                             :";
+                cin >> price;
+                cout << "\n";
+
+            }
+
+        cout << "Number of units                            :";
+        cin >> noUnits; 
+
+            while(noUnits < 0) {
+
+                cout << "\n\n################## ALERT #####################" << endl;
+                cout << "Units cannot be a negative number...Fix It !!!" << endl;
+                cout << "##############################################" << endl;
+                cout << "Number of units                            :";
+                cin >> noUnits;
+                cout << "\n";
+
+            }
+
+        cout << "Name of the company [Max characters of 30] :";
         cin.ignore();
         getline(cin, itemCompany);
 
-        cout << "Author Name         :";
+            while(itemCompany.length() > 30 || itemCompany.length() <= 0) {
+
+                cout << "\n\n########################## ALERT ################################" << endl;
+                cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
+                cout << "#################################################################" << endl;
+                cout << "Name of the company [Max characters of 30] :";
+                getline(cin, itemCompany);
+                cout << endl;
+
+            }
+
+        cout << "Author Name [Max characters of 30]        :";
         getline(cin, authorName);
+
+            while(authorName.length() > 30 || authorName.length() <= 0) {
+
+                cout << "\n\n########################## ALERT ###############################" << endl;
+                cout << "Author name entered is either too long or too short...Fix It !!!" << endl;
+                cout << "################################################################" << endl;
+                cout << "Author Name [Max characters of 30]        :";
+                getline(cin, authorName);
+                cout << endl;
+
+            }
 
         ofstream addBook;
         addBook.open("book.txt", ios::app);
@@ -389,22 +508,77 @@ class movie : public item {
         id = idGenerator(filename);
 
         cout << "========Add Movie Form=======" << endl;
-        cout << "Movie Name           :";
+        cout << "Movie Name [Max characters of 30]       :";
         cin.ignore();
         getline(cin, itemName);
 
-        cout << "Movie Price          :";
+            while(itemName.length() > 30 || itemName.length() <= 0) {
+   
+                cout << "\n\n########################## ALERT #############################" << endl;
+                cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
+                cout << "##############################################################" << endl;
+                cout << "Movie Name [Max characters of 30]       :";
+                getline(cin, itemName);
+                cout << endl;
+
+            }
+
+        cout << "Movie Price                             :";
         cin >> price;
 
-        cout << "Number of units      :";
-        cin >> noUnits;
+            while(price < 0) {
 
-        cout << "Name of the company  :";
+                cout << "\n\n################## ALERT #####################" << endl;
+                cout << "Price cannot be a negative number...Fix It !!!" << endl;
+                cout << "##############################################" << endl;
+                cout << "Movie Price                             :";
+                cin >> price;
+                cout << "\n";
+
+            }
+
+        cout << "Number of units                         :";
+        cin >> noUnits; 
+
+            while(noUnits < 0) {
+
+                cout << "\n\n################## ALERT #####################" << endl;
+                cout << "Units cannot be a negative number...Fix It !!!" << endl;
+                cout << "##############################################" << endl;
+                cout << "Number of units                            :";
+                cin >> noUnits;
+                cout << "\n";
+
+            }
+
+        cout << "Name of the company [Max characters of 30] :";
         cin.ignore();
         getline(cin, itemCompany);
 
-        cout << "Main Actor Name      :";
+            while(itemCompany.length() > 30 || itemCompany.length() <= 0) {
+
+                cout << "\n\n########################## ALERT ################################" << endl;
+                cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
+                cout << "#################################################################" << endl;
+                cout << "Name of the company [Max characters of 30] :";
+                getline(cin, itemCompany);
+                cout << endl;
+
+            }
+
+        cout << "Main Actor Name [Max characters of 30] :";
         getline(cin, mainActorName);
+
+            while(mainActorName.length() > 30 || mainActorName.length() <= 0) {
+
+                cout << "\n\n########################## ALERT ################################" << endl;
+                cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
+                cout << "#################################################################" << endl;
+                cout << "Main Actor Name [Max characters of 30] :";
+                getline(cin, mainActorName);
+                cout << endl;
+
+            }
 
         ofstream addMovie;
         addMovie.open("movie.txt", ios::app);
