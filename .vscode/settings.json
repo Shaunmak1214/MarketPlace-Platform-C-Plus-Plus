@@ -10,6 +10,7 @@
         "xiosbase": "cpp",
         "regex": "cpp",
         "fstream": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "ios": "cpp"
     }
 }

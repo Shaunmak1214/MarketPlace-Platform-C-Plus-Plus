@@ -179,7 +179,7 @@ class magazine : public item{
 
             addmag << "\n" << "|" << setw(7) << itemId;
             addmag << "|" << setw(30) << itemName;
-            addmag << "|" << setw(14) << price;
+            addmag << "|" << setw(14) << setprecision(2) << fixed << price;
             addmag << "|" << setw(11) << noUnits;
             addmag << "|" << setw(30) << itemCompany;
             addmag << "|" << setw(4) << year;
@@ -196,15 +196,18 @@ class magazine : public item{
 
     void updateItem() {
 
-        char returnValue = commonUpdate(magFilename, 1);
+        char returnValue = commonUpdate(magFilename, 2);
 
         if(returnValue == 's') {
 
-            cout << "Item Updated" << endl;
+            cout << "Item Updated!!" << endl;
+            cout << "Redirecting you back to item choosing" << endl;
             itemChoose();
 
-        }else{
+        }else {
 
+            cout << "Failed to update" << endl;
+            cout << "Redirecting you back to item choosing" << endl;
             itemChoose();
 
         }
@@ -300,7 +303,7 @@ class book : public item {
         id = idGenerator(filename);
 
         cout << "========Add Book Form=======" << endl;
-        cout << "Book Name [Max characters of 30]       :";
+        cout << "Book Name [Max characters of 30]          :";
         cin.ignore();
         getline(cin, itemName);
 
@@ -315,7 +318,7 @@ class book : public item {
 
             }
 
-        cout << "Book Price                             :";
+        cout << "Book Price                                :";
         cin >> price;
 
             while(price < 0) {
@@ -358,7 +361,7 @@ class book : public item {
 
             }
 
-        cout << "Author Name [Max characters of 30]        :";
+        cout << "Author Name [Max characters of 30]         :";
         getline(cin, authorName);
 
             while(authorName.length() > 30 || authorName.length() <= 0) {
@@ -384,7 +387,7 @@ class book : public item {
 
             addBook << "\n" << "|" << setw(7) << id;
             addBook << "|" << setw(30) << itemName;
-            addBook << "|" << setw(14) << price;
+            addBook << "|" << setw(14) << setprecision(2) << fixed << price;
             addBook << "|" << setw(11) << noUnits;
             addBook << "|" << setw(30) << itemCompany;
             addBook << "|" << setw(30) << authorName << "|";
@@ -508,7 +511,7 @@ class movie : public item {
         id = idGenerator(filename);
 
         cout << "========Add Movie Form=======" << endl;
-        cout << "Movie Name [Max characters of 30]       :";
+        cout << "Movie Name [Max characters of 30]          :";
         cin.ignore();
         getline(cin, itemName);
 
@@ -517,13 +520,13 @@ class movie : public item {
                 cout << "\n\n########################## ALERT #############################" << endl;
                 cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
                 cout << "##############################################################" << endl;
-                cout << "Movie Name [Max characters of 30]       :";
+                cout << "Movie Name [Max characters of 30]          :";
                 getline(cin, itemName);
                 cout << endl;
 
             }
 
-        cout << "Movie Price                             :";
+        cout << "Movie Price                                :";
         cin >> price;
 
             while(price < 0) {
@@ -531,13 +534,13 @@ class movie : public item {
                 cout << "\n\n################## ALERT #####################" << endl;
                 cout << "Price cannot be a negative number...Fix It !!!" << endl;
                 cout << "##############################################" << endl;
-                cout << "Movie Price                             :";
+                cout << "Movie Price                                :";
                 cin >> price;
                 cout << "\n";
 
             }
 
-        cout << "Number of units                         :";
+        cout << "Number of units                            :";
         cin >> noUnits; 
 
             while(noUnits < 0) {
@@ -545,7 +548,7 @@ class movie : public item {
                 cout << "\n\n################## ALERT #####################" << endl;
                 cout << "Units cannot be a negative number...Fix It !!!" << endl;
                 cout << "##############################################" << endl;
-                cout << "Number of units                            :";
+                cout << "Number of units                               :";
                 cin >> noUnits;
                 cout << "\n";
 
@@ -566,7 +569,7 @@ class movie : public item {
 
             }
 
-        cout << "Main Actor Name [Max characters of 30] :";
+        cout << "Main Actor Name [Max characters of 30]     :";
         getline(cin, mainActorName);
 
             while(mainActorName.length() > 30 || mainActorName.length() <= 0) {
@@ -574,7 +577,7 @@ class movie : public item {
                 cout << "\n\n########################## ALERT ################################" << endl;
                 cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
                 cout << "#################################################################" << endl;
-                cout << "Main Actor Name [Max characters of 30] :";
+                cout << "Main Actor Name [Max characters of 30]     :";
                 getline(cin, mainActorName);
                 cout << endl;
 
@@ -592,7 +595,7 @@ class movie : public item {
 
             addMovie << "\n" << "|" << setw(7) << id;
             addMovie << "|" << setw(30) << itemName;
-            addMovie << "|" << setw(14) << price;
+            addMovie << "|" << setw(14) << setprecision(2) << fixed << price;
             addMovie << "|" << setw(11) << noUnits;
             addMovie << "|" << setw(30) << itemCompany;
             addMovie << "|" << setw(30) << mainActorName << "|";
@@ -609,22 +612,21 @@ class movie : public item {
 
     void updateItem() {
 
-        char returnValue = commonUpdate(movieFileName, 3);
+        char returnValue = commonUpdate(movieFileName, 2);
 
-        while(returnValue != 's') {
+        if(returnValue == 's') {
 
-            switch(returnValue) {
+            cout << "Item Updated!!" << endl;
+            cout << "Redirecting you back to item choosing" << endl;
+            itemChoose();
 
-                case 'y' : returnValue = commonUpdate(movieFileName, 3);
+        }else {
 
-                case 'n' : itemChoose();
-
-            }
+            cout << "Failed to update" << endl;
+            cout << "Redirecting you back to item choosing" << endl;
+            itemChoose();
 
         }
-        cout << "Update Succesfull !" << endl;
-        cout << "Redirecting you back to item choosing" << endl;
-        itemChoose();
     }
 
     void deleteItem() {
@@ -1355,8 +1357,8 @@ char commonUpdate(string fileName, int itemType) {
     ifstream updFile;
     updFile.open(fileName, ios::in);
 
-    cout << "========Update Magazine Form=======" << endl;
-    cout << "Item Id you want to update        :";
+    cout << "\n\n========Update Form=======" << endl;
+    cout << "\nItem Id you want to update        :";
     cin.ignore();
     getline(cin, id);
 
@@ -1374,11 +1376,10 @@ char commonUpdate(string fileName, int itemType) {
 
                         updFile.close();
 
-                        cout << id << " has found not be an Id, please enter the correct Id" << endl;
-                        cout << "Would you like to try again? [y/n] :" << endl;
-                        cin >> value;
+                        cout << "\n" << id << " has found not be an Id " << endl;
+                        cout << "Redirecting you back to Item Choosing..." << endl;
+                        return 'n';
 
-                        return value;
 
                     }
 
@@ -1391,12 +1392,16 @@ char commonUpdate(string fileName, int itemType) {
 
         if(savedLine == "") {
 
-            cout << "Item Not Found" << endl;
-            cout << "Do you with to continue updating? [y/n] :" << endl;
-            cin >> cont;
-            return value;
+            cout << "\n\nItem Not Found" << endl;
+            cout << "Redirecting you back to Item Choosing..." << endl;
+            return 'n';
 
         }else{
+
+            cout << "\n\n#####################################" << endl;
+            cout << id << " has been found, update allowed !!!" << endl;
+            cout << "#####################################" << endl;
+            cout << endl;
 
             line = "";
 
@@ -1418,29 +1423,93 @@ char commonUpdate(string fileName, int itemType) {
 
                 if(itemType == 1) {
 
-                    cout << "Magazine Name       :";
-                    //cin.ignore();
+                    cout << "Magazine Name [Max characters of 30]       :";
+                    cin.ignore();
                     getline(cin, itemName);
 
-                    cout << "Magazine Price      :";
+                        while(itemName.length() > 30 || itemName.length() <= 0) {
+
+                            cout << "\n\n########################## ALERT #############################" << endl;
+                            cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
+                            cout << "##############################################################" << endl;
+                            cout << "Magazine Name [Max characters of 30]       :";
+                            getline(cin, itemName);
+                            cout << endl;
+
+                        }
+
+                    cout << "Magazine Price                             :";
                     cin >> price;
 
-                    cout << "Number of units     :";
-                    cin >> noUnits;
+                        while(price < 0) {
 
-                    cout << "Name of the company :";
+                            cout << "\n\n################## ALERT #####################" << endl;
+                            cout << "Price cannot be a negative number...Fix It !!!" << endl;
+                            cout << "##############################################" << endl;
+                            cout << "Magazine Price                             :";
+                            cin >> price;
+                            cout << "\n";
+
+                        }
+
+                    cout << "Number of units                            :";
+                    cin >> noUnits; 
+
+                        while(noUnits < 0) {
+
+                            cout << "\n\n################## ALERT #####################" << endl;
+                            cout << "Units cannot be a negative number...Fix It !!!" << endl;
+                            cout << "##############################################" << endl;
+                            cout << "Number of units                            :";
+                            cin >> noUnits;
+                            cout << "\n";
+
+                        }
+
+                    cout << "Name of the company [Max characters of 30] :";
                     cin.ignore();
                     getline(cin, itemCompany);
 
-                    cout << "Year                :";
+                        while(itemCompany.length() > 30 || itemCompany.length() <= 0) {
+
+                            cout << "\n\n########################## ALERT ################################" << endl;
+                            cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
+                            cout << "#################################################################" << endl;
+                            cout << "Name of the company [Max characters of 30] :";
+                            getline(cin, itemCompany);
+                            cout << endl;
+
+                        }
+
+                    cout << "Year                                       :";
                     cin >> year;
 
-                    cout << "Month               :";
+                        while(year > 9999 || year < 0) {
+
+                            cout << "\n\n############## ALERT #################" << endl;
+                            cout << "Year value is invalid ...Fix It !!!" << endl;
+                            cout << "#######################################" << endl;
+                            cout << "Year                                       :";
+                            cin >> year; 
+
+                        }
+
+                    cout << "Month                                      :";
                     cin >> month;
+
+                        while(month > 12 || month < 1) {
+
+                            cout << "\n\n############## ALERT #################" << endl;
+                            cout << "Month value is invalid ...Fix It !!!" << endl;
+                            cout << "#######################################" << endl;
+                            cout << "Month                                       :";
+                            cin >> month; 
+
+                        }
 
                     temp << "|" << setw(7) << id;
                     temp << "|" << setw(30) << itemName;
-                    temp << "|" << setw(14) << price;
+                    temp << "|" << setw(14) << setprecision(2) << fixed << price;
                     temp << "|" << setw(11) << noUnits;
                     temp << "|" << setw(30) << itemCompany;
                     temp << "|" << setw(4) << year;
@@ -1448,52 +1517,162 @@ char commonUpdate(string fileName, int itemType) {
 
                 }else if(itemType == 2) {
 
-                    cout << "Book Name           :";
+                    cout << "Book Name [Max characters of 30]          :";
                     cin.ignore();
                     getline(cin, itemName);
 
-                    cout << "Book Price          :";
+                        while(itemName.length() > 30 || itemName.length() <= 0) {
+            
+                            cout << "\n\n########################## ALERT #############################" << endl;
+                            cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
+                            cout << "##############################################################" << endl;
+                            cout << "Book Name [Max characters of 30]       :";
+                            getline(cin, itemName);
+                            cout << endl;
+
+                        }
+
+                    cout << "Book Price                                :";
                     cin >> price;
 
-                    cout << "Number of units     :";
-                    cin >> noUnits;
+                        while(price < 0) {
 
-                    cout << "Name of the company :";
+                            cout << "\n\n################## ALERT #####################" << endl;
+                            cout << "Price cannot be a negative number...Fix It !!!" << endl;
+                            cout << "##############################################" << endl;
+                            cout << "Book Price                             :";
+                            cin >> price;
+                            cout << "\n";
+
+                        }
+
+                    cout << "Number of units                            :";
+                    cin >> noUnits; 
+
+                        while(noUnits < 0) {
+
+                            cout << "\n\n################## ALERT #####################" << endl;
+                            cout << "Units cannot be a negative number...Fix It !!!" << endl;
+                            cout << "##############################################" << endl;
+                            cout << "Number of units                            :";
+                            cin >> noUnits;
+                            cout << "\n";
+
+                        }
+
+                    cout << "Name of the company [Max characters of 30] :";
                     cin.ignore();
                     getline(cin, itemCompany);
 
-                    cout << "Author Name         :";
+                        while(itemCompany.length() > 30 || itemCompany.length() <= 0) {
+
+                            cout << "\n\n########################## ALERT ################################" << endl;
+                            cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
+                            cout << "#################################################################" << endl;
+                            cout << "Name of the company [Max characters of 30] :";
+                            getline(cin, itemCompany);
+                            cout << endl;
+
+                        }
+
+                    cout << "Author Name [Max characters of 30]         :";
                     getline(cin, authorName);
+
+                        while(authorName.length() > 30 || authorName.length() <= 0) {
+
+                            cout << "\n\n########################## ALERT ###############################" << endl;
+                            cout << "Author name entered is either too long or too short...Fix It !!!" << endl;
+                            cout << "################################################################" << endl;
+                            cout << "Author Name [Max characters of 30]        :";
+                            getline(cin, authorName);
+                            cout << endl;
+
+                        }
 
                     temp << "|" << setw(7) << id;
                     temp << "|" << setw(30) << itemName;
-                    temp << "|" << setw(14) << price;
+                    temp << "|" << setw(14) << setprecision(2) << fixed << price;
                     temp << "|" << setw(11) << noUnits;
                     temp << "|" << setw(30) << itemCompany;
                     temp << "|" << setw(11) << authorName << "|";
 
                 }else{
 
-                    cout << "Movie Name          :";
+                    cout << "Movie Name [Max characters of 30]          :";
                     cin.ignore();
                     getline(cin, itemName);
 
-                    cout << "Movie Price         :";
+                        while(itemName.length() > 30 || itemName.length() <= 0) {
+            
+                            cout << "\n\n########################## ALERT #############################" << endl;
+                            cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
+                            cout << "##############################################################" << endl;
+                            cout << "Movie Name [Max characters of 30]          :";
+                            getline(cin, itemName);
+                            cout << endl;
+
+                        }
+
+                    cout << "Movie Price                                :";
                     cin >> price;
 
-                    cout << "Number of units     :";
-                    cin >> noUnits;
+                        while(price < 0) {
 
-                    cout << "Name of the company :";
+                            cout << "\n\n################## ALERT #####################" << endl;
+                            cout << "Price cannot be a negative number...Fix It !!!" << endl;
+                            cout << "##############################################" << endl;
+                            cout << "Movie Price                                :";
+                            cin >> price;
+                            cout << "\n";
+
+                        }
+
+                    cout << "Number of units                            :";
+                    cin >> noUnits; 
+
+                        while(noUnits < 0) {
+
+                            cout << "\n\n################## ALERT #####################" << endl;
+                            cout << "Units cannot be a negative number...Fix It !!!" << endl;
+                            cout << "##############################################" << endl;
+                            cout << "Number of units                               :";
+                            cin >> noUnits;
+                            cout << "\n";
+
+                        }
+
+                    cout << "Name of the company [Max characters of 30] :";
                     cin.ignore();
                     getline(cin, itemCompany);
 
-                    cout << "Main Actor Name     :";
+                        while(itemCompany.length() > 30 || itemCompany.length() <= 0) {
+
+                            cout << "\n\n########################## ALERT ################################" << endl;
+                            cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
+                            cout << "#################################################################" << endl;
+                            cout << "Name of the company [Max characters of 30] :";
+                            getline(cin, itemCompany);
+                            cout << endl;
+
+                        }
+
+                    cout << "Main Actor Name [Max characters of 30]     :";
                     getline(cin, mainActorName);
+
+                        while(mainActorName.length() > 30 || mainActorName.length() <= 0) {
+
+                            cout << "\n\n########################## ALERT ################################" << endl;
+                            cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
+                            cout << "#################################################################" << endl;
+                            cout << "Main Actor Name [Max characters of 30]     :";
+                            getline(cin, mainActorName);
+                            cout << endl;
+
+                        }
 
                     temp << "|" << setw(7) << id;
                     temp << "|" << setw(30) << itemName;
-                    temp << "|" << setw(14) << price;
+                    temp << "|" << setw(14) << setprecision(2) << fixed << price;
                     temp << "|" << setw(11) << noUnits;
                     temp << "|" << setw(30) << itemCompany;
                     temp << "|" << setw(30) << mainActorName << "|";
@@ -1513,19 +1692,18 @@ char commonUpdate(string fileName, int itemType) {
                             cout << "Item Updated !!" << endl;
                             value = 's';
                             return value;
-                            exit(0);
 
                         }else{
 
                             cout << "Renamed Failed";
-                            exit(0);
+                            return 'n';
 
                         }
 
                 }else{
 
                     cout << "Removed Failed";
-                    exit(0);
+                    return 'n';
 
                 }
 
