@@ -41,6 +41,7 @@ class magazine : public item
 		string maRecordFile = "magazineRecord.txt";
     
     public:
+		//default constructor
 		magazine() { itemCartId=""; }
     	void viewItem()
     	{
@@ -517,6 +518,11 @@ class magazine : public item
 		{
 			string line, savedLine;
 			size_t pos;
+			int counter=0;
+			int i=0, x=0, no=0, n=1;
+			string dltChoice;
+			string headerLine;
+			string header[4];
 			cout << "\n=========================================" << endl;
             cout << "            Add Magazine Record          " << endl;
             cout << "=========================================" << endl;
@@ -525,27 +531,31 @@ class magazine : public item
 			readMaFile.open(maCartFile, ios::in);
 
 			if(readMaFile)
-			{
+			{	
 				while(getline(readMaFile, line))
-				{
-					pos = line.find(itemCartId);
-					if(pos != string::npos)
+				{	
+					if(!readMaFile.eof())
 					{
-						if(pos<10)
-						{
-							savedLine = line;
-						}
-						else
-						{
-							readMaFile.close();
-
-							cout << itemCartId << " does not exist. Please re-enter an valid id: ";
-							getline(cin, itemCartId);
-							addItem();
-
-						}
+						n++;
 					}
 				}
+				cout << n;
+				
+				line="";
+				while(getline(readMaFile, line))
+				{
+					if(x++ >3)
+					{
+						string *savedline = new string[n];
+						savedline[no] = line;
+						no++;
+					}
+				}
+				for(x=0; x<n; x++)
+				{
+					cout << savedLine[x] << endl;
+				}
+				readMaFile.close();	
 			}
 			else
 			{
@@ -554,7 +564,7 @@ class magazine : public item
 			
 			readMaFile.close();	
 
-			ofstream addMaFile;
+			/*ofstream addMaFile;
 			addMaFile.open(maCartFile, ios::app);
 
 			if(addMaFile.is_open())
@@ -566,6 +576,42 @@ class magazine : public item
 				cout << "Fail to open file...";
 			}
 			addMaFile.close();
+
+			ifstream dltFile;
+			dltFile.open(maCartFile, ios::in);
+
+			if(dltFile.is_open())
+			{
+				while(getline(dltFile, headerLine))
+				{
+					if(counter++ < 4)
+					{
+						header[i] = headerLine;
+						i++;
+					}
+				}
+			}
+			else
+			{
+				cout << "Fail to load file...";
+			}
+			dltFile.close();
+
+			ofstream insertFile;
+			insertFile.open(maCartFile);
+
+			for(int j=0; j<1; j++)
+            {
+            	insertFile << header[j];
+            }
+
+			for(int j=1; j<4; j++)
+            {
+            	insertFile << "\n" << header[j];
+            }
+			insertFile.close();*/
+
+			
 		}
 };
 
@@ -579,6 +625,7 @@ class book : public item
 	string boRecordFile = "bookRecord.txt";
 
     public:
+		//default constructor
 		book() { itemCartId=""; }
     	void viewItem()
     	{
@@ -1061,6 +1108,7 @@ class movie : public item {
 	string moRecordFile = "movieRecord.txt";
 
     public:
+		//default constructor
 		movie() { itemCartId=""; }
     	void viewItem()
     	{
@@ -1538,6 +1586,7 @@ class payment
         int cardNum;
         
     public:
+		//default constructor
 		payment() { cardNum=0; }
         void checkPayment()
         {
@@ -1623,20 +1672,21 @@ void itemChoice()
 	cout << "\n=========================================" << endl;
     cout << "         Action for Shopping Cart        " << endl;
     cout << "=========================================" << endl;
-    cout << "             1. View Item                " << endl;
-    cout << "             2. Add Item                 " << endl;
-    cout << "             3. Delete Item              " << endl;
-    cout << "             4. Modify Item              " << endl;
-	cout << "             5. Display Record           " << endl;
-	cout << "             6. Clear Record             " << endl;
-	cout << "             7. Clear Cart               " << endl;
+    cout << "         1. View Cart Item               " << endl;
+    cout << "         2. Add Cart Item                " << endl;
+    cout << "         3. Delete Cart Item             " << endl;
+    cout << "         4. Modify Cart Item             " << endl;
+	cout << "         5. Clear Cart Item              " << endl;
+	cout << "         6. Display Shopping Record      " << endl;
+	cout << "         7. Clear Shopping Record        " << endl;
+	//cout << "         8. Add Shopping Record        " << endl;
 	cout << "=========================================" << endl;
 	cout << "             [Press 0] Exit              " << endl;
 	cout << "........................................." << endl << endl;
 	cout << "Choose an option [Enter 1, 2... or 7]: ";
 	cin >> cartOption;
 	
-	while(!(cartOption>=0 && cartOption<=7))
+	while(!(cartOption>=0 && cartOption<=8))
 	{
 		cout << "\nInvalid option for shopping cart!" << endl;
 		cout << "Please enter an valid option: ";
@@ -1674,11 +1724,13 @@ void itemChoice()
 				else if(cartOption==4)
 				{ ma.modifyItem(); }
 				else if(cartOption==5)
-				{ ma.viewRecord(); }
-				else if(cartOption==6)
-				{ ma.clearRecord(); }
-				else if(cartOption==7)
 				{ ma.clearCart(); }
+				else if(cartOption==6)
+				{ ma.viewRecord(); }
+				else if(cartOption==7)
+				{ ma.clearRecord(); }
+				else if(cartOption==8)
+				{ ma.addRecord(); }
 				break;
 		case 2: item2->setCartOption(cartOption); 
 				if(cartOption==1)
@@ -1690,11 +1742,11 @@ void itemChoice()
 				else if(cartOption==4)
 				{ bo.modifyItem(); }
 				else if(cartOption==5)
-				{ bo.viewRecord(); }
-				else if(cartOption==6)
-				{ bo.clearRecord(); }
-				else if(cartOption==7)
 				{ bo.clearCart(); }
+				else if(cartOption==6)
+				{ bo.viewRecord(); }
+				else if(cartOption==7)
+				{ bo.clearRecord(); }
 				break;
 		case 3: item3->setCartOption(cartOption); 
 				if(cartOption==1)
@@ -1706,11 +1758,11 @@ void itemChoice()
 				else if(cartOption==4)
 				{ mo.modifyItem(); }
 				else if(cartOption==5)
-				{ mo.viewRecord(); }
-				else if(cartOption==6)
-				{ mo.clearRecord(); }
-				else if(cartOption==7)
 				{ mo.clearCart(); }
+				else if(cartOption==6)
+				{ mo.viewRecord(); }
+				else if(cartOption==7)
+				{ mo.clearRecord(); }
 				break;
 		case 0: exit(0);
 		default: cout << "Invalid option!"; 

@@ -8,3 +8,4 @@ Magazine Shopping Cart
 |   1007|                         Prawn|          1000|          2|                        phphph|2001|   12|
 |   1008|                         Prawn|          1000|          2|                        phphph|2001|   12|
 |   1005|                         Prawn|          1000|          6|                        phphph|2001|   12|
+|   1000|                         Prawn|          1000|          6|                        phphph|2001|   12|

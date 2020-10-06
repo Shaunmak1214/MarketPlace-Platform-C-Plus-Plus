@@ -847,12 +847,12 @@ class movie : public item {
 
 			i = 0;
 
-			while(i < lineCount) {
+			// while(i < lineCount) {
 
-				cout << itemArr[i] << " " << prodName[i] << " " << price[i] << " " << unitArr[i] << " " << compName[i] << " " << year[i] << " " << month[i] << endl;
-				i++;
+			// 	cout << itemArr[i] << " " << prodName[i] << " " << price[i] << " " << unitArr[i] << " " << compName[i] << " " << year[i] << " " << month[i] << endl;
+			// 	i++;
 
-			}
+			// }
 
 			system("pause");
 
@@ -866,6 +866,8 @@ class movie : public item {
 			string* savedMagLine = new string[lineCount];
 			string priceLine;
 			string savedLine;
+
+			int checkLineCount = 0;
 
 			ifstream upd;
 			upd.open("magazine.txt");
@@ -910,14 +912,14 @@ class movie : public item {
 						}
 						i = 0;
 					}
-					
+					checkLineCount++;
 				}
 
 			upd.close();
 
 			for(int z = 0; z< lineCount; z++) {
 
-				cout << savedPrice[z] << endl;
+				//cout << savedPrice[z] << endl;
 
 			}
 
@@ -927,7 +929,7 @@ class movie : public item {
 
 			}
 
-			//exit(0);
+			system("pause");
 
 			i = 0;
 			line = "";
@@ -939,34 +941,161 @@ class movie : public item {
 			ofstream write;
 			write.open("temp.txt");
 
+			string* check = new string[checkLineCount];
+			string* sav = new string[checkLineCount];
+			string* skip = new string[checkLineCount];
+			int exist = 0;
+			int z = 0;
+
+				// while(getline(upd1, line)) {
+
+				// 	while(i < lineCount) {
+
+				// 		if((line.compare(savedMagLine[i])) != 0) {
+
+				// 			cout << savedMagLine[i] << endl;
+
+				// 			if(trueCounter < 1) {
+
+				// 				//if((line.compare(savedMagLine[i])) != 0) {
+
+				// 					write << line << "\n";
+				// 					trueCounter++;
+
+				// 				//}
+
+				// 			}
+
+				// 		}
+				// 		i++;
+				// 	}
+				// 	trueCounter = 0;
+				// 	i = 0;
+				// }
 				while(getline(upd1, line)) {
 
-					while(i < lineCount) {
+					if(i++ <= checkLineCount){
 
-						if((line.compare(savedMagLine[i])) != 0) {
+						if(line.compare(savedMagLine[i]) != 0 ) {
 
-							cout << savedMagLine[i] << endl;
+							check[z] = line;
+							//cout << line << endl;
+							
+							//i++;
 
-							if(trueCounter < 1) {
+							cout << exist << endl;
+							cout << check[z] << endl;
 
-								write << line << "\n";
-								trueCounter++;
+							//line="";
+						}else{
 
-							}
+							skip[z] = line;
+							cout << "******" << "\n" << skip[z] << endl;
+							exist++;
 
 						}
-
-						i++;
+						
 
 					}
 
-					trueCounter = 0;
 					i = 0;
+					z++;
+					line="";
 
 				}
 
+				if(exist>0) {
+
+							cout << "byebye! ";
+							//for(int i = 0; i < checkLineCount; i++) {
+							
+								//cout << skip[i] << endl;
+
+							//}
+
+
+						}else{
+
+							for(int i = 0; i < checkLineCount; i++) {
+								
+								cout << sav[i] << endl;
+
+							}
+
+						} 		
+
+
+				/*while(getline(upd1, line)) {
+
+					check[i] = line;
+
+					i++;
+
+				}
+
+				for(int i = 0; i < checkLineCount; i++) {
+
+					for(int z = 0; z < lineCount ; z++) {
+
+						if(check[i].compare(savedMagLine[i]) != 0 ) {
+
+							sav[i] = check[i];
+							exist++;
+
+						}
+						else if(check[i].compare(savedMagLine[i]) == 0 ) {
+							skip[i] = check[i];
+							cout << check[i];
+						}
+
+					}
+					
+
+						if(exist>0) {
+
+							cout << "byebye! ";
+							//for(int i = 0; i < checkLineCount; i++) {
+							
+								//cout << skip[i] << endl;
+
+							//}
+
+
+						}else{
+
+							for(int i = 0; i < checkLineCount; i++) {
+								
+								cout << sav[i] << endl;
+
+							}
+
+						} 
+
+				}*/
+
+				// while(i < lineCount) {
+
+				// 	while(getline(upd, line)) {
+
+				// 		if(line.compare(savedMagLine[i]) != 0) {
+
+				// 			if(trueCounter < 1) {
+
+				// 				cout << line << endl;
+				// 				trueCounter++;
+
+				// 			}
+
+				// 		}
+
+				// 	}
+				// 	trueCounter = 0;
+				// }
+
 			upd1.close();
 			write.close();
+
+			exit(0);
 
 
 			delete[] itemArr;
@@ -978,7 +1107,10 @@ class movie : public item {
 
 			delete[] savedPrice;
 			delete[] savedMagLine;
-
+			
+			delete[] check, 
+			delete[] sav;
+			delete[] skip;
 		}
 
 };

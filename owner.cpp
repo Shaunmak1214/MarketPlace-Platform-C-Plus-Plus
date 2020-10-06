@@ -22,8 +22,8 @@ using namespace std;
 
 //functions prototypes
 void header();
-void homeNav();
-void itemChoose();
+int homeNav();
+int itemChoose();
 
 int navigation(int type);
 int idGenerator(string txtfile);
@@ -572,6 +572,7 @@ class owner : public magazine, public book, public movie{
         string line, IdPassCheck;
         int loggedin = 0;
         char cont;
+        int menuReturn;
 
         system("CLS");
 
@@ -634,7 +635,7 @@ class owner : public magazine, public book, public movie{
 
                                 if(word.compare(IdPassCheck) == 0){
 
-                                    cout << "You are Logged In!!!" << endl;
+                                    cout << "You are Logged In!!!" << "\n\n" ;
                                     logfile.close();
                                     loggedin = 1;
 
@@ -646,7 +647,17 @@ class owner : public magazine, public book, public movie{
 
                 if(loggedin == 1) {
 
-                    itemChoose();
+                    menuReturn = itemChoose();
+
+                    while(menuReturn == 0) {
+
+                        system("CLS");
+
+                        cout << "Invalid Choice, read carefully stupid" << "\n\n";
+
+                        menuReturn = itemChoose();
+
+                    }
 
                 }else{
 
@@ -772,21 +783,29 @@ class owner : public magazine, public book, public movie{
 
     }
 
-    friend void itemChoose();
+    friend int itemChoose();
 };
 
 
 //main function
 int main() {
 
-    homeNav();
+    int homeNavReturn;
+
+    homeNavReturn = homeNav();
+
+        while(homeNavReturn == 0) {
+
+            homeNavReturn = homeNav();
+
+        }
 
     return 0;
 
 }
 
 //functions
-void homeNav() {
+int homeNav() {
 
     owner o;
 
@@ -820,12 +839,7 @@ void homeNav() {
 
         while(!(choice <= 4 && choice >= 1)) {
 
-            cout << "\n\n###################ALERT#######################" << endl;
-            cout << "## Please enter a valid choice (eg: 1, 2, 3) ##" << endl;
-            cout << "###############################################" << endl;
-
-            cout << "\nEnter Your Choice: ";
-            cin >> choice;
+            return 0;
 
         }
 
@@ -848,7 +862,7 @@ void homeNav() {
             }
 }
 
-void itemChoose() {
+int itemChoose() {
 
     int type;
     int itemchoice = 0;
@@ -869,9 +883,9 @@ void itemChoose() {
     cout << char(178) << " Magazine                          1  " << char(178) << endl;
     cout << char(178) << " Book                              2  " << char(178) << endl;
     cout << char(178) << " Movie                             3  " << char(178) << endl;
-    cout << char(178) << " Display All Sales                 5  " << char(178) << endl;
+    cout << char(178) << " Display All Sales                 4  " << char(178) << endl;
     cout << char(178) << " ------------------------------------ " << char(178) << endl; 
-    cout << char(178) << " Back                              4  " << char(178) << endl;  
+    cout << char(178) << " Back                              5  " << char(178) << endl;  
     cout << char(178) << " Exit                              0  " << char(178) << endl;
 
         for(int i=0; i<40; i++) {
@@ -915,17 +929,21 @@ void itemChoose() {
 
         }else if(itemchoice == 4){  
 
-            homeNav();
+            item1->dispSales(); 
+            item2->dispSales(); 
+            item3->dispSales();
 
         }else if(itemchoice == 5){
 
-            item1->dispSales(); 
-            item2->dispSales(); 
-            item3->dispSales(); 
+            homeNav();
+
+        }else if(itemchoice == 0){
+
+            exit(0);
 
         }else{
 
-            exit(0);
+            return 0;
 
         }
 
@@ -940,6 +958,10 @@ int navigation(int type) {
     book b;
     movie mo;
     int navchoice;
+
+    item *item1 = new magazine;
+    item *item2 = new book;
+    item *item3 = new movie;
 
         for(int i=0; i<40; i++) {
 
@@ -979,118 +1001,120 @@ int navigation(int type) {
     cout << "\nSelect Your Choice: ";
     cin >> navchoice;
 
-        // if(!(navchoice>=1 && navchoice<=6)) {
 
-        //     cout << "You entered an invalid choice...Try Again!!!" << endl;
-        //     itemChoose(ownerName);
 
-        // }
-    item *item1 = new magazine;
-    item *item2 = new book;
-    item *item3 = new movie;
+        if(!(navchoice>=1 && navchoice<=6)) {
 
-    //cout << type << endl;
+            cout << "\n\nYou entered an invalid choice...Try Again!!!" << endl;
+            cout << "Redirecting you back to item choosing..." << "\n\n";
+            itemChoose();
 
-        switch(navchoice) {
+        }else{
 
-            case 1: 
-            
-                if(type == 1) { 
+            switch(navchoice) {
 
-                    item1->addItem(); 
-
-                }else if(type == 2) { 
-
-                    item2->addItem(); 
-
-                }else if(type == 3) {
-
-                    item3->addItem(); 
-                    
-                } 
+                case 1: 
                 
-                break ;
+                    if(type == 1) { 
 
-            case 2: 
-            
-                if(type == 1) { 
+                        item1->addItem(); 
 
-                    item1->updateItem(); 
+                    }else if(type == 2) { 
 
-                }else if(type == 2) { 
+                        item2->addItem(); 
 
-                    item2->updateItem(); 
+                    }else if(type == 3) {
 
-                }else if(type == 3) {
+                        item3->addItem(); 
+                        
+                    } 
                     
-                    item3->updateItem(); 
-                    
-                } 
+                    break ;
+
+                case 2: 
                 
-                break ;
+                    if(type == 1) { 
 
-            case 3: 
+                        item1->updateItem(); 
 
-                if(type == 1) { 
+                    }else if(type == 2) { 
 
-                    item1->deleteItem(); 
+                        item2->updateItem(); 
 
-                }else if(type == 2) { 
-
-                    item2->deleteItem(); 
-
-                }else if(type == 3) {
+                    }else if(type == 3) {
+                        
+                        item3->updateItem(); 
+                        
+                    } 
                     
-                    item3->deleteItem(); 
+                    break ;
+
+                case 3: 
+
+                    if(type == 1) { 
+
+                        item1->deleteItem(); 
+
+                    }else if(type == 2) { 
+
+                        item2->deleteItem(); 
+
+                    }else if(type == 3) {
+                        
+                        item3->deleteItem(); 
+                        
+                    } 
                     
-                } 
+                    break ;
+
+                case 4: 
                 
-                break ;
+                    if(type == 1) { 
 
-            case 4: 
-            
-                if(type == 1) { 
+                        item1->dispItem(); 
+                        
+                    }else if(type == 2) { 
 
-                    item1->dispItem(); 
+                        item2->dispItem(); 
+
+                    }else if(type == 3) { 
+                        
+                        item3->dispItem(); 
+                        
+                    } 
                     
-                }else if(type == 2) { 
+                    break ;
 
-                    item2->dispItem(); 
+                case 5: 
 
-                }else if(type == 3) { 
+                    if(type == 1) { 
+
+                        item1->dispSales(); 
+                        
+                    }else if(type == 2) { 
+
+                        item2->dispSales(); 
+
+                    }else if(type == 3) { 
+                        
+                        item3->dispSales(); 
+                        
+                    } 
                     
-                    item3->dispItem(); 
-                    
-                } 
+                    break ;
+
+                case 6: 
                 
-                break ;
-
-            case 5: 
-
-                if(type == 1) { 
-
-                    item1->dispSales(); 
+                    itemChoose(); 
                     
-                }else if(type == 2) { 
+                    break ;
 
-                    item2->dispSales(); 
+                default: exit(0);
+            }
 
-                }else if(type == 3) { 
-                    
-                    item3->dispSales(); 
-                    
-                } 
-                
-                break ;
-
-            case 6: 
-            
-                itemChoose(); 
-                
-                break ;
-
-            default: exit(0);
         }
+
+
 
 }
 
