@@ -557,6 +557,94 @@ class book : public item
 		{
 			cout << "1318" << endl;
 		}
+		void addRecord()
+		{
+			string line, savedLine;
+			size_t pos;
+			int counter=0;
+			int i=0, x=0, no=0, n=1;
+			string dltChoice;
+			string headerLine;
+			string header[4];
+			
+			cout << "\n=========================================" << endl;
+            cout << "            Add Magazine Record          " << endl;
+            cout << "=========================================" << endl;
+
+			ifstream readMaFile;
+			readMaFile.open("magazineCart.txt", ios::in);
+
+			ofstream writeRec;
+			writeRec.open("magazineRecord.txt");
+
+				if(readMaFile) {	
+
+					while(getline(readMaFile, line)) {
+
+						if(counter++ > 3) {
+
+							writeRec << line << endl;
+
+						}
+
+					}
+
+
+				}else{
+
+					cout << "Fail to open file...";
+
+				}
+			
+			readMaFile.close();	
+			writeRec.close();
+
+			/*ofstream addMaFile;
+			addMaFile.open(maCartFile, ios::app);
+
+			if(addMaFile.is_open())
+			{
+				addMaFile << savedLine << endl;
+			}
+			else
+			{
+				cout << "Fail to open file...";
+			}
+			addMaFile.close();
+
+			ifstream dltFile;
+			dltFile.open(maCartFile, ios::in);
+
+			if(dltFile.is_open())
+			{
+				while(getline(dltFile, headerLine))
+				{
+					if(counter++ < 4)
+					{
+						header[i] = headerLine;
+						i++;
+					}
+				}
+			}
+			else
+			{
+				cout << "Fail to load file...";
+			}
+			dltFile.close();
+
+			ofstream insertFile;
+			insertFile.open(maCartFile);
+
+			for(int j=0; j<1; j++)
+            {
+            	insertFile << header[j];
+            }
+
+			for(int j=1; j<4; j++)
+            {
+            	insertFile << "\n" << header[j];
+            }
+			insertFile.close();*/
 
 };
 

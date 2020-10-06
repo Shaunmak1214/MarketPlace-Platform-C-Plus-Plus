@@ -6,3 +6,7 @@ Magazine Shopping Record
 |   1003|                          Praw|          1002|          4|                        hehehe|1990|   11|
 |   1004|                           Pra|          1003|          4|                        hehehe|1990|   11|
 |   1005|                            Pr|          1004|          4|                        hehehe|1990|   11|
+|   1002|                         Prawn|          1001|          2|                        phphph|2001|   12|
+|   1003|                          Praw|          1002|          4|                        hehehe|1990|   11|
+|   1004|                           Pra|          1003|          4|                        hehehe|1990|   11|
+|   1005|                            Pr|          1004|          4|                        hehehe|1990|   11|

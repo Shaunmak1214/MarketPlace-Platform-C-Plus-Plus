@@ -1,6 +1,13 @@
-                  Product Name|                  Company Name|No of units|         Price|
-                         Prawn|                        phphph|          2|       1001.00|
-                          Praw|                        hehehe|          4|       1002.00|
-                           Pra|                        hehehe|          4|       1003.00|
-                            Pr|                        hehehe|          4|       1004.00|
-                                                                       14|       4010.00|
+Magazine Sales Analysis
+|------------------------------+------------------------------+-----------+--------------|
+|                  Product Name|                  Company Name|No of units|         Price|
+|------------------------------+------------------------------+-----------+--------------|
+|                         Prawn|                        phphph|          2|       1001.00|
+|                          Praw|                        hehehe|          4|       1002.00|
+|                           Pra|                        hehehe|          4|       1003.00|
+|                            Pr|                        hehehe|          4|       1004.00|
+|                         Prawn|                        phphph|          2|       1001.00|
+|                          Praw|                        hehehe|          4|       1002.00|
+|                           Pra|                        hehehe|          4|       1003.00|
+|                            Pr|                        hehehe|          4|       1004.00|
+                                                                        28|       8020.00|

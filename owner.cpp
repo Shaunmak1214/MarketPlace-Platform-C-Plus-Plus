@@ -45,13 +45,17 @@ class item {
     char cont;
 
     public:
+    //virtual function
     virtual void addItem() {}
     virtual void updateItem() {}
     virtual void deleteItem() {}
+    //pure virtual function
     virtual void dispItem() = 0;
     virtual void dispSales() = 0;
 
 };
+
+//Magazine Class
 
 class magazine : public item{
 
@@ -63,7 +67,7 @@ class magazine : public item{
 
     public:
 
-    //constructor
+    //default constructor
     magazine() {
 
         magFilename = "magazine.txt";
@@ -73,21 +77,26 @@ class magazine : public item{
 
     }
 
+    //Add item function
     void addItem() {
 
+        //Variable declaration
         int itemId;
 
         //id generator function
         itemId = idGenerator(fileName);
 
+        //Header
         cout << "\n\n==============Add Magazine Form=============" << endl;
 
         cout << "Magazine Name [Max characters of 30]       :";
         cin.ignore();
         getline(cin, itemName);
 
+            //Check if input length is longer than 30 or shorter than 0
             while(itemName.length() > 30 || itemName.length() <= 0) {
 
+                //if input length is longer than 30 or shorter than 0 then prompt user to input agqain
                 cout << "\n\n########################## ALERT #############################" << endl;
                 cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
                 cout << "##############################################################" << endl;
@@ -100,8 +109,10 @@ class magazine : public item{
         cout << "Magazine Price                             :";
         cin >> price;
 
+            //Check if price input is a negative number
             while(price < 0) {
 
+                //If price is a negative number, then promp user to input again
                 cout << "\n\n################## ALERT #####################" << endl;
                 cout << "Price cannot be a negative number...Fix It !!!" << endl;
                 cout << "##############################################" << endl;
@@ -114,8 +125,10 @@ class magazine : public item{
         cout << "Number of units                            :";
         cin >> noUnits; 
 
+            //Check if noUnits is a negative number
             while(noUnits < 0) {
 
+                //if noUnits is a negative number, then prompt user to input again
                 cout << "\n\n################## ALERT #####################" << endl;
                 cout << "Units cannot be a negative number...Fix It !!!" << endl;
                 cout << "##############################################" << endl;
@@ -129,8 +142,10 @@ class magazine : public item{
         cin.ignore();
         getline(cin, itemCompany);
 
+            //Check if input length is longer than 30 or shorter than 0 
             while(itemCompany.length() > 30 || itemCompany.length() <= 0) {
 
+                //if input length is longer than 30 or shorter than 0 then prompt user to input agqain
                 cout << "\n\n########################## ALERT ################################" << endl;
                 cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
                 cout << "#################################################################" << endl;
@@ -143,8 +158,10 @@ class magazine : public item{
         cout << "Year                                       :";
         cin >> year;
 
+            //Check if year is is greater than 9999 or lesser than 0
             while(year > 9999 || year < 0) {
 
+                //if year is is greater than 9999 or lesser than 0 prompt user to input again
                 cout << "\n\n############## ALERT #################" << endl;
                 cout << "Year value is invalid ...Fix It !!!" << endl;
                 cout << "#######################################" << endl;
@@ -156,6 +173,7 @@ class magazine : public item{
         cout << "Month                                      :";
         cin >> month;
 
+            //Check if month is greater than 12 or lesser than 1, then prompt user to input again
             while(month > 12 || month < 1) {
 
                 cout << "\n\n############## ALERT #################" << endl;
@@ -166,44 +184,54 @@ class magazine : public item{
 
             }
 
+        //opening file 
         ofstream addmag;
         addmag.open("magazine.txt", ios::app);
 
-        if(addmag.fail()) {
+            //Condition if file failed to open
+            if(addmag.fail()) {
 
-            cout << "Error writing to the file, program ends...try again!" << endl;
-            addmag.close();
-            exit(1);
+                cout << "Error writing to the file, program ends...try again!" << endl;
+                addmag.close();
+                exit(1);
 
-        }else{
+            //Condition if file open succeed
+            }else{
 
-            addmag << "\n" << "|" << setw(7) << itemId;
-            addmag << "|" << setw(30) << itemName;
-            addmag << "|" << setw(14) << setprecision(2) << fixed << price;
-            addmag << "|" << setw(11) << noUnits;
-            addmag << "|" << setw(30) << itemCompany;
-            addmag << "|" << setw(4) << year;
-            addmag << "|" << setw(5) << month << "|";
-            addmag.close();
+                //writing into file
+                addmag << "\n" << "|" << setw(7) << itemId;
+                addmag << "|" << setw(30) << itemName;
+                addmag << "|" << setw(14) << setprecision(2) << fixed << price;
+                addmag << "|" << setw(11) << noUnits;
+                addmag << "|" << setw(30) << itemCompany;
+                addmag << "|" << setw(4) << year;
+                addmag << "|" << setw(5) << month << "|";
+                addmag.close();
 
-            cout << "Magazine item added successfully!" << endl;
+                cout << "Magazine item added successfully!" << endl;
 
-            itemChoose();
+                //Going back to item choosing menu
+                itemChoose();
 
-        }
+            }
 
     }
 
+
+    //Update Item Function
     void updateItem() {
 
+        //return value to navigate users to item choose menu
         char returnValue = commonUpdate(magFilename, 2);
 
+        //if returnValue is 's' (that means update function is a success), then prompt success output and redirect users to item choosing menu
         if(returnValue == 's') {
 
             cout << "Item Updated!!" << endl;
             cout << "Redirecting you back to item choosing" << endl;
             itemChoose();
 
+        //if returnValue is not 's' (that means update function is not a success), then prompt failed output then redirect users to item choosing menu
         }else {
 
             cout << "Failed to update" << endl;
@@ -214,29 +242,37 @@ class magazine : public item{
 
     }
 
+    //Delete Item Function
     void deleteItem() {
 
+        //take return value to achieve function looping
+        //if users failed to delete an item, there is a choice to retry again and again. 
         char returnValue = commonDelete(magFilename);
 
+        //while returnValue is always not equal to s, (s means success of deletion)
         while(returnValue != 's') {
 
             switch(returnValue) {
 
+                //if users input y (that means user request to try again with the function), then run case'y'
                 case 'y' : returnValue = commonDelete(magFilename); break;
 
+                //if users input n (thats means user request to exit the function), then redirect users to item choose menu
                 case 'n' : itemChoose();
 
             }
 
         }
 
-        cout << "Passed while loop" << endl;
+        //if returnValue is equal to 's', then redirect users to item choosing menu
         itemChoose();
 
     }
 
+    //viewing item function
     void dispItem() {
 
+        //Variable declaration
         string line;
         char choice;
         int startLimit = 4;
@@ -1980,18 +2016,6 @@ void displaySales(string fileName, string itemType, string salesFilename) {
     ifstream positionFinder;
     positionFinder.open(fileName, ios::in);
 
-    // char str[] ="|   1001|                         Prawn|          1000|          2|                        phphph|2001|   12|";
-    // char * pch;
-    // pch = strtok (str," |");
-
-    //     while (pch != NULL)
-    //     {
-    //         printf ("%s/",pch);
-            
-    //         pch = strtok (NULL, " |");
-    //     }
-
-
     while(getline(positionFinder, line)) {
 
         if(counter++ > 3) {
@@ -2020,10 +2044,17 @@ void displaySales(string fileName, string itemType, string salesFilename) {
     ofstream write;
     write.open(salesFilename);
 
-    write << setw(30) << "Product Name" << "|";
+    write << itemType << " Sales Analysis" << endl;
+
+    write << "|------------------------------+------------------------------+-----------+--------------|" << "\n";
+
+
+    write << "|" << setw(30) << "Product Name" << "|";
     write << setw(30) << "Company Name" << "|";
     write << setw(11) << "No of units" << "|";
-    write << setw(14) << "Price" << "|";
+    write << setw(14) << "Price" << "|" << "\n";
+
+    write << "|------------------------------+------------------------------+-----------+--------------|";
 
         for(z = 0; z<itemType.length() +4  ; z++) {
 
@@ -2081,10 +2112,10 @@ void displaySales(string fileName, string itemType, string salesFilename) {
             cnvrPrice = stoi(price);
             cnvrUnits = stoi(units);
 
-            write << "\n" << setw(30) << cnvrName << "|";
-            write << setw(30) << cnvrCompanyName << "|";
-            write << setw(11) << cnvrUnits << "|";
-            write << setw(14) << setprecision(2) << fixed << cnvrPrice << "|";
+            write << "\n" << "|" <<setw(30) << cnvrName;
+            write << "|" << setw(30) << cnvrCompanyName;
+            write << "|" << setw(11) << cnvrUnits;
+            write << "|" << setw(14) << setprecision(2) << fixed << cnvrPrice << "|";
 
             cout << "\n" << char(177) << setw(30) << cnvrName << "|";
             cout << setw(30) << cnvrCompanyName << "|";
@@ -2128,7 +2159,7 @@ void displaySales(string fileName, string itemType, string salesFilename) {
 
     cout << "\n\n";
 
-    write << "\n" << "                                                               " << setw(10) << totalUnits << "|" << setw(14) << totalPrice << "|";
+    write << "\n" << "                                                                " << setw(10) << totalUnits << "|" << setw(14) << totalPrice << "|";
 
         if(remove(salesFilename.c_str())) {
 

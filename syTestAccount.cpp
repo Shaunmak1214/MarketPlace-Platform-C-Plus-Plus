@@ -14,6 +14,7 @@ using namespace std;
 int idGenerator(string txtfile);
 void login();
 void profileChoice(int noCustomerType);
+void viewProfile(string filename);
 
 class shopper
 {
@@ -38,7 +39,7 @@ class shopper
 class customer : public shopper
 {
     private:
-        int noCustomerType; 
+        int noCustomerType = 1; 
         string custId;
         string customerType = "Normal Customer";
         string cusFile = "normalCustomer.txt";
@@ -48,9 +49,9 @@ class customer : public shopper
         customer() { custId=""; }
         void registration()
         {   
-            cout << "\n=========================================" << endl;
-            cout << "           Shopper Registration          " << endl;
-            cout << "=========================================" << endl;
+            cout << "\n========================================================" << endl;
+            cout << "                   Shopper Registration                 " << endl;
+            cout << "========================================================" << endl;
             cout << "Welcome, " << customerType << "! Please fill in the information below. " << endl << endl; 
             cout << "Enter name: ";
             cin.ignore();
@@ -87,76 +88,15 @@ class customer : public shopper
         }
         void displayProfile()
         {
-            string line, savedLine, headerLine;
-            string header[4];
-            size_t pos;
-            int i=0, counter=0;
-            cout << customerId;
-            cout << "\n=========================================" << endl;
-            cout << "             Shopper Profile             " << endl;
-            cout << "=========================================" << endl;
-            cout << "Please enter your shopper ID : ";
-            cin >> custId;
-
-            ifstream cusHeadFile;
-            cusHeadFile.open(cusFile);
-            if(!(cusHeadFile.is_open()))
-            {
-                cout << "Fail to open file...";
-            }
-            else
-            {
-                while(getline(cusHeadFile, headerLine))
-                {   
-                    if(counter++ < 4)
-                    {
-                        header[i] = headerLine;
-                        i++;
-                    
-                    }
-                }
-            }
-            cusHeadFile.close();
-            
-            line = "";
-            ifstream cusProfile(cusFile);
-            if(!(cusProfile.is_open()))
-            {
-                cout << "Fail to open file...";
-            }
-            else
-            {
-                
-                while(getline(cusProfile, line))
-                {
-                    if((pos = line.find(custId)) != string::npos)
-                    {
-
-                        if(pos<11)
-                        {
-                            savedLine = line;
-                        }
-                        else
-                        {
-                            cusProfile.close();
-                        }  
-                    }
-
-
-                }
-            }
-                cusProfile.close();
-
-            for(int j=0; j<4; j++)
-            {
-                cout << header[j] << endl;
-            }
-            
-            cout << savedLine << endl;
+            cout << "\n====================================================================================================" << endl;
+            cout << "                                     Normal Customer Shopper Profile                                " << endl;
+            cout << "====================================================================================================" << endl;
+			viewProfile(cusFile);
         }
 
         void updateProfile()
         {
+            viewProfile(cusFile);
             cout << "\n=========================================" << endl;
             cout << "              Update Profie              " << endl;
             cout << "=========================================" << endl;
@@ -548,9 +488,9 @@ class mmuStudent : public shopper
         mmuStudent() { studId=""; }
         void registration()
         {
-            cout << "\n=========================================" << endl;
-            cout << "           Shopper Registration          " << endl;
-            cout << "=========================================" << endl;
+            cout << "\n========================================================" << endl;
+            cout << "                   Shopper Registration                 " << endl;
+            cout << "========================================================" << endl;
             cout << "Welcome, " << customerType << "! Please fill in the information below. " << endl << endl; 
             cout << "Enter name: ";
             cin.ignore();
@@ -591,75 +531,14 @@ class mmuStudent : public shopper
         }
         void displayProfile()
         {
-            string line, savedLine, headerLine;
-            string header[4];
-            size_t pos;
-            int i=0, counter=0;
-            cout << customerId;
-            cout << "\n=========================================" << endl;
-            cout << "             Shopper Profile             " << endl;
-            cout << "=========================================" << endl;
-            cout << "Please enter your shopper ID : ";
-            cin >> studId;
-
-            ifstream studHeadFile;
-            studHeadFile.open(studFile);
-            if(!(studHeadFile.is_open()))
-            {
-                cout << "Fail to open file...";
-            }
-            else
-            {
-                while(getline(studHeadFile, headerLine))
-                {   
-                    if(counter++ < 4)
-                    {
-                        header[i] = headerLine;
-                        i++;
-                    
-                    }
-                }
-            }
-            studHeadFile.close();
-            
-            line = "";
-            ifstream studProfile(studFile);
-            if(!(studProfile.is_open()))
-            {
-                cout << "Fail to open file...";
-            }
-            else
-            {
-                
-                while(getline(studProfile, line))
-                {
-                    if((pos = line.find(studId)) != string::npos)
-                    {
-
-                        if(pos<11)
-                        {
-                            savedLine = line;
-                        }
-                        else
-                        {
-                            studProfile.close();
-                        }  
-                    }
-
-
-                }
-            }
-                studProfile.close();
-
-            for(int j=0; j<4; j++)
-            {
-                cout << header[j] << endl;
-            }
-            
-            cout << savedLine << endl;
+            cout << "\n====================================================================================================" << endl;
+            cout << "                                       MMU Student Shopper Profile                                  " << endl;
+            cout << "====================================================================================================" << endl;
+			viewProfile(studFile);
         }
         void updateProfile()
         {
+            viewProfile(studFile);
             cout << "\n=========================================" << endl;
             cout << "              Update Profie              " << endl;
             cout << "=========================================" << endl;
@@ -1054,9 +933,9 @@ class mmuStaff : public shopper
         mmuStaff() { staffId=""; }
         void registration()
 		{
-            cout << "\n=========================================" << endl;
-            cout << "           Shopper Registration          " << endl;
-            cout << "=========================================" << endl;
+            cout << "\n========================================================" << endl;
+            cout << "                   Shopper Registration                 " << endl;
+            cout << "========================================================" << endl;
             cout << "Welcome, " << customerType << "! Please fill in the information below. " << endl; 
             cout << "Enter name: ";
             cin.ignore();
@@ -1097,75 +976,16 @@ class mmuStaff : public shopper
         }
         void displayProfile()
         {
-            string line, savedLine, headerLine;
-            string header[4];
-            size_t pos;
-            int i=0, counter=0;
-            cout << customerId;
-            cout << "\n=========================================" << endl;
-            cout << "             Shopper Profile             " << endl;
+            cout << "\n====================================================================================================" << endl;
+            cout << "                                        MMU Staff Shopper Profile                                   " << endl;
+            cout << "====================================================================================================" << endl;
+			cout << "             MMU Staff Shopper Profile             " << endl;
             cout << "=========================================" << endl;
-            cout << "Please enter your shopper ID : ";
-            cin >> staffId;
-
-            ifstream staffHeadFile;
-            staffHeadFile.open(staffFile);
-            if(!(staffHeadFile.is_open()))
-            {
-                cout << "Fail to open file...";
-            }
-            else
-            {
-                while(getline(staffHeadFile, headerLine))
-                {   
-                    if(counter++ < 4)
-                    {
-                        header[i] = headerLine;
-                        i++;
-                    
-                    }
-                }
-            }
-            staffHeadFile.close();
-            
-            line = "";
-            ifstream staffProfile(staffFile);
-            if(!(staffProfile.is_open()))
-            {
-                cout << "Fail to open file...";
-            }
-            else
-            {
-                
-                while(getline(staffProfile, line))
-                {
-                    if((pos = line.find(staffId)) != string::npos)
-                    {
-
-                        if(pos<11)
-                        {
-                            savedLine = line;
-                        }
-                        else
-                        {
-                            staffProfile.close();
-                        }  
-                    }
-
-
-                }
-            }
-                staffProfile.close();
-
-            for(int j=0; j<4; j++)
-            {
-                cout << header[j] << endl;
-            }
-            
-            cout << savedLine << endl;
+            viewProfile(staffFile);
         }
         void updateProfile()
         {
+            viewProfile(staffFile);
             cout << "\n=========================================" << endl;
             cout << "              Update Profie              " << endl;
             cout << "=========================================" << endl;
@@ -1553,19 +1373,18 @@ int main()
     int accountChoice;
     int noCustomerType;
 
-    cout << "=========================================" << endl;
-    cout << "            WELCOME, SHOPPER!            " << endl;
-    cout << "=========================================" << endl << endl;
-    cout << "********************" << endl;
-    cout << "        Menu        " << endl;
-    cout << "********************" << endl;
-    cout << "Choice 1: Register" << endl;
-    cout << "Choice 2: Login   " << endl;
-    cout << "Choice 3: Exit    " << endl;
-    cout << "\nEnter your choice [1, 2 or 3]: ";
+    cout << "\n+=========================================+" << endl;
+    cout << "|            WELCOME, SHOPPER!            |" << endl;
+    cout << "|=========================================|" << endl;
+    cout << "|           Choice 1: Register            |" << endl;
+    cout << "|           Choice 2: Login               |" << endl;
+    cout << "|=========================================|" << endl;
+	cout << "|             [Press 0] Exit              |" << endl;
+	cout << "|.........................................|" << endl << endl;
+    cout << "\nEnter your choice [1 or 2]: ";
     cin >> accountChoice;
 
-     while(!(accountChoice >= 1 && accountChoice <= 3))
+    while(!(accountChoice >= 0 && accountChoice <= 2))
     {
         cout << "Invalid choice!" << endl << endl;
         cout << "Enter Your Choice: ";
@@ -1688,6 +1507,7 @@ void login()
     string line, IdPassCheck;
     string customerUserName, customerPassword;
     char cont;
+    int noCustomerType;
 
     cout << "\n=========================================" << endl;
     cout << "              Shopper Login              " << endl;
@@ -1714,13 +1534,11 @@ void login()
 
     if(logfile.fail())
     {
-        cout << "Failed to open file...program ends" << endl;
+        cout << "Failed to open file..." << endl;
         exit(1);
-
     }
     else
     {
-
         int counter=0;
 
         //logfile.seekg(0, ios::beg);
@@ -1734,7 +1552,6 @@ void login()
         //To read every line of the txt file
         while(getline(logfile, line))
         {
-
             //ignoring the first 3 lines of txt files
             if(counter++ > 3)
             {
@@ -1748,7 +1565,6 @@ void login()
 
                 while ((pos = line.find(delimiter)) != string::npos)
                 {
-
                     token = line.substr(0, pos);
 
                     //regex_replace function
@@ -1758,7 +1574,6 @@ void login()
                     word = word + token;
 
                     line.erase(0, pos + delimiter.length());
-
                 }
                 //END OF DELIMITER
                 
@@ -1768,16 +1583,11 @@ void login()
 
                 if(word.compare(IdPassCheck) == 0)
                 {
-
                     cout << "You are Logged In!!!" << endl;
                     logfile.close();
                     exit(0);
-                
-
                 }
-
             }
-
         }
 
         logfile.close();
@@ -1791,7 +1601,79 @@ void login()
         {
             login();
         }
+    }
 
+    cout << "\n-----------------------------------------" << endl;
+    cout << "Choose your customer type: " << endl;
+    cout << "1. Normal Customer" << endl;
+    cout << "2. MMU Student" << endl;
+    cout << "3. MMU Staff" << endl;
+    cout << "-----------------------------------------" << endl;
+    cout << "Enter your customer type [1, 2 or 3]: ";
+    cin >> noCustomerType;
+
+    profileChoice(noCustomerType);   
+}
+
+void viewProfile(string filename)
+{
+    string line, savedLine, headerLine;
+    string header[4];
+    size_t pos;
+    int i=0, counter=0;
+    string custId;
+
+    cout << "Please enter your shopper ID : ";
+    cin >> custId;
+
+    ifstream cusHeadFile;
+    cusHeadFile.open(filename);
+    if(!(cusHeadFile.is_open()))
+    {
+        cout << "Fail to open file...";
+    }
+    else
+    {
+        while(getline(cusHeadFile, headerLine))
+        {   
+            if(counter++ < 4)
+            {
+                header[i] = headerLine;
+                i++;          
+            }
+        }
+    }
+    cusHeadFile.close();
+    
+    line = "";
+    ifstream cusProfile(filename);
+    if(!(cusProfile.is_open()))
+    {
+        cout << "Fail to open file...";
+    }
+    else
+    {       
+        while(getline(cusProfile, line))
+        {
+            if((pos = line.find(custId)) != string::npos)
+            {
+                if(pos<11)
+                {
+                    savedLine = line;
+                }
+                else
+                {
+                    cusProfile.close();
+                }  
+            }
+        }
+    }
+        cusProfile.close();
+
+    for(int j=0; j<4; j++)
+    {
+        cout << header[j] << endl;
     }
     
+    cout << savedLine << endl;
 }

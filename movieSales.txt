@@ -1,3 +1,6 @@
-                  Product Name|                  Company Name|No of units|         Price|
-                         TeneT|                      tenet.co|        123|         45.00|
-                                                                      123|         45.00|
+Movie Sales Analysis
+|------------------------------+------------------------------+-----------+--------------|
+|                  Product Name|                  Company Name|No of units|         Price|
+|------------------------------+------------------------------+-----------+--------------|
+|                         TeneT|                      tenet.co|        123|         45.00|
+                                                                       123|         45.00|
