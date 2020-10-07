@@ -60,7 +60,7 @@ class item {
 class magazine : public item{
 
     private:
-
+    //private data members initialization
     int year, month, totalSalesUnits;
     double totalSalesAmount;
     string magFilename, recordFilename, itemType, salesFilename;
@@ -265,6 +265,7 @@ class magazine : public item{
         }
 
         //if returnValue is equal to 's', then redirect users to item choosing menu
+        cout << "Redirecting you back to item choosing" << endl;
         itemChoose();
 
     }
@@ -278,53 +279,64 @@ class magazine : public item{
         int startLimit = 4;
         int lineCount;
 
+        //Open file 
         ifstream view;
         view.open(magFilename, ios::in);
 
+            //Get data line by line in file 
             while(getline(view, line)) {
 
+                //Increment to count how many lines there is in the file 
                 lineCount++;
 
             }
 
+        //close file 
         view.close();
 
+        //Return value to make next page and previous page function
         choice = viewItems(magFilename, startLimit);
 
+            //While choice is not equals to e(e means exit)
             while(choice != 'e') {
 
                 if(choice == 'n') {
 
+                    //Make next page function by adding startlimit by 11
                     if(startLimit <= lineCount-10) {
 
                         startLimit = startLimit+11;
 
                     }
 
-                    // printCount = printCount+5;
+                    //run function again with updated startLimit function
                     choice = viewItems(magFilename, startLimit);
 
                 }else if(choice == 'p') {
 
+                    //Make previous page function by substrating startlimit by 11
                     if(startLimit >= 14) {
 
                         startLimit = startLimit-11;
 
                     }
                     
-                    //printCount = printCount-10;
+                    //run function again with updated startLimit function
                     choice = viewItems(magFilename, startLimit);
 
                 }
 
             }
 
+        //If return value Choice is equals to e(means user wish to exit)
         cout << "View Finished" << endl;
         cout << "Redirecting you back to item choosing" << endl;
+        //Redirect user back to item choosing menu
         itemChoose();
 
     }
 
+    //Display Magazine Sales function
     void dispSales() {
         
         displaySales(recordFilename, itemType, salesFilename);
@@ -332,14 +344,17 @@ class magazine : public item{
     }
 };
 
+//Book Class
+
 class book : public item {
 
     private:
-
+    //private data members initialization
     string authorName, bookFilename, recordFilename, itemType, salesFilename;
 
     public:
 
+    //default constructor
     book() {
 
         bookFilename = "book.txt";
@@ -348,21 +363,25 @@ class book : public item {
         salesFilename = "bookSales.txt";
 
     }
-
+    //Add item function
     void addItem() {
 
+        //Variable declaration
         int id;
 
         //id generator function
         id = idGenerator(fileName);
 
+        //Header
         cout << "========Add Book Form=======" << endl;
         cout << "Book Name [Max characters of 30]          :";
         cin.ignore();
         getline(cin, itemName);
 
+            //Check if input length is longer than 30 or shorter than 0
             while(itemName.length() > 30 || itemName.length() <= 0) {
    
+                //if input length is longer than 30 or shorter than 0 then prompt user to input agqain
                 cout << "\n\n########################## ALERT #############################" << endl;
                 cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
                 cout << "##############################################################" << endl;
@@ -375,8 +394,10 @@ class book : public item {
         cout << "Book Price                                :";
         cin >> price;
 
+            //Check if price input is a negative number
             while(price < 0) {
 
+                //If price is a negative number, then promp user to input again
                 cout << "\n\n################## ALERT #####################" << endl;
                 cout << "Price cannot be a negative number...Fix It !!!" << endl;
                 cout << "##############################################" << endl;
@@ -389,8 +410,10 @@ class book : public item {
         cout << "Number of units                            :";
         cin >> noUnits; 
 
+            //Check if noUnits is a negative number
             while(noUnits < 0) {
 
+                //if noUnits is a negative number, then prompt user to input again
                 cout << "\n\n################## ALERT #####################" << endl;
                 cout << "Units cannot be a negative number...Fix It !!!" << endl;
                 cout << "##############################################" << endl;
@@ -404,8 +427,10 @@ class book : public item {
         cin.ignore();
         getline(cin, itemCompany);
 
+            //Check if input length is longer than 30 or shorter than 0 
             while(itemCompany.length() > 30 || itemCompany.length() <= 0) {
 
+                //if input length is longer than 30 or shorter than 0 then prompt user to input agqain
                 cout << "\n\n########################## ALERT ################################" << endl;
                 cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
                 cout << "#################################################################" << endl;
@@ -418,8 +443,10 @@ class book : public item {
         cout << "Author Name [Max characters of 30]         :";
         getline(cin, authorName);
 
+            //Check if input length is longer than 30 or shorter than 0 
             while(authorName.length() > 30 || authorName.length() <= 0) {
 
+                //if input length is longer than 30 or shorter than 0 then prompt user to input agqain
                 cout << "\n\n########################## ALERT ###############################" << endl;
                 cout << "Author name entered is either too long or too short...Fix It !!!" << endl;
                 cout << "################################################################" << endl;
@@ -429,16 +456,20 @@ class book : public item {
 
             }
 
+        //opening file
         ofstream addBook;
         addBook.open("book.txt", ios::app);
 
+        //Condition if file failed to open
         if(addBook.fail()) {
 
             cout << "Error writing to the file, program ends...try again!" << endl;
             itemChoose();
 
+        //COndition if file open succeed
         }else{
 
+            //writing into file
             addBook << "\n" << "|" << setw(7) << id;
             addBook << "|" << setw(30) << itemName;
             addBook << "|" << setw(14) << setprecision(2) << fixed << price;
@@ -448,22 +479,28 @@ class book : public item {
             addBook.close();
 
             cout << "Book item added successfully!" << endl;
+
+            //Going back to item choosing menu
             itemChoose();
 
         }
 
     }
 
+    //Update item Function
     void updateItem() {
 
+        //return value to navigate users to item choose menu
         char returnValue = commonUpdate(bookFilename, 2);
 
+        //if returnValue is 's' (that means update function is a success), then prompt success output and redirect users to item choosing menu
         if(returnValue == 's') {
 
             cout << "Item Updated!!" << endl;
             cout << "Redirecting you back to item choosing" << endl;
             itemChoose();
 
+        //if returnValue is not 's' (that means update function is not a success), then prompt failed output then redirect users to item choosing menu
         }else {
 
             cout << "Failed to update" << endl;
@@ -474,82 +511,101 @@ class book : public item {
 
     }
 
+    //Delete Item Function
     void deleteItem() {
 
+        //take return value to achieve function looping
+        //if users failed to delete an item, there is a choice to retry again and again.
         char returnValue = commonDelete(bookFilename);
 
+        //while returnValue is always not equal to s, (s means success of deletion)
         while(returnValue != 's') {
 
             switch(returnValue) {
 
+                //if users input y (that means user request to try again with the function), then run case'y'
                 case 'y' : returnValue = commonDelete(bookFilename); break;
 
+                //if users input n (thats means user request to exit the function), then redirect users to item choose menu
                 case 'n' : itemChoose();
 
             }
 
         }
 
-        cout << "Passed while loop" << endl;
+        //if returnValue is equal to 's', then redirect users to item choosing menu
         cout << "Redirecting you back to item choosing" << endl;
         itemChoose();
 
     }
 
+    //viewing item function
     void dispItem() {
 
+        //Variable declaration
         string line;
         char choice;
         int startLimit = 4;
         int lineCount;
 
+        //Open File
         ifstream view;
         view.open(bookFilename, ios::in);
 
+            //Get data line by line in file
             while(getline(view, line)) {
 
+                //Increment to count how many lines there is in the file 
                 lineCount++;
 
             }
 
+        //close file 
         view.close();
 
+        //Return value to make next page and previous page function
         choice = viewItems(bookFilename, startLimit);
 
+            //While choice is not equals to e(e means exit)
             while(choice != 'e') {
 
                 if(choice == 'n') {
 
+                    //Make next page function by adding startlimit by 11
                     if(startLimit <= lineCount-10) {
 
                         startLimit = startLimit+11;
 
                     }
 
-                    // printCount = printCount+5;
+                    //run function again with updated startLimit function
                     choice = viewItems(bookFilename, startLimit);
 
                 }else if(choice == 'p') {
 
+                    //Make previous page function by substrating startlimit by 11
                     if(startLimit >= 14) {
 
                         startLimit = startLimit-11;
 
                     }
                     
-                    //printCount = printCount-10;
+                    //run function again with updated startLimit function
                     choice = viewItems(bookFilename, startLimit);
 
                 }
 
             }
 
+        //If return value Choice is equals to e(means user wish to exit)
         cout << "View Finished" << endl;
         cout << "Redirecting you back to item choosing" << endl;
+        //Redirect user back to item choosing menu
         itemChoose();
 
     }
 
+    //Display Magazine Sales function
     void dispSales() {
         
         displaySales(recordFilename, itemType, salesFilename);
