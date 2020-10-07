@@ -1605,13 +1605,15 @@ int idGenerator(string txtfile) {
 
         }
     //End of Id Auto Generator
-    
+
     return id;
 
 }
 
+//commonUpdate function
 char commonUpdate(string fileName, int itemType) {
 
+    //Variable declaration
     int noUnits, year, month;
     string itemName, itemCompany, line, savedLine, id, authorName, mainActorName;
     double price;
@@ -1629,12 +1631,16 @@ char commonUpdate(string fileName, int itemType) {
     cin.ignore();
     getline(cin, id);
 
+        //Get data line by line
         while(getline(updFile, line)) {
 
+            //find if id exist
             pos = line.find(id);
 
                 if(pos != string::npos) {
 
+                    //check if the position of id found is lesser than 10
+                    //this way to make sure id is under the itemid column
                     if(pos < 10) {
 
                         savedLine = line;
@@ -1657,6 +1663,7 @@ char commonUpdate(string fileName, int itemType) {
     updFile.close();
     value = 0;
 
+        //savedLine is empty that means id is not found
         if(savedLine == "") {
 
             cout << "\n\nItem Not Found" << endl;
@@ -1672,16 +1679,20 @@ char commonUpdate(string fileName, int itemType) {
 
             line = "";
 
+            //opening files
             ifstream inputFile;
             inputFile.open(fileName, ios::in);
 
             ofstream temp;
             temp.open("temp.txt");
 
+                //get data line by line
                 while(getline(inputFile, line)) {
 
+                    //compare line with previously save line with the specific id
                     if(line.compare(savedLine) != 0) {
 
+                        //if the above condition is not true then write it to temp.txt file
                         temp << line << "\n";
 
                     }
@@ -1946,16 +1957,16 @@ char commonUpdate(string fileName, int itemType) {
 
                 }
 
+            //closing of file
             temp.close();
             inputFile.close();
 
+                //Remove the original file
                 if(remove(cnvrFileName) == 0) {
 
-                    cout << "removed " << fileName << endl; 
-
+                        //Renaming temp.txt to original file
                         if(rename("temp.txt", cnvrFileName) == 0) {
 
-                            cout << "Renamed file" << endl;
                             cout << "Item Updated !!" << endl;
                             value = 's';
                             return value;

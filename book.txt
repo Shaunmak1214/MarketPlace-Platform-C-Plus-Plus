@@ -1,8 +1,8 @@
 													Book
 |-------+------------------------------+--------------+-----------+------------------------------+------------------------------|
-|Item Id|                     Book Name|    Book Price|No units AV|                  Company Name|                   Author Name|
+|Item Id|                     Book Name|    Book Price|No of units|                  Company Name|                   Author Name|
 |-------+------------------------------+--------------+-----------+------------------------------+------------------------------|
-|     71|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
+|    101|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
 |     82|                  How to Basic|           200|      20010|                   Shaunmak.co|                      ShaunMak|
 |     93|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
 |     74|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
@@ -38,3 +38,27 @@
 |     75|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
 |     86|                  How to Basic|           200|      20010|                   Shaunmak.co|                      ShaunMak|
 |     94|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
+|    101|              Best Recipe Book|         30.00|       1000|                   shaunmak.co|                  Lim Min Zhen|
+|    102|                    Oppo Guide|         23.00|        123|                        sinyin|                   Mak Yen Wei|
+|    103|                         Mulan|         24.50|        123|                           ewq|                   Ong Sin Yin|
+|    104|                         Girls|         27.00|        123|                           ewq|                           qwe|
+|    105|                         Apple|         27.00|        123|                           ewq|                           qwe|
+|    106|                     Vegetable|         30.00|        123|                           ewq|                           qwe|
+|    107|                   Small puppy|         20.00|        123|                           ewq|                           qwe|
+|    108|                           qwe|         15.00|        123|                           ewq|                           qwe|
+|    109|                           qwe|         17.50|        123|                           ewq|                           qwe|
+|    110|                           qwe|         18.00|        123|                           ewq|                           qwe|
+|    111|                           qwe|         26.00|        123|                           ewq|                           qwe|
+|    112|                           qwe|         60.00|        123|                           ewq|                           qwe|
+|    113|                           qwe|         28.00|        123|                           ewq|                           qwe|
+|    114|                           qwe|         25.00|        123|                           ewq|                           qwe|
+|    115|                           qwe|         52.00|        123|                           ewq|                           qwe|
+|    116|                           qwe|         48.50|        123|                           ewq|                           qwe|
+|    117|                           qwe|         56.00|        123|                           ewq|                           qwe|
+|    118|                           qwe|         19.00|        123|                           ewq|                           qwe|
+|    119|                           qwe|        128.20|        123|                           ewq|                           qwe|
+|    120|                           qwe|         26.00|        123|                           ewq|                           qwe|
+|    121|                           qwe|         86.00|        123|                           ewq|                           qwe|
+|    122|                           qwe|         90.00|        123|                           ewq|                           qwe|
+|    122|                           qwe|         60.00|        123|                           ewq|                           qwe|
+|    123|                           qwe|         26.00|        123|                           ewq|                           qwe|
