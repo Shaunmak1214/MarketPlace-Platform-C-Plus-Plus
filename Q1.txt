@@ -1,0 +1,647 @@
+A).
+1	//commonUpdate function
+2	char commonUpdate(string fileName, int itemType) {
+3	
+4	   //Variable declaration
+5	   int noUnits, year, month;
+6	   string itemName, itemCompany, line, savedLine, id, authorName, mainActorName;
+7	   double price;
+8	   char cont, value;
+9	   size_t pos;
+10	
+11	    //converting string element to cont char * for functions (remove and rename)
+12	   const char * cnvrFileName = fileName.c_str();
+13	
+14	    ifstream updFile;
+15	    updFile.open(fileName, ios::in);
+16	
+17	    cout << "\n\n========Update Form=======" << endl;
+18	    cout << "\nItem Id you want to update        :";
+19	    cin.ignore();
+20	    getline(cin, id);
+21	
+22	        //Get data line by line
+23	        while(getline(updFile, line)) {
+24	
+25	            //find if id exist
+26	            pos = line.find(id);
+27	
+28	                if(pos != string::npos) {
+29	
+30	                    //check if the position of id found is lesser than 10
+31	                    //this way to make sure id is under the itemid column
+32	                    if(pos < 10) {
+33	
+34	                        savedLine = line;
+35	
+36	                    }else {
+37	
+38	                        updFile.close();
+39	
+40	                        cout << "\n" << id << " has found not be an Id " << endl;
+41	                        cout << "Redirecting you back to Item Choosing..." << endl;
+42	                        return 'n';
+43	
+44	
+45	                    }
+46	
+47	                }
+48	
+49	        }
+50	
+51	    updFile.close();
+52	    value = 0;
+53	
+54	        //savedLine is empty that means id is not found
+55	        if(savedLine == "") {
+56	
+57	            cout << "\n\nItem Not Found" << endl;
+58	            cout << "Redirecting you back to Item Choosing..." << endl;
+59	            return 'n';
+60	
+61	        }else{
+62	
+63	            cout << "\n\n#####################################" << endl;
+64	            cout << id << " has been found, update allowed !!!" << endl;
+65	            cout << "#####################################" << endl;
+66	            cout << endl;
+67	
+68	            line = "";
+69	
+70	            //opening files
+71	            ifstream inputFile;
+72	            inputFile.open(fileName, ios::in);
+73	
+74	            ofstream temp;
+75	            temp.open("temp.txt");
+76	
+77	                //get data line by line
+78	                while(getline(inputFile, line)) {
+79	
+80	                    //compare line with previously save line with the specific id
+81	                    if(line.compare(savedLine) != 0) {
+82	
+83	                        //if the above condition is not true then write it to temp.txt file
+84	                        temp << line << "\n";
+85	
+86	                    }
+87	
+88	                }
+89	
+90	                if(itemType == 1) {
+91	
+92	                    cout << "Magazine Name [Max characters of 30]       :";
+93	                    
+94	                    getline(cin, itemName);
+95	
+96	                        while(itemName.length() > 30 || itemName.length() <= 0) {
+97	
+98	                            cout << "\n\n########################## ALERT #############################" << endl;
+99	                            cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
+100	                            cout << "##############################################################" << endl;
+101	                            cout << "Magazine Name [Max characters of 30]       :";
+102	                            cin.ignore();
+103	                            getline(cin, itemName);
+104	                            cout << endl;
+105	
+106	                        }
+107	
+108	                    cout << "Magazine Price                             :";
+109	                    cin >> price;
+110	
+111	                        while(price < 0) {
+112	
+113	                            cout << "\n\n################## ALERT #####################" << endl;
+114	                            cout << "Price cannot be a negative number...Fix It !!!" << endl;
+115	                            cout << "##############################################" << endl;
+116	                            cout << "Magazine Price                             :";
+117	                            cin >> price;
+118	                            cout << "\n";
+119	
+120	                        }
+121	
+122	                    cout << "Number of units                            :";
+123	                    cin >> noUnits; 
+124	
+125	                        while(noUnits < 0) {
+126	
+127	                            cout << "\n\n################## ALERT #####################" << endl;
+128	                            cout << "Units cannot be a negative number...Fix It !!!" << endl;
+129	                            cout << "##############################################" << endl;
+130	                            cout << "Number of units                            :";
+131	                            cin >> noUnits;
+132	                            cout << "\n";
+133	
+134	                        }
+135	
+136	                    cout << "Name of the company [Max characters of 30] :";
+137	                    cin.ignore();
+138	                    getline(cin, itemCompany);
+139	
+140	                        while(itemCompany.length() > 30 || itemCompany.length() <= 0) {
+141	
+142	                            cout << "\n\n########################## ALERT ################################" << endl;
+143	                            cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
+144	                            cout << "#################################################################" << endl;
+145	                            cout << "Name of the company [Max characters of 30] :";
+146	                            getline(cin, itemCompany);
+147	                            cout << endl;
+148	
+149	                        }
+150	
+151	                    cout << "Year                                       :";
+152	                    cin >> year;
+153	
+154	                        while(year > 9999 || year < 0) {
+155	
+156	                            cout << "\n\n############## ALERT #################" << endl;
+157	                            cout << "Year value is invalid ...Fix It !!!" << endl;
+158	                            cout << "#######################################" << endl;
+159	                            cout << "Year                                       :";
+160	                            cin >> year; 
+161	
+162	                        }
+163	
+164	                    cout << "Month                                      :";
+165	                    cin >> month;
+166	
+167	                        while(month > 12 || month < 1) {
+168	
+169	                            cout << "\n\n############## ALERT #################" << endl;
+170	                            cout << "Month value is invalid ...Fix It !!!" << endl;
+171	                            cout << "#######################################" << endl;
+172	                            cout << "Month                                       :";
+173	                            cin >> month; 
+174	
+175	                        }
+176	
+177	                    temp << "|" << setw(7) << id;
+178	                    temp << "|" << setw(30) << itemName;
+179	                    temp << "|" << setw(14) << setprecision(2) << fixed << price;
+180	                    temp << "|" << setw(11) << noUnits;
+181	                    temp << "|" << setw(30) << itemCompany;
+182	                    temp << "|" << setw(4) << year;
+183	                    temp << "|" << setw(5) << month << "|";
+184	
+185	                }else if(itemType == 2) {
+186	
+187	                    cout << "Book Name [Max characters of 30]          :";
+188	                    cin.ignore();
+189	                    getline(cin, itemName);
+190	
+191	                        while(itemName.length() > 30 || itemName.length() <= 0) {
+192	            
+193	                            cout << "\n\n########################## ALERT #############################" << endl;
+194	                            cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
+195	                            cout << "##############################################################" << endl;
+196	                            cout << "Book Name [Max characters of 30]       :";
+197	                            getline(cin, itemName);
+198	                            cout << endl;
+199	
+200	                        }
+201	
+202	                    cout << "Book Price                                :";
+203	                    cin >> price;
+204	
+205	                        while(price < 0) {
+206	
+207	                            cout << "\n\n################## ALERT #####################" << endl;
+208	                            cout << "Price cannot be a negative number...Fix It !!!" << endl;
+209	                            cout << "##############################################" << endl;
+210	                            cout << "Book Price                             :";
+211	                            cin >> price;
+212	                            cout << "\n";
+213	
+214	                        }
+215	
+216	                    cout << "Number of units                            :";
+217	                    cin >> noUnits; 
+218	
+219	                        while(noUnits < 0) {
+220	
+221	                            cout << "\n\n################## ALERT #####################" << endl;
+222	                            cout << "Units cannot be a negative number...Fix It !!!" << endl;
+223	                            cout << "##############################################" << endl;
+224	                            cout << "Number of units                            :";
+225	                            cin >> noUnits;
+226	                            cout << "\n";
+227	
+228	                        }
+229	
+230	                    cout << "Name of the company [Max characters of 30] :";
+231	                    cin.ignore();
+232	                    getline(cin, itemCompany);
+233	
+234	                        while(itemCompany.length() > 30 || itemCompany.length() <= 0) {
+235	
+236	                            cout << "\n\n########################## ALERT ################################" << endl;
+237	                            cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
+238	                            cout << "#################################################################" << endl;
+239	                            cout << "Name of the company [Max characters of 30] :";
+240	                            getline(cin, itemCompany);
+241	                            cout << endl;
+242	
+243	                        }
+244	
+245	                    cout << "Author Name [Max characters of 30]         :";
+246	                    getline(cin, authorName);
+247	
+248	                        while(authorName.length() > 30 || authorName.length() <= 0) {
+249	
+250	                            cout << "\n\n########################## ALERT ###############################" << endl;
+251	                            cout << "Author name entered is either too long or too short...Fix It !!!" << endl;
+252	                            cout << "################################################################" << endl;
+253	                            cout << "Author Name [Max characters of 30]        :";
+254	                            getline(cin, authorName);
+255	                            cout << endl;
+256	
+257	                        }
+258	
+259	                    temp << "|" << setw(7) << id;
+260	                    temp << "|" << setw(30) << itemName;
+261	                    temp << "|" << setw(14) << setprecision(2) << fixed << price;
+262	                    temp << "|" << setw(11) << noUnits;
+263	                    temp << "|" << setw(30) << itemCompany;
+264	                    temp << "|" << setw(11) << authorName << "|";
+265	
+266	                }else{
+267	
+268	                    cout << "Movie Name [Max characters of 30]          :";
+269	                    cin.ignore();
+270	                    getline(cin, itemName);
+271	
+272	                        while(itemName.length() > 30 || itemName.length() <= 0) {
+273	            
+274	                            cout << "\n\n########################## ALERT #############################" << endl;
+275	                            cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
+276	                            cout << "##############################################################" << endl;
+277	                            cout << "Movie Name [Max characters of 30]          :";
+278	                            getline(cin, itemName);
+279	                            cout << endl;
+280	
+281	                        }
+282	
+283	                    cout << "Movie Price                                :";
+284	                    cin >> price;
+285	
+286	                        while(price < 0) {
+287	
+288	                            cout << "\n\n################## ALERT #####################" << endl;
+289	                            cout << "Price cannot be a negative number...Fix It !!!" << endl;
+290	                            cout << "##############################################" << endl;
+291	                            cout << "Movie Price                                :";
+292	                            cin >> price;
+293	                            cout << "\n";
+294	
+295	                        }
+296	
+297	                    cout << "Number of units                            :";
+298	                    cin >> noUnits; 
+299	
+300	                        while(noUnits < 0) {
+301	
+302	                            cout << "\n\n################## ALERT #####################" << endl;
+303	                            cout << "Units cannot be a negative number...Fix It !!!" << endl;
+304	                            cout << "##############################################" << endl;
+305	                            cout << "Number of units                               :";
+306	                            cin >> noUnits;
+307	                            cout << "\n";
+308	
+309	                        }
+310	
+311	                    cout << "Name of the company [Max characters of 30] :";
+312	                    cin.ignore();
+313	                    getline(cin, itemCompany);
+314	
+315	                        while(itemCompany.length() > 30 || itemCompany.length() <= 0) {
+316	
+317	                            cout << "\n\n########################## ALERT ################################" << endl;
+318	                            cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
+319	                            cout << "#################################################################" << endl;
+320	                            cout << "Name of the company [Max characters of 30] :";
+321	                            getline(cin, itemCompany);
+322	                            cout << endl;
+323	
+324	                        }
+325	
+326	                    cout << "Main Actor Name [Max characters of 30]     :";
+327	                    getline(cin, mainActorName);
+328	
+329	                        while(mainActorName.length() > 30 || mainActorName.length() <= 0) {
+330	
+331	                            cout << "\n\n########################## ALERT ################################" << endl;
+332	                            cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
+333	                            cout << "#################################################################" << endl;
+334	                            cout << "Main Actor Name [Max characters of 30]     :";
+335	                            getline(cin, mainActorName);
+336	                            cout << endl;
+337	
+338	                        }
+339	
+340	                    temp << "|" << setw(7) << id;
+341	                    temp << "|" << setw(30) << itemName;
+342	                    temp << "|" << setw(14) << setprecision(2) << fixed << price;
+343	                    temp << "|" << setw(11) << noUnits;
+344	                    temp << "|" << setw(30) << itemCompany;
+345	                    temp << "|" << setw(30) << mainActorName << "|";
+346	
+347	                }
+348	
+349	            //closing of file
+350	            temp.close();
+351	            inputFile.close();
+352	
+353	                //Remove the original file
+354	                if(remove(cnvrFileName) == 0) {
+355	
+356	                        //Renaming temp.txt to original file
+357	                        if(rename("temp.txt", cnvrFileName) == 0) {
+358	
+359	                            cout << "Item Updated !!" << endl;
+360	                            value = 's';
+361	                            return value;
+362	
+363	                        }else{
+364	
+365	                            cout << "Renamed Failed";
+366	                            return 'n';
+367	
+368	                        }
+369	
+370	                }else{
+371	
+372	                    cout << "Removed Failed";
+373	                    return 'n';
+374	
+375	                }
+376	
+377	        }
+378	
+379	}
+
+===============
+Explanation !!!
+===============
+
+line 2        - commonUpdate is a function that update 3 types of item, char is used as function signature, and also parameter is used
+line 4-9      - Variable declaration
+line 12       - convert string to const char * so that rename() and remove() function can read is a parameter
+line 14-15    - opening file
+line 18-20    - get itemId to find in text file
+line 23-49    - find itemId in the text file, if itemId found in the line, saved the line in variable savedLine
+line 51       - closing file
+line 52       - redeclaration of value variable, in order to use it later.
+line 55       - if savedLine is not found that means id is not found, redirect user back to Item Choosing menu
+line 71       - opening file for reading
+line 74       - opening file for writing
+line 78-88    - compare line with previously savedLine if falsem then write line into new temporary file
+line 90-347   - output specific output depending on the itemType and saved it to the specific text file
+line 350      - closing of file 
+line 354      - removing the original file 
+line 357      - renaming temporary file to originalfilename
+
+B)
+
+1	void displaySales(string fileName, string itemType, string salesFilename) {
+2	
+3	    //Variable declaration
+4	    string line;
+5	    string price, units, id, companyName, name, cnvrName, cnvrCompanyName;
+6	    string detector = "|";
+7	
+8	    #define totalColumn 15
+9	
+10	    int cnvrUnits;
+11	    double cnvrPrice;
+12	    double totalPrice = 0;
+13	
+14	    int posArr[totalColumn];
+15	
+16	    int pos = 0;
+17	    int counter = 0;
+18	    int counter1 = 0;
+19	    int i = 0;
+20	    int z = 0;
+21	    int totalUnits = 0;
+22	    int position = 0;
+23	
+24	    //opening of file
+25	    ifstream positionFinder;
+26	    positionFinder.open(fileName, ios::in);
+27	
+28	        //get data line by line
+29	        while(getline(positionFinder, line)) {
+30	
+31	            //skip thru the first 4 lines of txt file
+32	            if(counter++ > 3) {
+33	
+34	                //find detector in the line and store the position inside pos
+35	                while((pos = line.find(detector, position)) != string::npos) {
+36	
+37	                    //position increment
+38	                    position = pos+1;
+39	
+40	                    //store every detector position insdie array
+41	                    posArr[i] = pos;
+42	
+43	                    i++; 
+44	
+45	                } 
+46	
+47	            }
+48	
+49	        }
+50	    
+51	    //closing of file
+52	    positionFinder.close();
+53	
+54	    //redeclaration of reusability
+55	    counter = 0;
+56	    line = "";
+57	
+58	    //opening file
+59	    ifstream disp;
+60	    disp.open(fileName, ios::in);
+61	
+62	    ofstream write;
+63	    write.open(salesFilename);
+64	
+65	    write << itemType << " Sales Analysis" << endl;
+66	
+67	    write << "|------------------------------+------------------------------+-----------+--------------|" << "\n";
+68	
+69	
+70	    write << "|" << setw(30) << "Product Name" << "|";
+71	    write << setw(30) << "Company Name" << "|";
+72	    write << setw(11) << "No of units" << "|";
+73	    write << setw(14) << "Price" << "|" << "\n";
+74	
+75	    write << "|------------------------------+------------------------------+-----------+--------------|";
+76	
+77	        for(z = 0; z<itemType.length() +4  ; z++) {
+78	
+79	            cout << char(177);
+80	
+81	        }
+82	
+83	    cout << endl;
+84	
+85	    cout << char(177) << " " << itemType << " "  << char(177) << endl;
+86	
+87	        for(int z = 0; z < 91; z++) {
+88	
+89	            cout << char(177);
+90	
+91	        }
+92	
+93	    cout << endl;
+94	    cout << char(177) << " ";
+95	
+96	        for(int z = 0; z < 87; z++) {
+97	
+98	            cout << "=";
+99	
+100	        }
+101	
+102	    cout << " " << char(177) << endl;
+103	
+104	    cout << char(177) << setw(30) << "Product Name" << "|";
+105	    cout << setw(30) << "Company Name" << "|";
+106	    cout << setw(11) << "No of units" << "|";
+107	    cout << setw(14) << "Price" << " " << char(177);
+108	
+109	    cout << "\n" << char(177) << " ";
+110	
+111	        for(int z = 0; z < 87; z++) {
+112	
+113	            cout << "=";
+114	
+115	        }
+116	    
+117	    cout << " " << char(177);
+118	
+119	    //get data line by line
+120	    while(getline(disp, line)) {
+121	
+122	        //skip thru the first 4 lines
+123	        if(counter++ > 3) {
+124	
+125	            //cut the line into sections and store them in different variables
+126	            name = line.substr((posArr[1])+2, ((posArr[2])-(posArr[1]))-2);
+127	            price = line.substr((posArr[2])+2, ((posArr[3])-(posArr[2]))-1);
+128	            units = line.substr((posArr[3])+2, ((posArr[4])-(posArr[3]))-1);
+129	            companyName = line.substr((posArr[4])+2, ((posArr[5])-(posArr[4]))-2);
+130	
+131	            //Remove all whitespaces 
+132	            cnvrName = regex_replace(name,regex("\\s"),"");
+133	            cnvrCompanyName = regex_replace(companyName,regex("\\s"),"");
+134	
+135	            //convert string into int or double
+136	            cnvrPrice = stoi(price);
+137	            cnvrUnits = stoi(units);
+138	
+139	            //write 
+140	            write << "\n" << "|" <<setw(30) << cnvrName;
+141	            write << "|" << setw(30) << cnvrCompanyName;
+142	            write << "|" << setw(11) << cnvrUnits;
+143	            write << "|" << setw(14) << setprecision(2) << fixed << cnvrPrice << "|";
+144	
+145	            cout << "\n" << char(177) << setw(30) << cnvrName << "|";
+146	            cout << setw(30) << cnvrCompanyName << "|";
+147	            cout << setw(11) << cnvrUnits << "|";
+148	            cout << setw(14) << setprecision(2) << fixed << cnvrPrice << " " << char(177) << endl;
+149	            cout << char(177) << " ";
+150	
+151	                for(int z = 0; z < 87; z++) {
+152	
+153	                    cout << "-";
+154	
+155	                }
+156	
+157	            cout << " " << char(177);
+158	
+159	            //Calculating totalUNits and totalPrice
+160	            totalUnits = totalUnits + cnvrUnits;
+161	            totalPrice = totalPrice + cnvrPrice;
+162	        }
+163	
+164	    }
+165	
+166	    cout << "\n" << char(177) << "                                                               " << setw(10) << totalUnits;
+167	    cout << setw(15) << setprecision(2) << fixed << totalPrice << " " << char(177) << endl;
+168	    cout << char(177) << " ";
+169	
+170	        for(int z = 0; z < 87; z++) {
+171	
+172	            cout << "-";
+173	
+174	        }
+175	
+176	    cout << " " << char(177) << endl;
+177	
+178	    cout << char(177) << "                                       End of table                                      " << char(177) << endl;
+179	
+180	        for(int z = 0; z < 91; z++) {
+181	
+182	            cout << char(177);
+183	
+184	        }
+185	
+186	    cout << "\n\n";
+187	
+188	    write << "\n" << "                                                                " << setw(10) << totalUnits << "|" << setw(14) << totalPrice << "|";
+189	
+190	        //removing original file
+191	        if(remove(salesFilename.c_str())) {
+192	
+193	                //renaming temp.txt to original file
+194	                if(rename("temp.txt", salesFilename.c_str())) {
+195	
+196	                    cout << salesFilename << " Updated" << endl;
+197	
+198	                }
+199	
+200	        }else{
+201	
+202	            cout << "File removed failed" << endl;
+203	
+204	        }
+205	
+206	    //closing file
+207	    disp.close();
+208	    write.close();
+209	
+210	    system("pause");
+211	
+212	}
+
+Explanation !!!
+
+line 1       - displaySales is a function for owner to display itemsales 
+line 3-22    - variable declaration
+line 25      - opening file
+line 29      - get data line by line from text file
+line 32      - skip through the first 4 lines of text file, because the first 4 lines is header
+line 35      - find detector in the line and store the position inside pos variable
+line 38      - this logic is to skip thru 1 data in the line, when it hits a delimiter in order to find the next delimeter
+line 41      - store every detector position inside an array
+line 51      - closing of file 
+line 55-56   - redeclaration of reusability
+line 59-63   - opening file for reading and writing
+line 65-75   - writing the header of the file inside text file 
+line 77-117  - outputting the header and table format for display output 
+line 119     - get data line by line
+line 123     - skip through the first 4 lines
+line 125-129 - cut the line into sections and store them in diff variable with substr function
+line 132-133 - Remove all whitespaces with regex library
+line 136-137 - convert string into int or double 
+line 140-143 - writing name, companyName, Units, price to file 
+line 145-149 - displaying name, companyName, Units, price 
+line 151-158 - displaying part of the footer of the table
+line 160-161 - Calculating totalUNits and totalPrice
+line 166-168 - displaying toal units and totalPrice
+line 170-189 - displaying the rest of the footer of the table 
+line 190     - removing original file 
+line 194     - rename temperoray file to original filename
+line 207-208 - closing of file
+line 210     - pausing the terminal

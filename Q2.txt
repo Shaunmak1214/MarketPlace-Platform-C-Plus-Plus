@@ -1,0 +1,130 @@
+Dynamic Binding
+
+item *item1 = new magazine;
+item *item2 = new book;
+item *item3 = new movie;
+
+    switch(navChoice) {
+
+        case 1: 
+        
+            if(type == 1) { 
+
+                item1->addItem(); 
+
+            }else if(type == 2) { 
+
+                item2->addItem(); 
+
+            }else if(type == 3) {
+
+                item3->addItem(); 
+                
+            } 
+            
+            break ;
+
+        case 2: 
+        
+            if(type == 1) { 
+
+                item1->updateItem(); 
+
+            }else if(type == 2) { 
+
+                item2->updateItem(); 
+
+            }else if(type == 3) {
+                
+                item3->updateItem(); 
+                
+            } 
+            
+            break ;
+
+        case 3: 
+
+            if(type == 1) { 
+
+                item1->deleteItem(); 
+
+            }else if(type == 2) { 
+
+                item2->deleteItem(); 
+
+            }else if(type == 3) {
+                
+                item3->deleteItem(); 
+                
+            } 
+            
+            break ;
+
+        case 4: 
+        
+            if(type == 1) { 
+
+                item1->dispItem(); 
+                
+            }else if(type == 2) { 
+
+                item2->dispItem(); 
+
+            }else if(type == 3) { 
+                
+                item3->dispItem(); 
+                
+            } 
+            
+            break ;
+
+        case 5: 
+
+            if(type == 1) { 
+
+                item1->dispSales(); 
+                
+            }else if(type == 2) { 
+
+                item2->dispSales(); 
+
+            }else if(type == 3) { 
+                
+                item3->dispSales(); 
+                
+            } 
+            
+            break ;
+
+        case 6: 
+        
+            if(type == 1) { 
+
+                item1->dispSalesRange(); 
+                
+            }else if(type == 2) { 
+
+                item2->dispSalesRange(); 
+
+            }else if(type == 3) { 
+                
+                item3->dispSalesRange(); 
+                
+            } 
+            
+            break ;
+
+        case 7:
+
+            itemChoose();
+
+            break;
+
+        default: exit(0);
+    }
+
+Item is the base class, and Magazine, Book, Movie is the derived class, "class magazine : public item" to make inheritance
+
+Base class and the 3 subclasses contain the same function, "addItem();"is added in both base class and sub classes, the function is overriden in the 3 subclasses
+
+"item *item1 = new magazine;" to declare dynamic binding, lastly the pointer is pointing to the base class

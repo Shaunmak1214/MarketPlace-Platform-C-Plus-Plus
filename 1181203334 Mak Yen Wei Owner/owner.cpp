@@ -31,7 +31,6 @@ int idGenerator(string txtfile);
 char commonUpdate(string fileName, int itemType);
 char commonDelete(string fileName);
 char viewItems(string fileName, int startLimit);
-void displaySalesByRange(string fileName, string itemType, string salesFilename);
 void displaySales(string fileName, string itemType, string salesFilename);
 
 //Lists of classes
@@ -53,7 +52,6 @@ class item {
     //pure virtual function
     virtual void dispItem() = 0;
     virtual void dispSales() = 0;
-    virtual void dispSalesRange() = 0;
 
 };
 
@@ -339,13 +337,6 @@ class magazine : public item{
 
     }
 
-    //Display Sales by Range Function
-    void dispSalesRange() {
-
-        displaySalesByRange(recordFilename, itemType, salesFilename);
-
-    }
-
     //Display Magazine Sales function
     void dispSales() {
         
@@ -612,12 +603,6 @@ class book : public item {
         cout << "Redirecting you back to item choosing" << endl;
         //Redirect user back to item choosing menu
         itemChoose();
-
-    }
-
-    void dispSalesRange() {
-
-        displaySalesByRange(recordFilename, itemType, salesFilename);
 
     }
 
@@ -889,13 +874,6 @@ class movie : public item {
         cout << "Redirecting you back to item choosing" << endl;
         //Redirect user back to item choosing menu
         itemChoose();
-
-    }
-
-    //Display Sales by Range Function
-    void dispSalesRange() {
-
-        displaySalesByRange(recordFileName, itemType, salesFilename);
 
     }
     
@@ -1457,9 +1435,8 @@ int navigation(int type) {
     cout << char(178) << " Delete Items                      3  " << char(178) << endl;
     cout << char(178) << " View Items                        4  " << char(178) << endl;
     cout << char(178) << " Display Sales                     5  " << char(178) << endl;
-    cout << char(178) << " Display Sales By Range            6  " << char(178) << endl;
     cout << char(178) << " ------------------------------------ " << char(178) << endl;
-    cout << char(178) << " Back                              7  " << char(178) << endl;
+    cout << char(178) << " Back                              6  " << char(178) << endl;
     
         for(int i=0; i<40; i++) {
 
@@ -1574,27 +1551,9 @@ int navigation(int type) {
 
                 case 6: 
                 
-                    if(type == 1) { 
-
-                        item1->dispSalesRange(); 
-                        
-                    }else if(type == 2) { 
-
-                        item2->dispSalesRange(); 
-
-                    }else if(type == 3) { 
-                        
-                        item3->dispSalesRange(); 
-                        
-                    } 
+                    itemChoose(); 
                     
                     break ;
-
-                case 7:
-
-                    itemChoose();
-
-                    break;
 
                 default: exit(0);
             }
@@ -1630,7 +1589,7 @@ int idGenerator(string txtfile) {
 
     //id increment
     id++;
- 
+
     ofstream addId;
     addId.open(txtfile);
 
@@ -2221,175 +2180,6 @@ char viewItems(string fileName, int startLimit) {
     cout << "\n[ Next Page [n]/ Previous Page [p]/ Exit [e] ] " << endl;
     cin >> choice;
     return choice;
-
-}
-
-void displaySalesByRange(string fileName, string itemType, string salesFilename) {
-
-    string line, name, companyName, price, units, cnvrName, cnvrCompanyName;
-    string detector = "|";
-    double cnvrPrice;
-    double totalPrice = 0;
-    int startRange, endRange, cnvrUnits;
-    int totalUnits = 0;
-    int counter = 0;
-    int pos = 0;
-    int i = 0;
-    int position = 0;
-    int posArr[15];
-
-    cout << "\n\nDisplaying Sales By Range :)" << endl;
-
-    cout << "\nEnter your start range :";
-    cin >> startRange;
-
-    cout << "\nEnter your end range :";
-    cin >> endRange;
-    cout << endl;
-
-    ifstream positionFinder;
-    positionFinder.open(fileName, ios::in);
-
-        while(getline(positionFinder, line)) {
-
-            //skip thru the first 4 lines of txt file
-            if(counter++ > 3) {
-
-                //find detector in the line and store the position inside pos
-                while((pos = line.find(detector, position)) != string::npos) {
-
-                    //position increment
-                    position = pos+1;
-
-                    //store every detector position insdie array
-                    posArr[i] = pos;
-
-                    i++; 
-
-                } 
-
-            }
-
-        }
-
-    positionFinder.close();
-
-    counter = 0;
-    line = "";
-
-        for(int z = 0; z<itemType.length() +4  ; z++) {
-
-            cout << char(177);
-
-        }
-
-    cout << endl;
-
-    cout << char(177) << " " << itemType << " "  << char(177) << endl;
-
-        for(int z = 0; z < 91; z++) {
-
-            cout << char(177);
-
-        }
-
-    cout << endl;
-    cout << char(177) << " ";
-
-        for(int z = 0; z < 87; z++) {
-
-            cout << "=";
-
-        }
-
-    cout << " " << char(177) << endl;
-
-    cout << char(177) << setw(30) << "Product Name" << "|";
-    cout << setw(30) << "Company Name" << "|";
-    cout << setw(11) << "No of units" << "|";
-    cout << setw(14) << "Price" << " " << char(177);
-
-    cout << "\n" << char(177) << " ";
-
-        for(int z = 0; z < 87; z++) {
-
-            cout << "=";
-
-        }
-    
-    cout << " " << char(177);
-
-    ifstream disp;
-    disp.open(fileName, ios::in);
-
-        while(getline(disp, line)) {
-
-            if(counter++ > 3) {
-
-                //cut the line into sections and store them in different variables
-                name = line.substr((posArr[1])+2, ((posArr[2])-(posArr[1]))-2);
-                price = line.substr((posArr[2])+2, ((posArr[3])-(posArr[2]))-1);
-                units = line.substr((posArr[3])+2, ((posArr[4])-(posArr[3]))-1);
-                companyName = line.substr((posArr[4])+2, ((posArr[5])-(posArr[4]))-2);
-
-                //Remove all whitespaces 
-                cnvrName = regex_replace(name,regex("\\s"),"");
-                cnvrCompanyName = regex_replace(companyName,regex("\\s"),"");
-
-                //convert string into int or double
-                cnvrPrice = stoi(price);
-                cnvrUnits = stoi(units);
-
-                    if(cnvrPrice >= startRange && cnvrPrice <= endRange) {
-
-                        //cout << line << endl;
-                        cout << "\n" << char(177) << setw(30) << cnvrName << "|";
-                        cout << setw(30) << cnvrCompanyName << "|";
-                        cout << setw(11) << cnvrUnits << "|";
-                        cout << setw(14) << setprecision(2) << fixed << cnvrPrice << " " << char(177) << endl;
-                        cout << char(177) << " ";
-
-                            for(int z = 0; z < 87; z++) {
-
-                                cout << "-";
-
-                            }
-
-                        cout << " " << char(177);
-
-                        //Calculating totalUNits and totalPrice
-                        totalUnits = totalUnits + cnvrUnits;
-                        totalPrice = totalPrice + cnvrPrice;
-
-                    }
-
-            }
-
-        }
-
-    disp.close();
-
-    cout << "\n" << char(177) << "                                                               " << setw(10) << totalUnits;
-    cout << setw(15) << setprecision(2) << fixed << totalPrice << " " << char(177) << endl;
-    cout << char(177) << " ";
-
-        for(int z = 0; z < 87; z++) {
-
-            cout << "-";
-
-        }
-
-    cout << " " << char(177) << endl;
-
-    cout << char(177) << "                                       End of table                                      " << char(177) << endl;
-
-        for(int z = 0; z < 91; z++) {
-
-            cout << char(177);
-
-        }
-
-    cout << "\n\n";
 
 }
 

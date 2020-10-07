@@ -1,0 +1,85 @@
+void displaySalesByRange(string fileName, string itemType, string salesFilename) {
+
+    string line, name, companyName, price, units, cnvrName, cnvrCompanyName;
+    string detector = "|";
+    double cnvrPrice;
+    int startRange, endRange, cnvrUnits;
+    int counter = 0;
+    int pos = 0;
+    int i = 0;
+    int position = 0;
+    int posArr[15];
+
+    cout << "\n\nDisplaying Sales By Range :)" << endl;
+
+    cout << "\nEnter your start range :";
+    cin >> startRange;
+
+    cout << "\nEnter your end range :";
+    cin >> endRange;
+    cout << endl;
+
+    ifstream positionFinder;
+    positionFinder.open(fileName, ios::in);
+
+        while(getline(positionFinder, line)) {
+
+            //skip thru the first 4 lines of txt file
+            if(counter++ > 3) {
+
+                //find detector in the line and store the position inside pos
+                while((pos = line.find(detector, position)) != string::npos) {
+
+                    //position increment
+                    position = pos+1;
+
+                    //store every detector position insdie array
+                    posArr[i] = pos;
+
+                    i++; 
+
+                } 
+
+            }
+
+        }
+
+    positionFinder.close();
+
+    counter = 0;
+    line = "";
+
+    ifstream disp;
+    disp.open(fileName, ios::in);
+
+    while(getline(disp, line)) {
+
+        if(counter++ > 3) {
+
+            //cut the line into sections and store them in different variables
+            name = line.substr((posArr[1])+2, ((posArr[2])-(posArr[1]))-2);
+            price = line.substr((posArr[2])+2, ((posArr[3])-(posArr[2]))-1);
+            units = line.substr((posArr[3])+2, ((posArr[4])-(posArr[3]))-1);
+            companyName = line.substr((posArr[4])+2, ((posArr[5])-(posArr[4]))-2);
+
+            //Remove all whitespaces 
+            cnvrName = regex_replace(name,regex("\\s"),"");
+            cnvrCompanyName = regex_replace(companyName,regex("\\s"),"");
+
+            //convert string into int or double
+            cnvrPrice = stoi(price);
+            cnvrUnits = stoi(units);
+
+                if(cnvrPrice >= startRange && cnvrPrice <= endRange) {
+
+                    cout << line << endl;
+
+                }
+
+        }
+
+    }
+
+    disp.close();
+
+}
