@@ -10,8 +10,8 @@
 
 #include<iostream>
 #include<iomanip>
-#include<string>
-#include<fstream>
+#include<string> //string object usage
+#include<fstream> // for file functions
 #include<cstring> //for string::functions
 #include<conio.h> //for getch funnction
 #include<stdio.h> //for remove() and rename()
@@ -886,14 +886,17 @@ class movie : public item {
 
 };
 
+//Owner class with inheritance of sub class magazine, book and movie
 class owner : public magazine, public book, public movie{
 
     private:
+    //private data members declaration
     string ownerId, ownerPassword, ownerName, ownerCompany;
     string ownerFileName = "ownerAccount.txt";
 
     public:
 
+    //Registration fucntion
     void registration() {
 
         int id=0;
@@ -903,17 +906,20 @@ class owner : public magazine, public book, public movie{
         id = idGenerator(filename);
         //End of Id Auto Generator
 
+        //Header
         cout << "\n\n===================Owner Register====================" << endl;
 
         cout << "Please enter your new username[max words of 10] : " << endl;
         cin.ignore();
         getline(cin, ownerName);
 
+        //Removing all whitespace between characters using regex library
         ownerName = regex_replace(ownerName,regex("\\s"),"");
 
         cout << "Please enter your new password [max words of 15] : " << endl;
         getline(cin, ownerPassword);
 
+        //Removing all whitespace between characters using regex library
         ownerPassword = regex_replace(ownerPassword,regex("\\s"),"");
 
         cout << "\n\nComfirmation [spaces between characters is deleted]" << endl;
@@ -922,16 +928,21 @@ class owner : public magazine, public book, public movie{
 
         system("pause");
 
+        //Opening file for write in usage
         ofstream regfile;
         regfile.open(ownerFileName, ios::app);
 
+            //if fail failed to open
             if(regfile.fail()) {
 
-                cout << "Error writing to the file, program ends...try again!" << endl;
-                exit(0);
+                cout << "Error writing to the file" << endl;
+                cout << "Redirecting you back to Home" << endl;
+                //Redirect users back to Home Menu
+                homeNav();
 
             }else{
 
+                //Writing data to file 
                 regfile << "\n" << "|" << setw(8) << id;
                 regfile << "|" << setw(20) << ownerName;
                 regfile << "|" << setw(20) << ownerPassword << "|";
@@ -939,19 +950,23 @@ class owner : public magazine, public book, public movie{
 
                 cout << "Account Registered !!!" << endl;
                 cout << "Login is Skipped !!!" << endl;
+                //Redirecting users to item choosing menu if account is registered
                 itemChoose();
                     
             }
 
     }
 
+    //Login function
     void login() {
 
+        //Variable declaration
         string line, IdPassCheck;
         int loggedin = 0;
         char cont;
         int menuReturn;
 
+        //Clear terminal using stdlib.h library
         system("CLS");
 
         cout << "\n\n============================Owner Login============================" << endl;
@@ -963,32 +978,38 @@ class owner : public magazine, public book, public movie{
         cout << "Please enter your password [max words of 15] [No Space Allowed]: " << endl;
         getline(cin, ownerPassword);
 
+        //Gather up enetered username and password
         IdPassCheck = ownerName + ownerPassword;
 
+        //Clear terminal using stdlib.h library
         system("CLS");
 
+        //opening file
         ifstream logfile;
         logfile.open(ownerFileName, ios::in);
 
-
+            //if file failed to open
             if(logfile.fail()) {
 
-                cout << "Failed to open file...program ends" << endl;
-                exit(1);
+                cout << "Failed to open file..." << endl;
+                cout << "Redirecting you back to Home" << endl;
+                //Redirecting users back to home menu
+                homeNav();
 
+            //if file opens
             }else{
 
+                //set initial counter
                 int counter=0;
 
                     //To read every line of the txt file
                     while(getline(logfile, line)){
 
+                        //ignoring the file 10 pieces of data
                         logfile.ignore(10, '\n');
 
                             //ignoring the first 3 lines of txt files
                             if(counter++ > 3) {
-
-                                //logfile.ignore(10, '\n');
 
                                 //STARTING OF DELIMITER
                                 //Delimiter is to delete the "|" in the line and achieve a clean line of text without the "|"
@@ -996,8 +1017,13 @@ class owner : public magazine, public book, public movie{
                                 size_t pos = 0;
                                 string token, word;
 
+                                    //While loop to find delimeter position, position of delimeter is stored in pos with a data type of size_t
                                     while ((pos = line.find(delimiter)) != string::npos) {
 
+                                        //token will be equal to all character found on string line from left until it hits the value of pos
+                                        //substr function made this possible
+                                        //the first parameter tells where it should read from the line, and the second parameters tells it where it should stop reading
+                                        // eg: line: "Hi There", token=line.substr(0, 1), token will be "H"
                                         token = line.substr(0, pos);
 
                                         //regex_replace function
@@ -1006,11 +1032,13 @@ class owner : public magazine, public book, public movie{
 
                                         word = word + token;
 
+                                        //Using erase function to erase the characters that are already checked
                                         line.erase(0, pos + delimiter.length());
 
                                     }
                                 //END OF DELIMITER
 
+                                //Compare users input with the data in file
                                 if(word.compare(IdPassCheck) == 0){
 
                                     cout << "You are Logged In!!!" << "\n\n" ;
@@ -1046,6 +1074,7 @@ class owner : public magazine, public book, public movie{
 
                         if(tolower(cont) == 'y') {
 
+                            //recursive function
                             login();
 
                         }
@@ -1056,39 +1085,47 @@ class owner : public magazine, public book, public movie{
 
     }
 
+    //Update Account function
     void updateAccount() {
 
         string line, savedLine;
         size_t pos;
         int position = 0;
 
+        //.c_str() function to convert a string to a const char*
+        //conversion have to be made because on line(1183 and 1187)rename and remove function only takes const char * as parameter and cannot take string as parameter
         const char* cnvrOFN = ownerFileName.c_str();
 
         cout << "\n\nPlease key in your ID to proceed update...: ";
         cin.ignore();
         getline(cin, ownerId);
 
+        //opening file
         ifstream upd;
         upd.open(ownerFileName, ios::in);
 
-        while(getline(upd, line)) {
+            //get data line by line
+            while(getline(upd, line)) {
 
-            pos = line.find(ownerId);
+                //get position where ownerId is found in line
+                pos = line.find(ownerId);
 
-                if(pos != string::npos) {
+                    if(pos != string::npos) {
 
-                    if(pos < 12) {
+                        //if position is lesser than 12, that means the value found in the line is under the ownerId column
+                        if(pos < 12) {
 
-                        savedLine = line;
+                            savedLine = line;
+
+                        }
 
                     }
 
-                }
-
-        }
+            }
 
         upd.close();
 
+            //savedLine is empty that means id is not found
             if(savedLine == "") {
 
                 cout << "\nId not found, u might have to register an account huh? " << endl;
@@ -1098,12 +1135,14 @@ class owner : public magazine, public book, public movie{
 
             }else{
 
+                //initialize line to empty because code below will reuse the same variable
                 line = "";
 
                 cout << "\n################" << endl;
                 cout << "Id found as : " << ownerId << endl;
                 cout << "################" << endl;
 
+                //open file
                 ifstream updateAcc;
                 updateAcc.open(ownerFileName, ios::in);
 
@@ -1128,35 +1167,41 @@ class owner : public magazine, public book, public movie{
                 cin.ignore();
                 getline(cin, ownerName);
 
+                //Remove any whitespace between characters
                 ownerName = regex_replace(ownerName,regex("\\s"),"");
 
                 cout << "\nPlease enter your new password [max words of 15] : " << endl;
                 getline(cin, ownerPassword);
 
+                //Remove any whitespace between characters
                 ownerPassword = regex_replace(ownerPassword,regex("\\s"),"");
 
+                //Promp comfirmation box
                 cout << "\n\nComfirmation [spaces between characters is deleted]" << endl;
                 cout << "Username :" << ownerName << endl;
                 cout << "Password :" << ownerPassword << "\n\n";
 
                 system("pause");
 
+                //write into file
                 temp << "|" << setw(8) << ownerId;
                 temp << "|" << setw(20) << ownerName;
                 temp << "|" << setw(20) << ownerPassword << "|";
 
+                //file closing
                 updateAcc.close();
                 temp.close();
 
+                //removing the original file
                 if(remove(cnvrOFN) == 0) {
 
-                    //cout << "Original file removed" << endl;
-
+                        //Rename temp.txt file to original file to replace it
                         if(rename("temp.txt", cnvrOFN) == 0) {
 
                             cout << "\n\nAccount Updated !!!" << endl;
                             cout << "Redirecting you to main menu... \n\n" << endl;
                             system("pause");
+                            //redirecting user back to home 
                             homeNav();
 
                         }
@@ -1173,6 +1218,7 @@ class owner : public magazine, public book, public movie{
 
     }
 
+    //initialize friend function of itemchoose
     friend int itemChoose();
 };
 
@@ -1180,8 +1226,10 @@ class owner : public magazine, public book, public movie{
 //main function
 int main() {
 
+    //variable declaration
     int homeNavReturn;
 
+    //run homenav
     homeNavReturn = homeNav();
 
         while(homeNavReturn == 0) {
@@ -1197,8 +1245,8 @@ int main() {
 //functions
 int homeNav() {
 
+    //variable and object declaration
     owner o;
-
     int choice;
 
         for(int i=0; i<29; i++) {
@@ -1254,9 +1302,11 @@ int homeNav() {
 
 int itemChoose() {
 
+    //variable declaration
     int type;
     int itemChoice = 0;
 
+    //Pure virtual and virtual fucntion declaration
     item *item1 = new magazine;
     item *item2 = new book;
     item *item3 = new movie;
@@ -1294,7 +1344,8 @@ int itemChoose() {
             type = 1;
 
             system("pause"); 
-
+            
+            //passing type to navigation function
             navigation(type);
 
         }else if(itemChoice == 2) { 
@@ -1304,7 +1355,8 @@ int itemChoose() {
             type = 2;
 
             system("pause");
-
+            
+            //passing type to navigation function
             navigation(type);
 
         }else if(itemChoice == 3) { 
@@ -1314,7 +1366,8 @@ int itemChoose() {
             type = 3;
 
             system("pause");
-
+            
+            //passing type to navigation function
             navigation(type);
 
         }else if(itemChoice == 4){  
@@ -1342,13 +1395,16 @@ int itemChoose() {
 
 int navigation(int type) {
 
+    //clear terminal
     system("CLS");
 
+    //object and variable declaration
     magazine m;
     book b;
     movie mo;
     int navChoice;
 
+    //Pure virtual function and virtual function declaration
     item *item1 = new magazine;
     item *item2 = new book;
     item *item3 = new movie;
@@ -1508,20 +1564,24 @@ int navigation(int type) {
 
 }
 
+//id generator function
 int idGenerator(string txtfile) {
 
     int id;
 
     //Start of Id Auto Generator
+    //open file
     ifstream checkId;
     checkId.open(txtfile, ios::in);
 
+        //if file failed to open
         if(checkId.fail()) {
 
             cout << "Auto Generate Id Function Failed..." << endl;
 
         }else{
 
+            //get value and store it inside id
             checkId >> id;
             checkId.close();
 
@@ -1539,12 +1599,13 @@ int idGenerator(string txtfile) {
 
         }else{
 
+            //writing new incremented value to file
             addId << id;
             addId.close();
 
         }
     //End of Id Auto Generator
-
+    
     return id;
 
 }
