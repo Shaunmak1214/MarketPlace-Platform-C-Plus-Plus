@@ -112,7 +112,7 @@ class magazine : public item{
             //Check if price input is a negative number
             while(price < 0) {
 
-                //If price is a negative number, then promp user to input again
+                //If price is a negative number, then prompt user to input again
                 cout << "\n\n################## ALERT #####################" << endl;
                 cout << "Price cannot be a negative number...Fix It !!!" << endl;
                 cout << "##############################################" << endl;
@@ -209,6 +209,7 @@ class magazine : public item{
                 addmag.close();
 
                 cout << "Magazine item added successfully!" << endl;
+                cout << "Redirecting you back to item choosing" << endl;
 
                 //Going back to item choosing menu
                 itemChoose();
@@ -232,7 +233,7 @@ class magazine : public item{
             itemChoose();
 
         //if returnValue is not 's' (that means update function is not a success), then prompt failed output then redirect users to item choosing menu
-        }else {
+        }else{
 
             cout << "Failed to update" << endl;
             cout << "Redirecting you back to item choosing" << endl;
@@ -605,7 +606,7 @@ class book : public item {
 
     }
 
-    //Display Magazine Sales function
+    //Display Book Sales function
     void dispSales() {
         
         displaySales(recordFilename, itemType, salesFilename);
@@ -614,12 +615,16 @@ class book : public item {
 
 };
 
+//Moevie Class
 class movie : public item {
 
     private:
+    //private data members initialization
     string mainActorName, movieFileName, recordFileName, itemType, salesFilename;
 
     public:
+
+    //default constructor
     movie() {
 
         movieFileName = "movie.txt";
@@ -629,20 +634,26 @@ class movie : public item {
 
     }
 
+    //Add item function
     void addItem() {
 
+        //Variable declaration
         int id;
 
         //id generator function
         id = idGenerator(fileName);
 
+        //Header
         cout << "========Add Movie Form=======" << endl;
+
         cout << "Movie Name [Max characters of 30]          :";
         cin.ignore();
         getline(cin, itemName);
 
+            //Check if input length is longer than 30 or shorter than 0
             while(itemName.length() > 30 || itemName.length() <= 0) {
    
+                //if input length is longer than 30 or shorter than 0 then prompt user to input agqain
                 cout << "\n\n########################## ALERT #############################" << endl;
                 cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
                 cout << "##############################################################" << endl;
@@ -655,8 +666,10 @@ class movie : public item {
         cout << "Movie Price                                :";
         cin >> price;
 
+            //Check if price input is a negative number
             while(price < 0) {
 
+                //If price is a negative number, then prompt user to input again
                 cout << "\n\n################## ALERT #####################" << endl;
                 cout << "Price cannot be a negative number...Fix It !!!" << endl;
                 cout << "##############################################" << endl;
@@ -669,8 +682,10 @@ class movie : public item {
         cout << "Number of units                            :";
         cin >> noUnits; 
 
+            //Check if noUnits is a negative number
             while(noUnits < 0) {
 
+                //if noUnits is a negative number, then prompt user to input again
                 cout << "\n\n################## ALERT #####################" << endl;
                 cout << "Units cannot be a negative number...Fix It !!!" << endl;
                 cout << "##############################################" << endl;
@@ -684,8 +699,10 @@ class movie : public item {
         cin.ignore();
         getline(cin, itemCompany);
 
+            //Check if input length is longer than 30 or shorter than 0 
             while(itemCompany.length() > 30 || itemCompany.length() <= 0) {
 
+                //if input length is longer than 30 or shorter than 0 then prompt user to input agqain
                 cout << "\n\n########################## ALERT ################################" << endl;
                 cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
                 cout << "#################################################################" << endl;
@@ -698,8 +715,10 @@ class movie : public item {
         cout << "Main Actor Name [Max characters of 30]     :";
         getline(cin, mainActorName);
 
+            //Check if input length is longer than 30 or shorter than 0 
             while(mainActorName.length() > 30 || mainActorName.length() <= 0) {
 
+                //if input length is longer than 30 or shorter than 0 then prompt user to input agqain
                 cout << "\n\n########################## ALERT ################################" << endl;
                 cout << "Company name entered is either too long or too short...Fix It !!!" << endl;
                 cout << "#################################################################" << endl;
@@ -709,44 +728,53 @@ class movie : public item {
 
             }
 
+        //opening file
         ofstream addMovie;
         addMovie.open("movie.txt", ios::app);
 
-        if(addMovie.fail()) {
+            //Condition if file failed to open
+            if(addMovie.fail()) {
 
-            cout << "Error writing to the file, program ends...try again!" << endl;
-            exit(1);
+                cout << "Error writing to the file, program ends...try again!" << endl;
+                exit(1);
 
-        }else{
+            //Condition if file open succeed
+            }else{
 
-            addMovie << "\n" << "|" << setw(7) << id;
-            addMovie << "|" << setw(30) << itemName;
-            addMovie << "|" << setw(14) << setprecision(2) << fixed << price;
-            addMovie << "|" << setw(11) << noUnits;
-            addMovie << "|" << setw(30) << itemCompany;
-            addMovie << "|" << setw(30) << mainActorName << "|";
-            addMovie.close();
+                //writing into file
+                addMovie << "\n" << "|" << setw(7) << id;
+                addMovie << "|" << setw(30) << itemName;
+                addMovie << "|" << setw(14) << setprecision(2) << fixed << price;
+                addMovie << "|" << setw(11) << noUnits;
+                addMovie << "|" << setw(30) << itemCompany;
+                addMovie << "|" << setw(30) << mainActorName << "|";
+                addMovie.close();
 
-            cout << "Movie item added successfully!" << endl;
+                cout << "Movie item added successfully!" << endl;
+                cout << "Redirecting you back to item choosing" << endl;
 
-            cout << "Redirecting you back to item choosing" << endl;
-            itemChoose();
+                //Going back to item choosing menu
+                itemChoose();
 
-        }
+            }
 
     }
 
+    //Update Item Function
     void updateItem() {
 
+        //return value to navigate users to item choose menu
         char returnValue = commonUpdate(movieFileName, 2);
 
+        //if returnValue is 's' (that means update function is a success), then prompt success output and redirect users to item choosing menu
         if(returnValue == 's') {
 
             cout << "Item Updated!!" << endl;
             cout << "Redirecting you back to item choosing" << endl;
             itemChoose();
 
-        }else {
+        //if returnValue is not 's' (that means update function is not a success), then prompt failed output then redirect users to item choosing menu
+        }else{
 
             cout << "Failed to update" << endl;
             cout << "Redirecting you back to item choosing" << endl;
@@ -755,82 +783,101 @@ class movie : public item {
         }
     }
 
+    //Delete Item Function
     void deleteItem() {
 
+        //take return value to achieve function looping
+        //if users failed to delete an item, there is a choice to retry again and again. 
         char returnValue = commonDelete(movieFileName);
 
+        //while returnValue is always not equal to s, (s means success of deletion)
         while(returnValue != 's') {
 
             switch(returnValue) {
 
+                //if users input y (that means user request to try again with the function), then run case'y'
                 case 'y' : returnValue = commonDelete(movieFileName); break;
 
+                //if users input n (thats means user request to exit the function), then redirect users to item choose menu
                 case 'n' : itemChoose();
 
             }
 
         }
 
-        cout << "Passed while loop" << endl;
+        //if returnValue is equal to 's', then redirect users to item choosing menu
         cout << "Redirecting you back to item choosing" << endl;
         itemChoose();
 
     }
 
+    //viewing item function
     void dispItem() {
 
+        //Variable declaration
         string line;
         char choice;
         int startLimit = 4;
         int lineCount;
 
+        //open file
         ifstream view;
         view.open(movieFileName, ios::in);
 
+            //Get data line by line in file
             while(getline(view, line)) {
 
+                //Increment to count how many lines there is in the file
                 lineCount++;
 
             }
 
+        //close file
         view.close();
 
+        //Return value to make next page and previous page function
         choice = viewItems(movieFileName, startLimit);
 
+            //While choice is not equals to e(e means exit)
             while(choice != 'e') {
 
                 if(choice == 'n') {
 
+                    //Make next page function by adding startlimit by 11
                     if(startLimit <= lineCount-10) {
 
                         startLimit = startLimit+11;
 
                     }
 
-                    // printCount = printCount+5;
+                    //run function again with updated startLimit function
                     choice = viewItems(movieFileName, startLimit);
 
                 }else if(choice == 'p') {
 
+                    //Make previous page function by substrating startlimit by 11
                     if(startLimit >= 14) {
 
                         startLimit = startLimit-11;
 
                     }
                     
-                    //printCount = printCount-10;
+                    //run function again with updated startLimit function
                     choice = viewItems(movieFileName, startLimit);
 
                 }
 
             }
 
+        //If return value Choice is equals to e(means user wish to exit)
         cout << "View Finished" << endl;
         cout << "Redirecting you back to item choosing" << endl;
+        //Redirect user back to item choosing menu
         itemChoose();
 
     }
-        
+    
+    //Display Movie Sales function
     void dispSales() {
         
         displaySales(recordFileName, itemType, salesFilename);
