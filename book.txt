@@ -2,63 +2,106 @@
 |-------+------------------------------+--------------+-----------+------------------------------+------------------------------|
 |Item Id|                     Book Name|    Book Price|No of units|                  Company Name|                   Author Name|
 |-------+------------------------------+--------------+-----------+------------------------------+------------------------------|
-|    101|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
-|     82|                  How to Basic|           200|      20010|                   Shaunmak.co|                      ShaunMak|
-|     93|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
-|     74|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
-|     85|                  How to Basic|           200|      20010|                   Shaunmak.co|                      ShaunMak|
-|     96|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
-|     77|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
-|     88|                  How to Basic|           200|      20010|                   Shaunmak.co|                      ShaunMak|
-|     99|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
-|     71|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
-|     86|                  How to Basic|           200|      20010|                   Shaunmak.co|                      ShaunMak|
-|     93|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
-|     74|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
-|     85|                  How to Basic|           200|      20010|                   Shaunmak.co|                      ShaunMak|
-|     96|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
-|     77|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
-|     88|                  How to Basic|           200|      20010|                   Shaunmak.co|                      ShaunMak|
-|     99|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
-|     71|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
-|     86|                  How to Basic|           200|      20010|                   Shaunmak.co|                      ShaunMak|
-|     94|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
-|     75|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
-|     86|                  How to Basic|           200|      20010|                   Shaunmak.co|                      ShaunMak|
-|     94|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
-|     75|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
-|     86|                  How to Basic|           200|      20010|                   Shaunmak.co|                      ShaunMak|
-|     94|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
-|     75|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
-|     86|                  How to Basic|           200|      20010|                   Shaunmak.co|                      ShaunMak|
-|     94|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
-|     75|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
-|     86|                  How to Basic|           200|      20010|                   Shaunmak.co|                      ShaunMak|
-|     94|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
-|     75|                The Amazon Way|           239|       3000|                      shuanmak|                    Joe Bidden|
-|     86|                  How to Basic|           200|      20010|                   Shaunmak.co|                      ShaunMak|
-|     94|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
-|    101|              Best Recipe Book|         30.00|       1000|                   shaunmak.co|                  Lim Min Zhen|
-|    102|                    Oppo Guide|         23.00|        123|                        sinyin|                   Mak Yen Wei|
-|    103|                         Mulan|         24.50|        123|                           ewq|                   Ong Sin Yin|
-|    104|                         Girls|         27.00|        123|                           ewq|                           qwe|
-|    105|                         Apple|         27.00|        123|                           ewq|                           qwe|
-|    106|                     Vegetable|         30.00|        123|                           ewq|                           qwe|
-|    107|                   Small puppy|         20.00|        123|                           ewq|                           qwe|
-|    108|                           qwe|         15.00|        123|                           ewq|                           qwe|
-|    109|                           qwe|         17.50|        123|                           ewq|                           qwe|
-|    110|                           qwe|         18.00|        123|                           ewq|                           qwe|
-|    111|                           qwe|         26.00|        123|                           ewq|                           qwe|
-|    112|                           qwe|         60.00|        123|                           ewq|                           qwe|
-|    113|                           qwe|         28.00|        123|                           ewq|                           qwe|
-|    114|                           qwe|         25.00|        123|                           ewq|                           qwe|
-|    115|                           qwe|         52.00|        123|                           ewq|                           qwe|
-|    116|                           qwe|         48.50|        123|                           ewq|                           qwe|
-|    117|                           qwe|         56.00|        123|                           ewq|                           qwe|
-|    118|                           qwe|         19.00|        123|                           ewq|                           qwe|
-|    119|                           qwe|        128.20|        123|                           ewq|                           qwe|
-|    120|                           qwe|         26.00|        123|                           ewq|                           qwe|
-|    121|                           qwe|         86.00|        123|                           ewq|                           qwe|
-|    122|                           qwe|         90.00|        123|                           ewq|                           qwe|
-|    122|                           qwe|         60.00|        123|                           ewq|                           qwe|
-|    123|                           qwe|         26.00|        123|                           ewq|                           qwe|
+|    101|                The Amazon Way|         39.00|         10|                      shuanmak|                    Joe Bidden|
+|    102|                  How to Basic|         40.00|          2|                   Shaunmak.co|                      ShaunMak|
+|    103|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
+|    104|                        Airway|         27.00|        300|                      shuanmak|                    Joe Bidden|
+|    105|           What is statistics?|         52.00|         20|                   Shaunmak.co|                      ShaunMak|
+|    106|                      Computer|         34.09|          1|                         shaun|                         nolan|
+|    107|                          eBay|         36.00|        300|                      shuanmak|                    Joe Bidden|
+|    108|                        Marvel|        200.00|      20010|                   Shaunmak.co|                      ShaunMak|
+|    109|                       Captain|         34.09|          1|                         shaun|                         nolan|
+|    110|                     Big Brain|         69.00|        300|                      shuanmak|                    Joe Bidden|
+|    111|                            BM|           200|      20010|                   Shaunmak.co|                      ShaunMak|
+|    112|                        Penang|        234.09|          1|                         shaun|                         nolan|
+|    113|                        Orange|           239|       3000|                      shuanmak|                    Joe Bidden|
+|    114|             How to Earn Money|          3.30|       2010|                   Shaunmak.co|                      ShaunMak|
+|    115|                     Explained|         34.09|          1|                         shaun|                         nolan|
+|    116|                    Amazon Way|         39.00|       3000|                      shuanmak|                    Joe Bidden|
+|    117|                   How to Bass|        200.00|      20010|                   Shaunmak.co|                      ShaunMak|
+|    118|                    Instrument|         34.09|          1|                         shaun|                         nolan|
+|    119|                       A spoon|         52.39|        300|                      shuanmak|                    Joe Bidden|
+|    120|                         A key|         20.00|        210|                   Shaunmak.co|                      ShaunMak|
+|    121|                           Jim|         24.09|          1|                         shaun|                         nolan|
+|    122|              Best Recipe Book|         30.00|        100|                   shaunmak.co|                  Lim Min Zhen|
+|    123|                    Oppo Guide|         23.00|        123|                        sinyin|                   Mak Yen Wei|
+|    124|                         Mulan|         24.50|        123|                           GRE|                   Ong Sin Yin|
+|    125|                         Girls|         27.00|        200|                           ewq|                           R.R|
+|    126|                         Apple|         27.00|        123|                           WEG|                           qwe|
+|    127|                     Vegetable|         30.00|        123|                           DSq|                           Jim|
+|    128|                   Small puppy|         20.00|        123|                           TRE|                           Sot|
+|    129|                The Amazon Way|         39.00|         10|                      shuanmak|                    Joe Bidden|
+|    130|                  How to Basic|         40.00|          2|                   Shaunmak.co|                      ShaunMak|
+|    131|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
+|    132|                        Airway|         27.00|        300|                      shuanmak|                    Joe Bidden|
+|    133|           What is statistics?|         52.00|         20|                   Shaunmak.co|                      ShaunMak|
+|    134|                      Computer|         34.09|          1|                         shaun|                         nolan|
+|    135|                          eBay|         36.00|        300|                      shuanmak|                    Joe Bidden|
+|    136|                        Marvel|        200.00|      20010|                   Shaunmak.co|                      ShaunMak|
+|    137|                       Captain|         34.09|          1|                         shaun|                         nolan|
+|    138|                     Big Brain|         69.00|        300|                      shuanmak|                    Joe Bidden|
+|    139|                            BM|           200|      20010|                   Shaunmak.co|                      ShaunMak|
+|    140|                        Penang|        234.09|          1|                         shaun|                         nolan|
+|    141|                        Orange|           239|       3000|                      shuanmak|                    Joe Bidden|
+|    142|             How to Earn Money|          3.30|       2010|                   Shaunmak.co|                      ShaunMak|
+|    143|                     Explained|         34.09|          1|                         shaun|                         nolan|
+|    144|                    Amazon Way|         39.00|       3000|                      shuanmak|                    Joe Bidden|
+|    145|                   How to Bass|        200.00|      20010|                   Shaunmak.co|                      ShaunMak|
+|    146|                    Instrument|         34.09|          1|                         shaun|                         nolan|
+|    147|                       A spoon|         52.39|        300|                      shuanmak|                    Joe Bidden|
+|    148|                         A key|         20.00|        210|                   Shaunmak.co|                      ShaunMak|
+|    149|                           Jim|         24.09|          1|                         shaun|                         nolan|
+|    150|              Best Recipe Book|         30.00|        100|                   shaunmak.co|                  Lim Min Zhen|
+|    151|                    Oppo Guide|         23.00|        123|                        sinyin|                   Mak Yen Wei|
+|    152|                         Mulan|         24.50|        123|                           GRE|                   Ong Sin Yin|
+|    153|                         Girls|         27.00|        200|                           ewq|                           R.R|
+|    154|                         Apple|         27.00|        123|                           WEG|                           qwe|
+|    155|                     Vegetable|         30.00|        123|                           DSq|                           Jim|
+|    156|                   Small puppy|         20.00|        123|                           TRE|                           Sot|
+|    101|                The Amazon Way|         39.00|         10|                      shuanmak|                    Joe Bidden|
+|    102|                  How to Basic|         40.00|          2|                   Shaunmak.co|                      ShaunMak|
+|    103|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
+|    104|                        Airway|         27.00|        300|                      shuanmak|                    Joe Bidden|
+|    105|           What is statistics?|         52.00|         20|                   Shaunmak.co|                      ShaunMak|
+|    106|                      Computer|         34.09|          1|                         shaun|                         nolan|
+|    107|                          eBay|         36.00|        300|                      shuanmak|                    Joe Bidden|
+|    108|                        Marvel|        200.00|      20010|                   Shaunmak.co|                      ShaunMak|
+|    109|                       Captain|         34.09|          1|                         shaun|                         nolan|
+|    110|                     Big Brain|         69.00|        300|                      shuanmak|                    Joe Bidden|
+|    111|                            BM|           200|      20010|                   Shaunmak.co|                      ShaunMak|
+|    112|                        Penang|        234.09|          1|                         shaun|                         nolan|
+|    113|                        Orange|           239|       3000|                      shuanmak|                    Joe Bidden|
+|    114|             How to Earn Money|          3.30|       2010|                   Shaunmak.co|                      ShaunMak|
+|    115|                     Explained|         34.09|          1|                         shaun|                         nolan|
+|    116|                    Amazon Way|         39.00|       3000|                      shuanmak|                    Joe Bidden|
+|    117|                   How to Bass|        200.00|      20010|                   Shaunmak.co|                      ShaunMak|
+|    118|                    Instrument|         34.09|          1|                         shaun|                         nolan|
+|    119|                       A spoon|         52.39|        300|                      shuanmak|                    Joe Bidden|
+|    120|                         A key|         20.00|        210|                   Shaunmak.co|                      ShaunMak|
+|    121|                           Jim|         24.09|          1|                         shaun|                         nolan|
+|    122|              Best Recipe Book|         30.00|        100|                   shaunmak.co|                  Lim Min Zhen|
+|    123|                    Oppo Guide|         23.00|        123|                        sinyin|                   Mak Yen Wei|
+|    131|               Tenet Explained|        234.09|          1|                         shaun|                         nolan|
+|    132|                        Airway|         27.00|        300|                      shuanmak|                    Joe Bidden|
+|    133|           What is statistics?|         52.00|         20|                   Shaunmak.co|                      ShaunMak|
+|    134|                      Computer|         34.09|          1|                         shaun|                         nolan|
+|    135|                          eBay|         36.00|        300|                      shuanmak|                    Joe Bidden|
+|    136|                        Marvel|        200.00|      20010|                   Shaunmak.co|                      ShaunMak|
+|    137|                       Captain|         34.09|          1|                         shaun|                         nolan|
+|    138|                     Big Brain|         69.00|        300|                      shuanmak|                    Joe Bidden|
+|    139|                            BM|           200|      20010|                   Shaunmak.co|                      ShaunMak|
+|    124|                         Mulan|         24.50|        123|                           GRE|                   Ong Sin Yin|
+|    125|                         Girls|         27.00|        200|                           ewq|                           R.R|
+|    126|                         Apple|         27.00|        123|                           WEG|                           qwe|
+|    127|                     Vegetable|         30.00|        123|                           DSq|                           Jim|
+|    128|                   Small puppy|         20.00|        123|                           TRE|                           Sot|
+|    129|                The Amazon Way|         39.00|         10|                      shuanmak|                    Joe Bidden|
+|    130|                  How to Basic|         40.00|          2|                   Shaunmak.co|                      ShaunMak|
+|    149|                           Jim|         24.09|          1|                         shaun|                         nolan|
+|    150|              Best Recipe Book|         30.00|        100|                   shaunmak.co|                  Lim Min Zhen|
+|    151|                    Oppo Guide|         23.00|        123|                        sinyin|                   Mak Yen Wei|
+|    152|                         Mulan|         24.50|        123|                           GRE|                   Ong Sin Yin|
+|    153|                         Girls|         27.00|        200|                           ewq|                           R.R|
+|    154|                         Apple|         27.00|        123|                           WEG|                           qwe|
+|    155|                     Vegetable|         30.00|        123|                           DSq|                           Jim|
+|    156|                   Small puppy|         20.00|        123|                           TRE|                           Sot|

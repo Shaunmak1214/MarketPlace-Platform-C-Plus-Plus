@@ -2,13 +2,3 @@
 |--------+--------------------+--------------------|
 |Owner Id|      Owner Username|      Owner Password|
 |--------|--------------------+--------------------|
-|       3|              xavier|                myra|
-|       4|           makyenwei|                7616|
-|      10|          BehChunWei|                muak|
-|       9|             sinyin1|             sinyin1|
-|      16|                mak1|                mak1|
-|      11|                 qwe|                 qwe|
-|      17|                 mlk|                 mlk|
-|      18|              makwey|              mak123|
-|      19|             mak1214|             mak1214|
-|       2|              sinyin|              sinyin|

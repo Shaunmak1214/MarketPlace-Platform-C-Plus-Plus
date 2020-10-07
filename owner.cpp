@@ -1989,8 +1989,10 @@ char commonUpdate(string fileName, int itemType) {
 
 }
 
+//commonDelete function
 char commonDelete(string fileName) {
 
+    //variable declaration
     string line, dltItem, savedLine;
     char value;
     size_t pos;
@@ -1998,19 +2000,23 @@ char commonDelete(string fileName) {
     //converting string element to cont char * for functions (remove and rename)
     const char * cnvrFileName = fileName.c_str();
 
+    //opening file
     ifstream dltMag;
     dltMag.open(fileName, ios::in);
 
-    cout << "Name of the item u would like to delete? [Item name must be typed out exactly how it is] :";
+    cout << "Id of the item u would like to delete? :";
     cin.ignore();
     getline(cin, dltItem);
 
+        //get data line by line
         while(getline(dltMag, line)) {
 
+            //find user input data in line and save the position to pos
             pos = line.find(dltItem);
 
                 if(pos != string::npos) {
 
+                    //if position is lesser than 12, that means id found is under the itemid column
                     if(pos < 12) {
 
                         savedLine = line;
@@ -2042,16 +2048,20 @@ char commonDelete(string fileName) {
 
         }else{
 
+            //Reinitialization for reusability
             line = "";
 
+            //file opening
             ifstream inputFile;
             inputFile.open(fileName, ios::in);
 
             ofstream temp;
             temp.open("temp.txt");
 
+                //Get data line by line
                 while(getline(inputFile, line)) {
 
+                    //Compare line with savedLine
                     if(line.compare(savedLine) != 0) {
 
                         temp << line << "\n";
@@ -2060,31 +2070,31 @@ char commonDelete(string fileName) {
                 
                 }
 
+            //closing of file
             inputFile.close();
             temp.close();
 
+            //remove original file
             if(remove(cnvrFileName) == 0) {
 
-                cout << "Removed original file" << endl;
-
+                //rename temp.txt to original file name
                 if(rename("temp.txt", cnvrFileName) == 0) {
 
                     cout << "Renamed Temp file to Ori file" << endl;
                     value = 's';
                     return value;
-                    exit(0);
 
                 }else{
 
                     cout << "Renamed Failed";
-                    exit(0);
+                    itemChoose();
 
                 }
 
             }else{
 
                 cout << "Removed Failed";
-                exit(0);
+                itemChoose();
 
             }
 
@@ -2092,10 +2102,13 @@ char commonDelete(string fileName) {
 
 }
 
+//viewItems function
 char viewItems(string fileName, int startLimit) {
 
+    //Clear Terminal
     system("CLS"); 
 
+    //Variable Declaration
     string line, headerLine;
     int counter = 0;
     int counter1 = 0;
@@ -2105,8 +2118,10 @@ char viewItems(string fileName, int startLimit) {
     char choice;
     const int printCount = 10;
 
+    //array to store header
     string header[4];
 
+    //file opening
     ifstream view;
     view.open(fileName, ios::in);
 
@@ -2116,7 +2131,7 @@ char viewItems(string fileName, int startLimit) {
             lineCount++;
 
             if(counter3++ <= 3) {
-
+                //storing header inside array
                 header[i] = headerLine;
                 i++;
 
@@ -2124,8 +2139,10 @@ char viewItems(string fileName, int startLimit) {
 
         }
 
+    //closing of file
     view.close();
 
+    //Redeclaration for reusability
     line = "";
 
     const int startPoint = 4;
@@ -2156,6 +2173,7 @@ char viewItems(string fileName, int startLimit) {
 
         }
 
+    //file closing
     print.close();
 
     cout << "\n[ Next Page [n]/ Previous Page [p]/ Exit [e] ] " << endl;
