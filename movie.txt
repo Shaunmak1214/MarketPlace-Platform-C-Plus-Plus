@@ -2,21 +2,9 @@
 |-------+------------------------------+--------------+-----------+------------------------------+------------------------------|
 |Item Id|                    Movie Name|   Movie Price|No units AV|                  Company Name|               Main Actor Name|
 |-------+------------------------------+--------------+-----------+------------------------------+------------------------------|
-|     10|                        TeneT1|            45|         45|                   shaunmak.co|                      shaunmak|
-|     92|                     Inception|           203|          2|                         nolan|                          olan|
-|     95|                           mak|         12.00|         14|                   shuanmak.co|                        nolan1|
-|     10|                        TeneT1|            45|         45|                   shaunmak.co|                      shaunmak|
-|     92|                     Inception|           203|          2|                         nolan|                          olan|
-|     95|                           mak|         12.00|         14|                   shuanmak.co|                        nolan1|
-|     10|                        TeneT1|            45|         45|                   shaunmak.co|                      shaunmak|
-|     92|                     Inception|           203|          2|                         nolan|                          olan|
-|     95|                           mak|         12.00|         14|                   shuanmak.co|                        nolan1|
-|     10|                        TeneT1|            45|         45|                   shaunmak.co|                      shaunmak|
-|     92|                     Inception|           203|          2|                         nolan|                          olan|
-|     95|                           mak|         12.00|         14|                   shuanmak.co|                        nolan1|
-|     10|                        TeneT1|            45|         45|                   shaunmak.co|                      shaunmak|
-|     92|                     Inception|           203|          2|                         nolan|                          olan|
-|     95|                           mak|         12.00|         14|                   shuanmak.co|                        nolan1|
-|     10|                        TeneT1|            45|         45|                   shaunmak.co|                      shaunmak|
-|     92|                     Inception|           203|          2|                         nolan|                          olan|
-|     95|                           mak|         12.00|         14|                   shuanmak.co|                        nolan1|
+|    202|                        Penang|        234.09|          1|                         shaun|                     Shaun Mak|
+|    203|                        Orange|        239.00|         30|                      shuanmak|                     Shaun Mak|
+|    204|             How to Earn Money|          3.30|         20|                   Shaunmak.co|                     Shaun Mak|
+|    205|                     Explained|         34.09|          1|                         shaun|                     Shaun Mak|
+|    206|                    Amazon Way|         39.00|         30|                      shuanmak|                     Shaun Mak|
+|    207|                   How to Bass|        200.00|         10|                   Shaunmak.co|                     Shaun Mak|

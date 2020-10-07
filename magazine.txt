@@ -2,51 +2,9 @@
 |-------+------------------------------+--------------+-----------+------------------------------+----+-----|
 |Item Id|                 Magazine Name|Magazine Price|No units AV|                  Company Name|Year|Month|
 |-------+------------------------------+--------------+-----------+------------------------------+----+-----|
-|     30|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     31|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     32|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     33|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     34|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     35|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     36|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|   1007|                         Prawn|          1000|         20|                        phphph|2001|   12|
-|     37|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     38|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     39|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     40|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     41|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     43|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     44|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     45|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     46|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     47|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|   1008|                         Prawn|          1000|         20|                        phphph|2001|   12|
-|     48|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     49|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     50|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     51|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     52|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     53|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     54|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     55|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     56|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|   1005|                         Prawn|          1000|         20|                        phphph|2001|   12|
-|     57|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     58|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     59|                    HP Laptops|            23|       2000|                            HP|2001|   12|
-|     60|                           mak|           234|         89|                         shuan|2001|   12|
-|     61|                           qwe|             0|         89|                         shuan|2001|   12|
-|     66|                            ry|            23|         23|                           try|2001|   12|
-|     65|                          try1|           123|        123|                          try1|2001|   12|
-|     67|                           qwe|           123|        321|                           qwe|   2|    2|
-|   1003|                         Prawn|          1000|         20|                        phphph|2001|   12|
-|   1004|                         Prawn|          1000|         22|                        phphph|2001|   12|
-|   1006|                         Prawn|          1000|         20|                        phphph|2001|   12|
-|     76|                      sympotms|          2376|         90|                   shaunmak.co|2001|   12|
-|     77|                           Mak|             1|         20|                         SHaun|2001|   12|
-|     85|                           mak|            12|         12|                           mak|2001|   12|
-|     93|           Inception Explained|         23.90|       2987|                         nolan|2001|   12|
-|     76|                      sympotms|          2376|         90|                   shaunmak.co|2001|   12|
-|     77|                           Mak|             1|         20|                         SHaun|2001|   12|
-|     85|                           mak|            12|         12|                           mak|2001|   12|
-|     93|           Inception Explained|         23.90|       2987|                         nolan|2001|   12|
+|      2|                        Penang|        234.09|          1|                         shaun|2001|    9|
+|      3|                        Orange|        239.00|         30|                      shuanmak|2020|   12|
+|      4|             How to Earn Money|          3.30|         20|                   Shaunmak.co|2006|    2|
+|      5|                     Explained|         34.09|          1|                         shaun|2020|    2|
+|      6|                    Amazon Way|         39.00|         30|                      shuanmak|1995|    1|
+|      7|                   How to Bass|        200.00|         10|                   Shaunmak.co|1999|    9|

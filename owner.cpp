@@ -2182,8 +2182,10 @@ char viewItems(string fileName, int startLimit) {
 
 }
 
+//displaySales function
 void displaySales(string fileName, string itemType, string salesFilename) {
 
+    //Variable declaration
     string line;
     string price, units, id, companyName, name, cnvrName, cnvrCompanyName;
     string detector = "|";
@@ -2204,33 +2206,41 @@ void displaySales(string fileName, string itemType, string salesFilename) {
     int totalUnits = 0;
     int position = 0;
 
-
-
+    //opening of file
     ifstream positionFinder;
     positionFinder.open(fileName, ios::in);
 
-    while(getline(positionFinder, line)) {
+        //get data line by line
+        while(getline(positionFinder, line)) {
 
-        if(counter++ > 3) {
+            //skip thru the first 4 lines of txt file
+            if(counter++ > 3) {
 
-            while((pos = line.find(detector, position)) != string::npos) {
+                //find detector in the line and store the position inside pos
+                while((pos = line.find(detector, position)) != string::npos) {
 
-                position = pos+1;
-                posArr[i] = pos;
-                i++; 
+                    //position increment
+                    position = pos+1;
 
-            } 
+                    //store every detector position insdie array
+                    posArr[i] = pos;
+
+                    i++; 
+
+                } 
+
+            }
 
         }
-
-    }
     
+    //closing of file
     positionFinder.close();
 
-
+    //redeclaration of reusability
     counter = 0;
     line = "";
 
+    //opening file
     ifstream disp;
     disp.open(fileName, ios::in);
 
@@ -2291,20 +2301,27 @@ void displaySales(string fileName, string itemType, string salesFilename) {
     
     cout << " " << char(177);
 
+    //get data line by line
     while(getline(disp, line)) {
 
+        //skip thru the first 4 lines
         if(counter++ > 3) {
 
+            //cut the line into sections and store them in different variables
             name = line.substr((posArr[1])+2, ((posArr[2])-(posArr[1]))-2);
             price = line.substr((posArr[2])+2, ((posArr[3])-(posArr[2]))-1);
             units = line.substr((posArr[3])+2, ((posArr[4])-(posArr[3]))-1);
             companyName = line.substr((posArr[4])+2, ((posArr[5])-(posArr[4]))-2);
 
+            //Remove all whitespaces 
             cnvrName = regex_replace(name,regex("\\s"),"");
             cnvrCompanyName = regex_replace(companyName,regex("\\s"),"");
+
+            //convert string into int or double
             cnvrPrice = stoi(price);
             cnvrUnits = stoi(units);
 
+            //write 
             write << "\n" << "|" <<setw(30) << cnvrName;
             write << "|" << setw(30) << cnvrCompanyName;
             write << "|" << setw(11) << cnvrUnits;
@@ -2324,6 +2341,7 @@ void displaySales(string fileName, string itemType, string salesFilename) {
 
             cout << " " << char(177);
 
+            //Calculating totalUNits and totalPrice
             totalUnits = totalUnits + cnvrUnits;
             totalPrice = totalPrice + cnvrPrice;
         }
@@ -2354,10 +2372,10 @@ void displaySales(string fileName, string itemType, string salesFilename) {
 
     write << "\n" << "                                                                " << setw(10) << totalUnits << "|" << setw(14) << totalPrice << "|";
 
+        //removing original file
         if(remove(salesFilename.c_str())) {
 
-            //cout << "Original file removed" << endl;
-
+                //renaming temp.txt to original file
                 if(rename("temp.txt", salesFilename.c_str())) {
 
                     cout << salesFilename << " Updated" << endl;
@@ -2370,11 +2388,12 @@ void displaySales(string fileName, string itemType, string salesFilename) {
 
         }
 
+    //closing file
     disp.close();
     write.close();
 
-    //system("pause");
-    //itemChoose();
+    system("pause");
+    itemChoose();
 }
 
 /*
