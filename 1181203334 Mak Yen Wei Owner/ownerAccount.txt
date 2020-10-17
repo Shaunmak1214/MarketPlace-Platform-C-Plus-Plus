@@ -1,6 +1,0 @@
-/* Please use "Lucida Console" as font and "Regular" as font style, size is 12 */
-|--------+--------------------+--------------------|
-|Owner Id|      Owner Username|      Owner Password|
-|--------|--------------------+--------------------|
-|       1|                 ewq|                 ewq|
-|       2|                 mak|                 mak|
