@@ -59,7 +59,7 @@ class item {
 
 //Magazine Class
 
-class magazine : public item{
+class magazine : public item {
 
     private:
     //private data members initialization
@@ -125,7 +125,7 @@ class magazine : public item{
             }
 
         cout << "Number of units                            :";
-        cin >> noUnits; 
+        cin >> noUnits;
 
             //Check if noUnits is a negative number
             while(noUnits < 0) {
@@ -144,7 +144,7 @@ class magazine : public item{
         cin.ignore();
         getline(cin, itemCompany);
 
-            //Check if input length is longer than 30 or shorter than 0 
+            //Check if input length is longer than 30 or shorter than 0
             while(itemCompany.length() > 30 || itemCompany.length() <= 0) {
 
                 //if input length is longer than 30 or shorter than 0 then prompt user to input agqain
@@ -168,7 +168,7 @@ class magazine : public item{
                 cout << "Year value is invalid ...Fix It !!!" << endl;
                 cout << "#######################################" << endl;
                 cout << "Year                                       :";
-                cin >> year; 
+                cin >> year;
 
             }
 
@@ -182,11 +182,11 @@ class magazine : public item{
                 cout << "Month value is invalid ...Fix It !!!" << endl;
                 cout << "#######################################" << endl;
                 cout << "Month                                       :";
-                cin >> month; 
+                cin >> month;
 
             }
 
-        //opening file 
+        //opening file
         ofstream addmag;
         addmag.open("magazine.txt", ios::app);
 
@@ -249,7 +249,7 @@ class magazine : public item{
     void deleteItem() {
 
         //take return value to achieve function looping
-        //if users failed to delete an item, there is a choice to retry again and again. 
+        //if users failed to delete an item, there is a choice to retry again and again.
         char returnValue = commonDelete(magFilename);
 
         //while returnValue is always not equal to s, (s means success of deletion)
@@ -282,19 +282,19 @@ class magazine : public item{
         int startLimit = 4;
         int lineCount;
 
-        //Open file 
+        //Open file
         ifstream view;
         view.open(magFilename, ios::in);
 
-            //Get data line by line in file 
+            //Get data line by line in file
             while(getline(view, line)) {
 
-                //Increment to count how many lines there is in the file 
+                //Increment to count how many lines there is in the file
                 lineCount++;
 
             }
 
-        //close file 
+        //close file
         view.close();
 
         //Return value to make next page and previous page function
@@ -323,7 +323,7 @@ class magazine : public item{
                         startLimit = startLimit-11;
 
                     }
-                    
+
                     //run function again with updated startLimit function
                     choice = viewItems(magFilename, startLimit);
 
@@ -348,7 +348,7 @@ class magazine : public item{
 
     //Display Magazine Sales function
     void dispSales() {
-        
+
         displaySales(recordFilename, itemType, salesFilename);
 
     }
@@ -390,7 +390,7 @@ class book : public item {
 
             //Check if input length is longer than 30 or shorter than 0
             while(itemName.length() > 30 || itemName.length() <= 0) {
-   
+
                 //if input length is longer than 30 or shorter than 0 then prompt user to input agqain
                 cout << "\n\n########################## ALERT #############################" << endl;
                 cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
@@ -418,7 +418,7 @@ class book : public item {
             }
 
         cout << "Number of units                            :";
-        cin >> noUnits; 
+        cin >> noUnits;
 
             //Check if noUnits is a negative number
             while(noUnits < 0) {
@@ -437,7 +437,7 @@ class book : public item {
         cin.ignore();
         getline(cin, itemCompany);
 
-            //Check if input length is longer than 30 or shorter than 0 
+            //Check if input length is longer than 30 or shorter than 0
             while(itemCompany.length() > 30 || itemCompany.length() <= 0) {
 
                 //if input length is longer than 30 or shorter than 0 then prompt user to input agqain
@@ -453,7 +453,7 @@ class book : public item {
         cout << "Author Name [Max characters of 30]         :";
         getline(cin, authorName);
 
-            //Check if input length is longer than 30 or shorter than 0 
+            //Check if input length is longer than 30 or shorter than 0
             while(authorName.length() > 30 || authorName.length() <= 0) {
 
                 //if input length is longer than 30 or shorter than 0 then prompt user to input agqain
@@ -565,12 +565,12 @@ class book : public item {
             //Get data line by line in file
             while(getline(view, line)) {
 
-                //Increment to count how many lines there is in the file 
+                //Increment to count how many lines there is in the file
                 lineCount++;
 
             }
 
-        //close file 
+        //close file
         view.close();
 
         //Return value to make next page and previous page function
@@ -599,7 +599,7 @@ class book : public item {
                         startLimit = startLimit-11;
 
                     }
-                    
+
                     //run function again with updated startLimit function
                     choice = viewItems(bookFilename, startLimit);
 
@@ -623,7 +623,7 @@ class book : public item {
 
     //Display Book Sales function
     void dispSales() {
-        
+
         displaySales(recordFilename, itemType, salesFilename);
 
     }
@@ -667,7 +667,7 @@ class movie : public item {
 
             //Check if input length is longer than 30 or shorter than 0
             while(itemName.length() > 30 || itemName.length() <= 0) {
-   
+
                 //if input length is longer than 30 or shorter than 0 then prompt user to input agqain
                 cout << "\n\n########################## ALERT #############################" << endl;
                 cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
@@ -695,7 +695,7 @@ class movie : public item {
             }
 
         cout << "Number of units                            :";
-        cin >> noUnits; 
+        cin >> noUnits;
 
             //Check if noUnits is a negative number
             while(noUnits < 0) {
@@ -714,7 +714,7 @@ class movie : public item {
         cin.ignore();
         getline(cin, itemCompany);
 
-            //Check if input length is longer than 30 or shorter than 0 
+            //Check if input length is longer than 30 or shorter than 0
             while(itemCompany.length() > 30 || itemCompany.length() <= 0) {
 
                 //if input length is longer than 30 or shorter than 0 then prompt user to input agqain
@@ -730,7 +730,7 @@ class movie : public item {
         cout << "Main Actor Name [Max characters of 30]     :";
         getline(cin, mainActorName);
 
-            //Check if input length is longer than 30 or shorter than 0 
+            //Check if input length is longer than 30 or shorter than 0
             while(mainActorName.length() > 30 || mainActorName.length() <= 0) {
 
                 //if input length is longer than 30 or shorter than 0 then prompt user to input agqain
@@ -802,7 +802,7 @@ class movie : public item {
     void deleteItem() {
 
         //take return value to achieve function looping
-        //if users failed to delete an item, there is a choice to retry again and again. 
+        //if users failed to delete an item, there is a choice to retry again and again.
         char returnValue = commonDelete(movieFileName);
 
         //while returnValue is always not equal to s, (s means success of deletion)
@@ -876,7 +876,7 @@ class movie : public item {
                         startLimit = startLimit-11;
 
                     }
-                    
+
                     //run function again with updated startLimit function
                     choice = viewItems(movieFileName, startLimit);
 
@@ -898,10 +898,10 @@ class movie : public item {
         displaySalesByRange(recordFileName, itemType, salesFilename);
 
     }
-    
+
     //Display Movie Sales function
     void dispSales() {
-        
+
         displaySales(recordFileName, itemType, salesFilename);
 
     }
@@ -964,7 +964,7 @@ class owner : public magazine, public book, public movie{
 
             }else{
 
-                //Writing data to file 
+                //Writing data to file
                 regfile << "\n" << "|" << setw(8) << id;
                 regfile << "|" << setw(20) << ownerName;
                 regfile << "|" << setw(20) << ownerPassword << "|";
@@ -974,7 +974,7 @@ class owner : public magazine, public book, public movie{
                 cout << "Login is Skipped !!!" << endl;
                 //Redirecting users to item choosing menu if account is registered
                 itemChoose();
-                    
+
             }
 
     }
@@ -1091,8 +1091,8 @@ class owner : public magazine, public book, public movie{
 
                     cout << "Incorrect Username and Password...Try Again!" << endl;
                     cout << "Try Again?? [y/n] :" ;
-                    
-                    cin >> cont; 
+
+                    cin >> cont;
 
                         if(tolower(cont) == 'y') {
 
@@ -1223,7 +1223,7 @@ class owner : public magazine, public book, public movie{
                             cout << "\n\nAccount Updated !!!" << endl;
                             cout << "Redirecting you to main menu... \n\n" << endl;
                             system("pause");
-                            //redirecting user back to home 
+                            //redirecting user back to home
                             homeNav();
 
                         }
@@ -1278,7 +1278,7 @@ int homeNav() {
         }
 
     cout << "\n" << char(178) <<  "            Menu           " << char(178) << endl;
-    
+
     cout << char(178) << "===========================" << char(178) << endl;
     cout << char(178) << " Register                1 " << char(178) << endl;
     cout << char(178) << " Login                   2 " << char(178) << endl;
@@ -1346,8 +1346,8 @@ int itemChoose() {
     cout << char(178) << " Book                              2  " << char(178) << endl;
     cout << char(178) << " Movie                             3  " << char(178) << endl;
     cout << char(178) << " Display All Sales                 4  " << char(178) << endl;
-    cout << char(178) << " ------------------------------------ " << char(178) << endl; 
-    cout << char(178) << " Back                              5  " << char(178) << endl;  
+    cout << char(178) << " ------------------------------------ " << char(178) << endl;
+    cout << char(178) << " Back                              5  " << char(178) << endl;
     cout << char(178) << " Exit                              0  " << char(178) << endl;
 
         for(int i=0; i<40; i++) {
@@ -1359,43 +1359,43 @@ int itemChoose() {
     cout << "\nSelect your choice: ";
     cin >> itemChoice;
 
-        if(itemChoice == 1) {   
+        if(itemChoice == 1) {
 
             cout << "\n\nRedirecting to Magazine..." << endl;
 
             type = 1;
 
-            system("pause"); 
-            
+            system("pause");
+
             //passing type to navigation function
             navigation(type);
 
-        }else if(itemChoice == 2) { 
+        }else if(itemChoice == 2) {
 
             cout << "\n\nRedirecting to Book..." << endl;
 
             type = 2;
 
             system("pause");
-            
+
             //passing type to navigation function
             navigation(type);
 
-        }else if(itemChoice == 3) { 
+        }else if(itemChoice == 3) {
 
             cout << "\n\nRedirecting to Movie..." << endl;
 
             type = 3;
 
             system("pause");
-            
+
             //passing type to navigation function
             navigation(type);
 
-        }else if(itemChoice == 4){  
+        }else if(itemChoice == 4){
 
-            item1->dispSales(); 
-            item2->dispSales(); 
+            item1->dispSales();
+            item2->dispSales();
             item3->dispSales();
 
         }else if(itemChoice == 5){
@@ -1460,13 +1460,13 @@ int navigation(int type) {
     cout << char(178) << " Display Sales By Range            6  " << char(178) << endl;
     cout << char(178) << " ------------------------------------ " << char(178) << endl;
     cout << char(178) << " Back                              7  " << char(178) << endl;
-    
+
         for(int i=0; i<40; i++) {
 
             cout << char(177);
 
         }
-  
+
     cout << "\nSelect Your Choice: ";
     cin >> navChoice;
 
@@ -1482,112 +1482,112 @@ int navigation(int type) {
 
             switch(navChoice) {
 
-                case 1: 
-                
-                    if(type == 1) { 
+                case 1:
 
-                        item1->addItem(); 
+                    if(type == 1) {
 
-                    }else if(type == 2) { 
+                        item1->addItem();
 
-                        item2->addItem(); 
+                    }else if(type == 2) {
+
+                        item2->addItem();
+
+                    }else if(type == 3) {
+
+                        item3->addItem();
+
+                    }
+
+                    break ;
+
+                case 2:
+
+                    if(type == 1) {
+
+                        item1->updateItem();
+
+                    }else if(type == 2) {
+
+                        item2->updateItem();
 
                     }else if(type == 3) {
 
-                        item3->addItem(); 
-                        
-                    } 
-                    
+                        item3->updateItem();
+
+                    }
+
                     break ;
 
-                case 2: 
-                
-                    if(type == 1) { 
+                case 3:
 
-                        item1->updateItem(); 
+                    if(type == 1) {
 
-                    }else if(type == 2) { 
+                        item1->deleteItem();
 
-                        item2->updateItem(); 
+                    }else if(type == 2) {
+
+                        item2->deleteItem();
 
                     }else if(type == 3) {
-                        
-                        item3->updateItem(); 
-                        
-                    } 
-                    
+
+                        item3->deleteItem();
+
+                    }
+
                     break ;
 
-                case 3: 
+                case 4:
 
-                    if(type == 1) { 
+                    if(type == 1) {
 
-                        item1->deleteItem(); 
+                        item1->dispItem();
 
-                    }else if(type == 2) { 
+                    }else if(type == 2) {
 
-                        item2->deleteItem(); 
+                        item2->dispItem();
 
                     }else if(type == 3) {
-                        
-                        item3->deleteItem(); 
-                        
-                    } 
-                    
+
+                        item3->dispItem();
+
+                    }
+
                     break ;
 
-                case 4: 
-                
-                    if(type == 1) { 
+                case 5:
 
-                        item1->dispItem(); 
-                        
-                    }else if(type == 2) { 
+                    if(type == 1) {
 
-                        item2->dispItem(); 
+                        item1->dispSales();
 
-                    }else if(type == 3) { 
-                        
-                        item3->dispItem(); 
-                        
-                    } 
-                    
+                    }else if(type == 2) {
+
+                        item2->dispSales();
+
+                    }else if(type == 3) {
+
+                        item3->dispSales();
+
+                    }
+
                     break ;
 
-                case 5: 
+                case 6:
 
-                    if(type == 1) { 
+                    if(type == 1) {
 
-                        item1->dispSales(); 
-                        
-                    }else if(type == 2) { 
+                        item1->dispSalesRange();
 
-                        item2->dispSales(); 
+                    }else if(type == 2) {
 
-                    }else if(type == 3) { 
-                        
-                        item3->dispSales(); 
-                        
-                    } 
-                    
-                    break ;
+                        item2->dispSalesRange();
 
-                case 6: 
-                
-                    if(type == 1) { 
+                    }else if(type == 3) {
 
-                        item1->dispSalesRange(); 
-                        
-                    }else if(type == 2) { 
+                        item3->dispSalesRange();
 
-                        item2->dispSalesRange(); 
+                    }
 
-                    }else if(type == 3) { 
-                        
-                        item3->dispSalesRange(); 
-                        
-                    } 
-                    
                     break ;
 
                 case 7:
@@ -1630,7 +1630,7 @@ int idGenerator(string txtfile) {
 
     //id increment
     id++;
- 
+
     ofstream addId;
     addId.open(txtfile);
 
@@ -1743,7 +1743,7 @@ char commonUpdate(string fileName, int itemType) {
                 if(itemType == 1) {
 
                     cout << "Magazine Name [Max characters of 30]       :";
-                    
+
                     getline(cin, itemName);
 
                         while(itemName.length() > 30 || itemName.length() <= 0) {
@@ -1773,7 +1773,7 @@ char commonUpdate(string fileName, int itemType) {
                         }
 
                     cout << "Number of units                            :";
-                    cin >> noUnits; 
+                    cin >> noUnits;
 
                         while(noUnits < 0) {
 
@@ -1810,7 +1810,7 @@ char commonUpdate(string fileName, int itemType) {
                             cout << "Year value is invalid ...Fix It !!!" << endl;
                             cout << "#######################################" << endl;
                             cout << "Year                                       :";
-                            cin >> year; 
+                            cin >> year;
 
                         }
 
@@ -1823,7 +1823,7 @@ char commonUpdate(string fileName, int itemType) {
                             cout << "Month value is invalid ...Fix It !!!" << endl;
                             cout << "#######################################" << endl;
                             cout << "Month                                       :";
-                            cin >> month; 
+                            cin >> month;
 
                         }
 
@@ -1842,7 +1842,7 @@ char commonUpdate(string fileName, int itemType) {
                     getline(cin, itemName);
 
                         while(itemName.length() > 30 || itemName.length() <= 0) {
-            
+
                             cout << "\n\n########################## ALERT #############################" << endl;
                             cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
                             cout << "##############################################################" << endl;
@@ -1867,7 +1867,7 @@ char commonUpdate(string fileName, int itemType) {
                         }
 
                     cout << "Number of units                            :";
-                    cin >> noUnits; 
+                    cin >> noUnits;
 
                         while(noUnits < 0) {
 
@@ -1923,7 +1923,7 @@ char commonUpdate(string fileName, int itemType) {
                     getline(cin, itemName);
 
                         while(itemName.length() > 30 || itemName.length() <= 0) {
-            
+
                             cout << "\n\n########################## ALERT #############################" << endl;
                             cout << "Item name entered is either too long or too short...Fix It !!!" << endl;
                             cout << "##############################################################" << endl;
@@ -1948,7 +1948,7 @@ char commonUpdate(string fileName, int itemType) {
                         }
 
                     cout << "Number of units                            :";
-                    cin >> noUnits; 
+                    cin >> noUnits;
 
                         while(noUnits < 0) {
 
@@ -2075,7 +2075,7 @@ char commonDelete(string fileName) {
                     }
 
                 }
-            
+
         }
 
     dltMag.close();
@@ -2109,7 +2109,7 @@ char commonDelete(string fileName) {
                         temp << line << "\n";
 
                     }
-                
+
                 }
 
             //closing of file
@@ -2148,7 +2148,7 @@ char commonDelete(string fileName) {
 char viewItems(string fileName, int startLimit) {
 
     //Clear Terminal
-    system("CLS"); 
+    system("CLS");
 
     //Variable Declaration
     string line, headerLine;
@@ -2195,7 +2195,7 @@ char viewItems(string fileName, int startLimit) {
             cout << header[z] << endl;
 
         }
-    
+
 
     //View Items
     ifstream print;
@@ -2264,9 +2264,9 @@ void displaySalesByRange(string fileName, string itemType, string salesFilename)
                     //store every detector position insdie array
                     posArr[i] = pos;
 
-                    i++; 
+                    i++;
 
-                } 
+                }
 
             }
 
@@ -2316,7 +2316,7 @@ void displaySalesByRange(string fileName, string itemType, string salesFilename)
             cout << "=";
 
         }
-    
+
     cout << " " << char(177);
 
     ifstream disp;
@@ -2332,7 +2332,7 @@ void displaySalesByRange(string fileName, string itemType, string salesFilename)
                 units = line.substr((posArr[3])+2, ((posArr[4])-(posArr[3]))-1);
                 companyName = line.substr((posArr[4])+2, ((posArr[5])-(posArr[4]))-2);
 
-                //Remove all whitespaces 
+                //Remove all whitespaces
                 cnvrName = regex_replace(name,regex("\\s"),"");
                 cnvrCompanyName = regex_replace(companyName,regex("\\s"),"");
 
@@ -2436,14 +2436,14 @@ void displaySales(string fileName, string itemType, string salesFilename) {
                     //store every detector position insdie array
                     posArr[i] = pos;
 
-                    i++; 
+                    i++;
 
-                } 
+                }
 
             }
 
         }
-    
+
     //closing of file
     positionFinder.close();
 
@@ -2509,7 +2509,7 @@ void displaySales(string fileName, string itemType, string salesFilename) {
             cout << "=";
 
         }
-    
+
     cout << " " << char(177);
 
     //get data line by line
@@ -2524,7 +2524,7 @@ void displaySales(string fileName, string itemType, string salesFilename) {
             units = line.substr((posArr[3])+2, ((posArr[4])-(posArr[3]))-1);
             companyName = line.substr((posArr[4])+2, ((posArr[5])-(posArr[4]))-2);
 
-            //Remove all whitespaces 
+            //Remove all whitespaces
             cnvrName = regex_replace(name,regex("\\s"),"");
             cnvrCompanyName = regex_replace(companyName,regex("\\s"),"");
 
@@ -2532,7 +2532,7 @@ void displaySales(string fileName, string itemType, string salesFilename) {
             cnvrPrice = stoi(price);
             cnvrUnits = stoi(units);
 
-            //write 
+            //write
             write << "\n" << "|" <<setw(30) << cnvrName;
             write << "|" << setw(30) << cnvrCompanyName;
             write << "|" << setw(11) << cnvrUnits;
@@ -2609,27 +2609,27 @@ void displaySales(string fileName, string itemType, string salesFilename) {
 
 /*
 REFERENCE
-string::find : 
+string::find :
     http://www.cplusplus.com/reference/string/string/find/
 string::compare :
     http://www.cplusplus.com/reference/string/string/compare/
-istream::ignore : 
+istream::ignore :
     http://www.cplusplus.com/reference/istream/istream/ignore/ or http://www.java2s.com/Code/Cpp/File/TheignoreFunction.htm
-string array : 
+string array :
     https://www.geeksforgeeks.org/array-strings-c-3-different-ways-create/
-delimiter : 
+delimiter :
     https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c
-update/delete : 
+update/delete :
     https://stackoverflow.com/questions/34507989/update-and-delete-data-from-file-in-c
-converting string to const char* : 
+converting string to const char* :
     https://stackoverflow.com/questions/347949/how-to-convert-a-stdstring-to-const-char-or-char
-converting string to int (stoi()function) : 
+converting string to int (stoi()function) :
     https://careerkarma.com/blog/c-plus-plus-string-to-int/
-PVF : 
+PVF :
     https://www.learncpp.com/cpp-tutorial/126-pure-virtual-functions-abstract-base-classes-and-interface-classes/
-Fastest way to read only last line of text file : 
+Fastest way to read only last line of text file :
     https://stackoverflow.com/questions/11876290/c-fastest-way-to-read-only-last-line-of-text-file
-string.h > strtok 
+string.h > strtok
     http://www.cplusplus.com/reference/cstring/strtok/
 string.h > substr()
     https://www.geeksforgeeks.org/substring-in-cpp/
