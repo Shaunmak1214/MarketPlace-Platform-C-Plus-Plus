@@ -14,7 +14,7 @@
 
 ---
 
-## :camera:Screenshots of Program working:
+## :camera:<span style="color: yellow">Screenshots of Program working:</span>
 
 ### This is what owner will see:
 
@@ -86,7 +86,7 @@
 #### Datas are stored in a table style format in a .txt file (example: figure 1.1). It is impossible to extract data by columns without the delimiter concepts used here. I will explain what i meant, refer to (figure 1.2). For this project, i'm using getline method to retrieve every lines from the txt file, since the txt file are formatted to a table looking style, there will be "impurites"...in this case the "|" to seperate every columns. Impurities = "|".
 
 ### Solution (uses of delimeter):
-#### - string delimeter = "|"
+#### string delimeter = "|"
 #### - First, getline is used to retrive every lines one by one from the text file.
 #### - Second, for every line, i used the string.find function to find out all of the position of the "|" in the line and store the position in an array.
 #### - Third, now i have all the "|" position for every line. So, to extract data, i used the string.substr function as the functions takes the value of the first parameter of the function as the starting point of the line and takes the value of the second parameter as the length of the space it needs to read. 
