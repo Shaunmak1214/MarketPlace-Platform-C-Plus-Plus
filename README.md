@@ -1,4 +1,6 @@
-## Hello, there CODERS !!! I'm Shaun ... <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="30px">
+# Hello, there CODERS !!! I'm Shaun ... <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="30px">
+
+---
 
 ## :raised_hand:Basic Explanation of Program:
 
@@ -40,41 +42,41 @@
 #### 8. Proof of owner account has been updated (.txt)
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/ownerAccountUpdatetxt.png">
 
-#### 9. Sales Analyzing (Picture 1)
+#### 9. Sales Analyzing (Picture 1, will prompt out the sales for every types of item)
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/salesAnalyze1.png">
 
 #### 10. Sales Analyzing (Picture 2)
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/salesAnalyze2.png">
 
-#### 11.
-### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/menu.png">
+#### 11. Item Navigation 1 (Navigate between items, in this case Magazine, Movies, Books)
+### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/itemNav1.png">
 
-#### 12.
-### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/menu.png">
+#### 12. Item Navigation 2
+### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/itemNav2.png">
 
-#### 13.
-### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/menu.png">
+#### 13. Item Navigation 3
+### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/itemNav3.png">
 
-#### 14.
-### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/menu.png">
+#### 14. Item Adding (In this case, owner decides to add a magazine item)
+### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/addItem.png">
 
-#### 15.
-### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/menu.png">
+#### 15. Updating the item details (We'll be updating the item we added just now)
+### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/updateItem.png">
 
-#### 16.
-### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/menu.png">
+#### 16. Proof of item being updated
+### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/updateItemtxt.png">
 
-#### 17.
-### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/menu.png">
+#### 17. Deleteing of an item (We'll be deleting the item we updated just now)
+### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/deleteItem.png">
 
-#### 18.
-### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/menu.png">
+#### 18. Proof of item being deleted
+### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/deleteItemtxt.png">
 
-#### 19.
-### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/menu.png">
+#### 19. Displaying every item in the database (Magazine only since we are in the magazine tab)
+### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/itemDisplay.png">
 
-#### 20.
-### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/menu.png">
+#### 20. Displaying sales of a specific type of item (Displaying sales for magazine only)
+### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/salesDisplay.png">
 
 ---
 
