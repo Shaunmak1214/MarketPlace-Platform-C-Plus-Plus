@@ -27,55 +27,55 @@
 #### :three: Owner Registered
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/ownerRegistered.png">
 
-#### 4. Proof of owner has been registered (.txt)
+#### :four: Proof of owner has been registered (.txt)
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/ownerRegisteredtxt.png">
 
-#### 5. Owner Login
+#### :five: Owner Login
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/ownerLogin.png">
 
-#### 6. Owner Logged In (Re-directed to main menu)
+#### :six: Owner Logged In (Re-directed to main menu)
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/ownerLoggedIn.png">
 
-#### 7. Updating Owner Account
+#### :seven: Updating Owner Account
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/ownerAccountUpdate.png">
 
-#### 8. Proof of owner account has been updated (.txt)
+#### :eight: Proof of owner account has been updated (.txt)
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/ownerAccountUpdatetxt.png">
 
-#### 9. Sales Analyzing (Picture 1, will prompt out the sales for every types of item)
+#### :nine: Sales Analyzing (Picture 1, will prompt out the sales for every types of item)
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/salesAnalyze1.png">
 
-#### 10. Sales Analyzing (Picture 2)
+#### :ten: Sales Analyzing (Picture 2)
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/salesAnalyze2.png">
 
-#### 11. Item Navigation 1 (Navigate between items, in this case Magazine, Movies, Books)
+#### :one::one: Item Navigation 1 (Navigate between items, in this case Magazine, Movies, Books)
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/itemNav1.png">
 
-#### 12. Item Navigation 2
+#### :one::two: Item Navigation 2
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/itemNav2.png">
 
-#### 13. Item Navigation 3
+#### :one::three: Item Navigation 3
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/itemNav3.png">
 
-#### 14. Item Adding (In this case, owner decides to add a magazine item)
+#### :one::four: Item Adding (In this case, owner decides to add a magazine item)
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/addItem.png">
 
-#### 15. Updating the item details (We'll be updating the item we added just now)
+#### :one::five: Updating the item details (We'll be updating the item we added just now)
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/updateItem.png">
 
-#### 16. Proof of item being updated
+#### :one::six: Proof of item being updated
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/updateItemtxt.png">
 
-#### 17. Deleteing of an item (We'll be deleting the item we updated just now)
+#### :one::seven: Deleteing of an item (We'll be deleting the item we updated just now)
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/deleteItem.png">
 
-#### 18. Proof of item being deleted
+#### :one::eight: Proof of item being deleted
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/deleteItemtxt.png">
 
-#### 19. Displaying every item in the database (Magazine only since we are in the magazine tab)
+#### :one::nine: Displaying every item in the database (Magazine only since we are in the magazine tab)
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/itemDisplay.png">
 
-#### 20. Displaying sales of a specific type of item (Displaying sales for magazine only)
+#### :two::zero: Displaying sales of a specific type of item (Displaying sales for magazine only)
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/salesDisplay.png">
 
 ---
