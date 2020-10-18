@@ -82,7 +82,8 @@
 
 ## :raised_hand:Delimter Concepts Explained:
 
-### Problem: Datas are stored in a table style format in a .txt file (example: figure 1.1). It is impossible to extract data by columns without the delimiter concepts used here. I will explain what i meant, refer to (figure 1.2). For this project, i'm using getline method to retrieve every lines from the txt file, since the txt file are formatted to a table looking style, there will be "impurites"...in this case the "|" to seperate every columns. Impurities = "|".
+### Problem: 
+#### Datas are stored in a table style format in a .txt file (example: figure 1.1). It is impossible to extract data by columns without the delimiter concepts used here. I will explain what i meant, refer to (figure 1.2). For this project, i'm using getline method to retrieve every lines from the txt file, since the txt file are formatted to a table looking style, there will be "impurites"...in this case the "|" to seperate every columns. Impurities = "|".
 
 ### Solution (uses of delimeter):
 #### - string delimeter = "|"
