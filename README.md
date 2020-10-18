@@ -18,13 +18,13 @@
 
 ### This is what owner will see:
 
-#### 1. Menu of program 
+#### :one: Menu of program 
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/menu.png">
 
-#### 2. Owner Registration
+#### :two: Owner Registration
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/ownerRegistration.png">
 
-#### 3. Owner Registered
+#### :three: Owner Registered
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/ownerRegistered.png">
 
 #### 4. Proof of owner has been registered (.txt)
