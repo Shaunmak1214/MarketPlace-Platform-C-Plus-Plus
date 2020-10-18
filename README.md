@@ -4,10 +4,14 @@
 ---
 
 ## Basic Explanation of Program:
-</br>
-### This program acts just same like a web version marketplace, that being said there will be two sides of the program, the owner and the shopper. 
-</br>
 
+#### This program acts just same like a web version marketplace, that being said there will be two sides of the program, the owner and the shopper. 
+##### Owner will be able to Upload, Delete, Update multiple products and also view a analyzed sales table.
+##### Shopper will be able to Shop thru the items the owner provides, add the items to a cart and make a payment.
+
+#### Note:
+##### - The owner part and the shopper part is written in two different cpp file.
+##### - All of the datas are stored in text files.
 
 ---
 
