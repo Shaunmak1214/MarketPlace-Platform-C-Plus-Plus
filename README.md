@@ -45,7 +45,7 @@
 #### :nine: Sales Analyzing (Picture 1, will prompt out the sales for every types of item)
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/salesAnalyze1.png">
 
-#### :ten: Sales Analyzing (Picture 2)
+#### :one::zero: Sales Analyzing (Picture 2)
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/salesAnalyze2.png">
 
 #### :one::one: Item Navigation 1 (Navigate between items, in this case Magazine, Movies, Books)
@@ -80,4 +80,16 @@
 
 ---
 
-## :raised_hand:Explanations line by line:
+## :raised_hand:Delimter Concepts Explained:
+
+### Problem: Datas are stored in a table style format in a .txt file (example: figure 1.1). It is impossible to extract data by columns without the delimiter concepts used here. I will explain what i meant, refer to (figure 1.2). For this project, i'm using getline method to retrieve every lines from the txt file, since the txt file are formatted to a table looking style, there will be "impurites"...in this case the "|" to seperate every columns. Impurities = "|".
+
+### Solution (uses of delimeter):
+#### - string delimeter = "|"
+#### - First, getline is used to retrive every lines one by one from the text file.
+#### - Second, for every line, i used the string.find function to find out all of the position of the "|" in the line and store the position in an array.
+#### - Third, now i have all the "|" position for every line. So, to extract data, i used the string.substr function as the functions takes the value of the first parameter of the function as the starting point of the line and takes the value of the second parameter as the length of the space it needs to read. 
+#### - Forth, with all the position stored inside an array, extracting a specific column of data seems easy. For example, lets say, you are trying to extract the data from the first column of the line, the data will be in between the first "|" and the second "|" found. So, with that being said, use the .substr function and pass the position of the first "|" as the first parameter and pass (the position of the second "|" minus the position of the first "|" found, that way you find out the exact space of the column) as the second parameter.
+#### - Fifth, save the data found from the .substr function in a string variable.
+#### - DONE !!!
+
