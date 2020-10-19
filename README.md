@@ -1,8 +1,8 @@
-# Hello, there CODERS !!! I'm Shaun ... <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="30px">
+# <p align="center">Hello, there CODERS !!! I'm Shaun ... <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="30px"></p>
 
 ---
 
-## :raised_hand:Basic Explanation of Program:
+## <p align="center">:raised_hand:Basic Explanation of Program:</p>
 
 ### This program acts just same like a web version marketplace, that being said there will be two sides of the program, the owner and the shopper. 
 ####  - :older_man:Owner will be able to Upload, Delete, Update multiple products and also view an analyzed sales table.
@@ -14,9 +14,9 @@
 
 ---
 
-## :camera:<span style="color: yellow">Screenshots of Program working:</span>
+## <p align="center">:camera:Screenshots of Program working:</p>
 
-### This is what owner will see:
+### What owner will see:
 
 #### :one: Menu of program 
 ### <img src = "https://github.com/Shaunmak1214/MarketPlace-Platform-C-Plus-Plus/blob/master/Screenshots/menu.png">
@@ -80,7 +80,7 @@
 
 ---
 
-## :raised_hand:Delimter Concepts Explained:
+## <p align="center">:raised_hand:Delimter Concepts Explained:</p>
 
 ### Problem: 
 #### Datas are stored in a table style format in a .txt file (example: figure 1.1). It is impossible to extract data by columns without the delimiter concepts used here. I will explain what i meant, refer to (figure 1.2). For this project, i'm using getline method to retrieve every lines from the txt file, since the txt file are formatted to a table looking style, there will be "impurites"...in this case the "|" to seperate every columns. Impurities = "|".
